@@ -1,3 +1,9 @@
+<!--
+     MHM: 01-11-2017
+     Comment:
+        If someone attempts to access the base URL, redirect them to
+        the intro page.
+ -->
 <?php
 	if (!empty($_SERVER['HTTPS']) && ('on' == $_SERVER['HTTPS'])) {
 		$uri = 'https://';
