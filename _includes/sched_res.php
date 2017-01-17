@@ -1,18 +1,43 @@
 <?php
+    /*
+     * MHM: 2017-01-16
+     *
+     * Comment:
+     *  Do not allow direct access to include files.
+     *  sched_res.php:
+     *      Regardless of sport:
+     *      Display overall and league records.
+     *      Display game and result information.
+     */
     if (count(get_included_files()) == 1) {
             exit("direct access not allowed.");
     }
-    // Get table header label
+    /*
+     * MHM: 2017-01-16
+     *
+     * Comment:
+     *  Determine if this is a JV or Varsity season.
+     */
     $headerLabel=get_varsity_or_jv_label($connection, $selection, $year);
     $headerLabel = $headerLabel . " " . $selection;
 
-    // Get overall team record
+    /*
+     * MHM: 2017-01-16
+     *
+     * Comment:
+     *  Get overall record
+     */
     $record = get_team_overall_record($connection, $selection, $season, $year);
     $yearOverallLosses=$record['Losses'];
     $yearOverallWins=$record['Wins'];
     $yearOverallTies=$record['Ties'];
 
-    // get league team record
+    /*
+     * MHM: 2017-01-16
+     *
+     * Comment:
+     *  Get league record
+     */
     $record=get_team_league_record($connection, $selection, $season, $year);
     $yearLeagueLosses=$record['Losses'];
     $yearLeagueWins=$record['Wins'];
@@ -47,7 +72,12 @@
     <br>
     <br>
     <?php
-        // get schedule results, must free results
+        /*
+         * MHM: 2017-01-16
+         *
+         * Comment:
+         *  Get results for the selected season.
+         */
         $result=get_schedule_and_results($connection, $selection, $season, $year);
     ?>
     <table id="schdres" class="centered-table" border="0" cellspacing="5" cellpadding="5" summary="Scores and Results">
@@ -63,7 +93,12 @@
             <th scope="col" class="result">Result</th>
         </tr>
         <?php
-            // Use return data (if any)
+            /*
+             * MHM: 2017-01-16
+             *
+             * Comment:
+             *  Populate table with each game.
+             */
             while ($game = mysqli_fetch_assoc($result)) {
                 $date = $game["date"];
                 $location = $game["location"];
@@ -83,6 +118,12 @@
                 </tr>
         <?php
             }
+            /*
+             * MHM: 2017-01-16
+             *
+             * Comment:
+             *  Free results from database query
+             */
             mysqli_free_result($result);
         ?>
     </table>

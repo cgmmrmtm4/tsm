@@ -85,6 +85,7 @@
             $rbanner = "/P6260014-5.jpg";
         }
     }
+
     /*
      * MHM: 2017-01-16
      *
@@ -229,3 +230,12 @@
         </div>
     </body>
 </html>
+<?php
+    /*
+     * MHM: 2017-01-16
+     *
+     * Comment:
+     *  Close database files
+     */
+    require_once("../_includes/db_close.php");
+?>
