@@ -1,4 +1,10 @@
 <?php
+    /*
+     * MHM: 2017-01-17
+     *
+     * Comment:
+     *  Dead file?? Consider deleting. It appears to be a duplicate of displaysemester.php
+     */
     if (count(get_included_files()) == 1) {
             exit("direct access not allowed.");
     }
