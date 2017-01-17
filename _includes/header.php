@@ -1,4 +1,14 @@
 <?php
+    /*
+     * MHM: 2017-01-16
+     *
+     * Comment:
+     *  Do not allow direct access to include files.
+     *  header.php:
+     *      Display the header navigational field for the selected student.
+     *      If not for a particular student, then the navigation is to each
+     *      students main web page.
+     */
     if (count(get_included_files()) == 1) {
             exit("direct access not allowed.");
     }

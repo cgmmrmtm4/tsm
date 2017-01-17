@@ -1,11 +1,39 @@
 <?php
+    /*
+     * MHM: 2017-01-17
+     *
+     * Comment:
+     *  Do not allow direct access to include files.
+     *  display_pics.php:
+     *      Display the pictures associated with the activity on the page.
+     */
     if (count(get_included_files()) == 1) {
             exit("direct access not allowed.");
     }
-    // Get number of pictures
+
+    /*
+     * MHM: 2017-01-17
+     *
+     * Comment:
+     *  Get the number of pictures associated with the pages activity.
+     */
     $cnt = get_number_of_pictures($connection, $selection, $season, $year);
-    // Get pictures
+
+    /*
+     * MHM: 2017-01-17
+     *
+     * Comment:
+     *  Get the list of pictures from the av database.
+     *
+     */
     $result = get_pictures($connection, $selection, $season, $year);
+
+    /*
+     * MHM: 2017-01-17
+     *
+     * Comment:
+     *  Consider using a constant instead of a string.
+     */
     $headerLabel = $year . " " . $selection . " " . "Pictures";
 ?>
 <div id="vbpictab">
@@ -17,6 +45,12 @@
         </caption>
     <br>
     <?php
+        /*
+         * MHM: 2017-01-17
+         *
+         * Comment:
+         *  Layout out 4 pictures per row.
+         */
         if ($cnt != 0) {
     ?>
             <tr>
@@ -40,6 +74,12 @@
             </tr>
     <?php    
         }
+        /*
+         * MHM: 2017-01-17
+         *
+         * Comment:
+         *  Free results from database query
+         */
         mysqli_free_result($result);
     ?>
     </table>

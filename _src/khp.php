@@ -1,8 +1,23 @@
 <?php
+    /*
+     * MHM: 2017-01-16
+     *
+     * Comment:
+     *  Student's home page.
+     *  Include constants and set up global variables.
+     */
     require '../_includes/constants.php';
     $siteroot = HOMEROOT;
     $imagepath = IMGROOT;
     $pagelogo = "$imagepath" . PHOTOMISC . "/logo.jpg";
+
+    /*
+     * MHM: 2017-01-16
+     *
+     * Comment:
+     *  Check which $_GET variables have been passed in via the URL.
+     *  Set to default values if nothing was passed in.
+     */
     if (isset($_GET['studentName'])) {
         $student = $_GET['studentName'];
     } else {
@@ -31,7 +46,15 @@
     </head>
     <body id="page_home">
         <div class="wrapper">
-            <?php require '../_includes/header.php'; ?>
+            <?php 
+                /*
+                 * MHM: 2017-01-16
+                 *
+                 * Comment:
+                 *  Include common navigational header.
+                 */
+                require '../_includes/header.php'; 
+            ?>
             <section id="main">
                 <div>
                     <img src="<?= $imagepath . PHOTOMISC; ?>/mbhs.jpg" height="200" class="floatLeft">
@@ -72,8 +95,16 @@
                     ?>
                 </article>
             </aside>
-            <?php require '../_includes/copyright.php'; ?>
-            <?php require '../_includes/footer.php'; ?>
+            <?php 
+                /*
+                 * MHM: 2017-01-16
+                 *
+                 * Comment:
+                 *  Include copyright and footer information.
+                 */
+                require '../_includes/copyright.php';
+                require '../_includes/footer.php'; 
+            ?>
         </div>
     </body>
 </html>

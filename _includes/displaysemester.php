@@ -1,8 +1,22 @@
 <?php
+    /*
+     * MHM: 2017-01-17
+     *
+     * Comment:
+     *  Do not allow direct access to include files.
+     *  displaysemester.php:
+     *      Display the semester grades on the page.
+     */
     if (count(get_included_files()) == 1) {
             exit("direct access not allowed.");
     }
-    // get semester academics, free results
+
+    /*
+     * MHM: 2017-01-17
+     *
+     * Comment:
+     *  Get the students semester grades.
+     */
     $result = get_semester_academics($connection, $season, $year, $student);
 ?>
 <div id="semestertab">
@@ -33,12 +47,25 @@
                 </tr>
         <?php
             }
+            /*
+             * MHM: 2017-01-17
+             *
+             * Comment:
+             *  Free results from database query
+             */
             mysqli_free_result($result);
         ?>
     </table>
     <br>
     <?php
-        //get semester normal and weighted GPA, free results
+        /*
+         * MHM: 2017-01-17
+         *
+         * Comment:
+         *  Get the semesters unweighted and weighted GPA. May want to consider using
+         *  javascript to compute this information instead of another
+         *  database query.
+         */
         $gpa=0.000;
         $wgpa = 0.000;
         $result = get_semester_gpa($connection, $season, $year, $student);
@@ -46,10 +73,24 @@
             $gpa = $ogpa["GPA"];
             $wgpa = $ogpa["WGPA"];
         }
+    
+        /*
+         * MHM: 2017-01-17
+         *
+         * Comment:
+         *  Free results from database query
+         */
         mysqli_free_result($result);
     ?>
     <pre><?= "\t   " ?>Semester GPA: <?= $gpa ?> <?= "\t" ?> Semester Weighted GPA: <?= $wgpa ?></pre>
     <?php
+        /*
+         * MHM: 2017-01-17
+         *
+         * Comment:
+         *  Get the students weighted and unweighted GPA from their first
+         *  semester until the selected semester.
+         */
         //get running normal and weighted GPA, free results;
         $gpa = 0.000;
         $wgpa = 0.000;
@@ -58,12 +99,24 @@
             $gpa = $ogpa["GPA"];
             $wgpa = $ogpa["WGPA"];
         }
+
+        /*
+         * MHM: 2017-01-17
+         *
+         * Comment:
+         *  Free results from database query
+         */
         mysqli_free_result($result);
     ?>
     <pre><?= "\t   " ?>Overall GPA: <?= $gpa ?> <?= "\t" ?> Overall Weighted GPA: <?= $wgpa ?></pre>
     <br>
     <?php
-        // get student ranking, free results
+        /*
+         * MHM: 2017-01-17
+         *
+         * Comment:
+         *  Get the students class ranking.
+         */
         $result = get_top_of_class($connection, $season, $year);
         while ($theoRank = mysqli_fetch_assoc($result)) {
             $rank = $theoRank["rank"];
@@ -73,6 +126,12 @@
     <pre><?= "\t   "?>Rank: <?= $rank ?> <?= "   " ?> Class Size: <?= $totStudents ?> <?= "   "?> Top <?= $pct ?>%</pre>
     <?php
         }
+        /*
+         * MHM: 2017-01-17
+         *
+         * Comment:
+         *  Free results from database query
+         */
         mysqli_free_result($result);
     ?>
 </div>

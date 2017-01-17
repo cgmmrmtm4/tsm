@@ -1,11 +1,35 @@
 <?php
+    /*
+     * MHM: 2017-01-17
+     *
+     * Comment:
+     *  Do not allow direct access to include files.
+     *  displayvbstats.php:
+     *      Display the volleyball statistics on the page.
+     *      Not a sports generic php file. If we add statistics from other
+     *      sports we will need to redo this file to be more generic.
+     */
     if (count(get_included_files()) == 1) {
             exit("direct access not allowed.");
     }
-    // Get table header label
+    
+    /*
+     * MHM: 2017-01-17
+     *
+     * Comment:
+     *  Get the Varsity or JV header.
+     */
     $headerLabel=get_varsity_or_jv_label($connection, "Volleyball", $year);
 
-    // Get vollyball stats
+    /*
+     * MHM: 2017-01-17
+     *
+     * Comment:
+     *  Get the volleyball statistics for the given year.
+     *  Future consideration, a more generic function call or
+     *  possible some additonal php logic so that only the correct
+     *  sports statistical function call is invoked.
+     */
     $result = get_volleyball_stats($connection, $season, $year);
 ?>
 <div id="vbstatstab">
@@ -26,7 +50,6 @@
             <th scope="col" class="sideOut">Side Out</th>
         </tr>
         <?php
-            // Use return data (if any)
             while ($stat = mysqli_fetch_assoc($result)) {
                 $opponent = $stat["opponent"];
                 $assists = $stat["assists"];
@@ -36,7 +59,6 @@
                 $serves = $stat["serves"];
                 $aces = $stat["aces"];
                 $sideouts = $stat["sideouts"];
-            // output data from each row
         ?>
                 <tr>
                     <td class="opponent"><?= $opponent ?></td>
@@ -50,7 +72,22 @@
                 </tr>
         <?php
             }
+            /*
+             * MHM: 2017-01-17
+             *
+             * Comment:
+             *  Free results from database query
+             */
             mysqli_free_result($result);
+        
+            /*
+             * MHM: 2017-01-17
+             *
+             * Comment:
+             *  Get totals and averages. May want to consider using
+             *  javascript to compute this information instead of another
+             *  database query.
+             */
             $result = get_volleyball_season_totals($connection, $season, $year);
             while ($seasonStats = mysqli_fetch_assoc($result)) {
         ?>
@@ -83,6 +120,12 @@
                 </tr>
         <?php
             }
+            /*
+             * MHM: 2017-01-17
+             *
+             * Comment:
+             *  Free results from database query.
+             */
             mysqli_free_result($result);
         ?>
         

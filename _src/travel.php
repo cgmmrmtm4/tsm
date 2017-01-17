@@ -1,14 +1,35 @@
 <?php
+    /*
+     * MHM: 2017-01-16
+     *
+     * Comment:
+     *  Travel main page.
+     *  Include constants and set up global variables.
+     */
     require("../_includes/constants.php");
     $siteroot = HOMEROOT;
     $imagepath = IMGROOT;
     $pagelogo = "$imagepath" . PHOTOMISC . "/logo.jpg";
+
+    /*
+     * MHM: 2017-01-16
+     *
+     * Comment:
+     *  Check which $_GET variables have been passed in via the URL.
+     *  Set to default values if nothing was passed in.
+     */
     if (isset($_GET['studentName'])) {
         $student = $_GET['studentName'];
     } else {
         $student = THEO;
     }
-    $photopath = "$imagepath" . PHOTOACADEMICS;
+    /*
+     * MHM: 2017-01-16
+     *
+     * Comment:
+     *  Set picture path based on year.
+     */
+    $photopath = "$imagepath" . PHOTOTRAVEL. "/" . $year;
 ?>
 <!DOCTYPE HTML>
 <html lang="en">
@@ -19,7 +40,15 @@
     </head>
     <body id="page_travel">
         <div class="wrapper">
-            <?php require '../_includes/header.php'; ?>
+            <?php 
+                /*
+                 * MHM: 2017-01-16
+                 *
+                 * Comment:
+                 *  Include common navigational header.
+                 */
+                require '../_includes/header.php'; 
+            ?>
             <section id="main">
                 <div>
                     <img src="<?= $imagepath . PHOTOMISC; ?>/mbhs.jpg" height="200" class="floatLeft">
@@ -36,8 +65,16 @@
                     <h1>Progress</h1>
                 </article>
             </aside>
-            <?php require '../_includes/copyright.php'; ?>
-            <?php require '../_includes/footer.php'; ?>
+            <?php 
+                /*
+                 * MHM: 2017-01-16
+                 *
+                 * Comment:
+                 *  Include copyright and footer information.
+                 */    
+                require '../_includes/copyright.php';
+                require '../_includes/footer.php'; 
+            ?>
         </div>
     </body>
 </html>

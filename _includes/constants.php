@@ -1,12 +1,18 @@
 <?php
+/*
+ * MHM: 2017-01-17
+ *
+ * Comment:
+ *  Constants used by all pages
+ */
 
 // File directory Constants
-
 define ("HOMEROOT", "/MBHSSQL");
 define ("IMGROOT", "../../img/mbhs");
 define ("PHOTOSPORTS", "/Photos/Sports");
 define ("PHOTOACADEMICS", "/Photos/Academics");
 define ("PHOTOMISC", "/Photos/Misc");
+define ("PHOTOTRAVEL", "/Photos/Travel");
 define ("VIDEOSPORTS", "/Videos/Sports");
 define ("FOOTERPIC", "../../img/mbhs/Photos/Misc/logo.jpg");
 

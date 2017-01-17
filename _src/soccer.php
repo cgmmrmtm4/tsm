@@ -1,9 +1,24 @@
 <?php 
+    /*
+     * MHM: 2017-01-16
+     *
+     * Comment:
+     *  Soccer main page.
+     *  Include constants and set up global variables.
+     */
     require("../_includes/constants.php");
     $siteroot = HOMEROOT;
     $imagepath = IMGROOT;
     $pagelogo = "$imagepath" . PHOTOMISC . "/dsb.jpg";
     $selection = SOC;
+
+    /*
+     * MHM: 2017-01-16
+     *
+     * Comment:
+     *  Check which $_GET variables have been passed in via the URL.
+     *  Set to default values if nothing was passed in.
+     */
     if (isset($_GET['studentName'])) {
         $student = $_GET['studentName'];
     } else {
@@ -24,7 +39,21 @@
     } else {
         $year = 2016;
     }
+
+    /*
+     * MHM: 2017-01-16
+     *
+     * Comment:
+     *  Set picture path based on year.
+     */
     $photopath = "$imagepath" . PHOTOSPORTS . "/" . SOC . "/" . $year;
+
+    /*
+     * MHM: 2017-01-16
+     *
+     * Comment:
+     *  Assign banner pictures based on year.
+     */
     if ($year == 2016) {
         $lbanner = "/IMGP4378-5.JPG";
         $rbanner = "/IMGP4378-5.JPG";
@@ -32,6 +61,13 @@
         $lbanner = "/IMGP3069-5.JPG";
         $rbanner = "/IMGP3053-5.JPG";
     }
+
+    /*
+     * MHM: 2017-01-16
+     *
+     * Comment:
+     *  Include database and CRUD function calls
+     */
     require_once("../_includes/db_connection.php");
     require_once("../_includes/functions.php");
 ?>
@@ -44,7 +80,15 @@
     </head>
     <body id="page_volleyball">
         <div class="wrapper">
-            <?php require '../_includes/header.php'; ?>
+            <?php
+                /*
+                 * MHM: 2017-01-16
+                 *
+                 * Comment:
+                 *  Include common navigational header.
+                 */
+                require '../_includes/header.php'; 
+            ?>
             <main role="main">
                 <br>
                 <section id="main">
@@ -53,21 +97,56 @@
                         <img src="<?= $photopath . $rbanner; ?>" class="sportRight">
                     </div>
                     <?php 
+                    /*
+                     * MHM: 2017-01-16
+                     *
+                     * Comment:
+                     *  Sidebar navigation will either be for schedules/results, or pictures.
+                     *  We can only have one of these choices. Will leave the area empty if more then one
+                     *  choice is passed in.
+                     */
                     if ($pictures == "nopics") {
+                        /*
+                         * MHM: 2017-01-16
+                         *
+                         * Comment:
+                         *  Include Schedule and result.
+                         */
                         require '../_includes/sched_res.php';
-                    } ?>
-                    <?php 
+                    }
                     if ($pictures == "pics") {
+                        /*
+                         * MHM: 2017-01-16
+                         *
+                         * Comment:
+                         *  Include pictures page.
+                         */
                         require '../_includes/display_pics.php';
-                    } ?>
+                    } 
+                    ?>
                 </section>
                 <aside id="sidebar" class="clearfix">
-                    <?php require '../_includes/selection_menu.php'; ?>
-                    <!-- Select a school year -->
+                    <?php
+                        /*
+                         * MHM: 2017-01-16
+                         *
+                         * Comment:
+                         *  Include sidebar navigational menu. Depending on sport,
+                         *  this may include, schedule, picture, video and statistical
+                         *  selections by year.
+                         */
+                        require '../_includes/selection_menu.php'; 
+                    ?>
                     <article id="awards">
                         <h2>Awards</h2>
                         <ul>
                         <?php
+                            /*
+                             * MHM: 2017-01-16
+                             *
+                             * Comment:
+                             *  If any exist, get the students awards for this sport
+                             */
                             $result = get_awards_by_catagory($connection, SOC, $student);
                             while ($award = mysqli_fetch_assoc($result)) {
                                 $awardYear = $award["year"];
@@ -79,7 +158,6 @@
                             }
                         ?>
                         </ul>
-                        <p id="demo"></p>
                     </article>
                 </aside>
                 <article>
@@ -87,11 +165,25 @@
                     <p id="demo"></p>
                 </article>
             </main>
-            <?php require '../_includes/copyright.php'; ?>
-            <?php require '../_includes/footer.php'; ?>
+            <?php 
+                /*
+                 * MHM: 2017-01-16
+                 *
+                 * Comment:
+                 *  Include copyright and footer information.
+                 */
+                require '../_includes/copyright.php';
+                require '../_includes/footer.php'; 
+            ?>
         </div>
     </body>
 </html>
 <?php
+     /*
+     * MHM: 2017-01-16
+     *
+     * Comment:
+     *  Close database files
+     */
     require_once("../_includes/db_close.php");
 ?>
