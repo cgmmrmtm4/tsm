@@ -5,12 +5,20 @@
      * Comment:
      *  Tennis main page.
      *  Include constants and set up global variables.
+     *
+     * MHM: 2017-01-18
+     *
+     * Comment:
+     *  Added default values for video and stat variables.
+     *
      */
     require("../_includes/constants.php");
     $siteroot = HOMEROOT;
     $imagepath = IMGROOT;
     $pagelogo = "$imagepath" . PHOTOMISC . "/tennis.png";
     $selection = TENNIS;
+    $videos = NOVIDS;
+    $stats = NOSTATS;
 
     /*
      * MHM: 2017-01-16
@@ -121,7 +129,7 @@
                          * Comment:
                          *  Include pictures page.
                          */
-                        require '../_includes/displaytennispics.php';
+                        require '../_includes/display_pics.php';
                     } 
                     ?>
                 </section>

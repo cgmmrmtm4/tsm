@@ -8,6 +8,12 @@
      *      Display the header navigational field for the selected student.
      *      If not for a particular student, then the navigation is to each
      *      students main web page.
+     *
+     * MHM: 2017-01-18
+     *
+     * Comment:
+     *  Add class=selected to the navigation button of the page we are currently on.
+     *  This will change the text to red highlighting the selected navigation tab.
      */
     if (count(get_included_files()) == 1) {
             exit("direct access not allowed.");
@@ -41,29 +47,99 @@
     </div>
     <nav>
         <ol>
-            <li><a href="<?= $siteroot; ?>/_src/intro.php">HOME</a></li>
-            <?php 
-                if ($student == THEO) {
-            ?>
-                    <li><a href="<?= $siteroot; ?>/_src/academics.php?studentName=<?= THEO ?>">ACADEMICS</a></li>
-                    <li><a href="<?= $siteroot; ?>/_src/soccer.php?studentName=<?= THEO ?>">SOCCER</a></li>
-                    <li><a href="<?= $siteroot; ?>/_src/volleyball.php?studentName=<?= THEO ?>">VOLLEYBALL</a></li>
-                    <li><a href="<?= $siteroot; ?>/_src/travel.php?studentName=<?= THEO ?>">TRAVEL</a></li>
             <?php
-                } else {
-                    if ($student == RACHEL) {
-            ?>
-                        <li><a href="<?= $siteroot; ?>/_src/academics.php?studentName=<?= RACHEL ?>">ACADEMICS</a></li>
-                        <li><a href="<?= $siteroot; ?>/_src/volleyball.php?studentName=<?= RACHEL ?>">VOLLEYBALL</a></li>
-                        <li><a href="<?= $siteroot; ?>/_src/softball.php?studentName=<?= RACHEL ?>">SOFTBALL</a></li>
-                        <li><a href="<?= $siteroot; ?>/_src/tennis.php?studentName=<?= RACHEL ?>">TENNIS</a></li>
-            <?php
-                    } else {
-            ?>
-                        <li><a href="<?= $siteroot; ?>/_src/khp.php?studentName=<?= RACHEL ?>">RACHEL</a></li>
-                        <li><a href="<?= $siteroot; ?>/_src/khp.php?studentName=<?= THEO ?>">THEO</a></li>
-            <?php
+                /*
+                 * MHM: 2017-01-18
+                 *
+                 * Comment:
+                 *  On all pages, there is always a HOME tab.
+                 *
+                 */
+                echo "<li";
+                if ($selection == HOME) {
+                    echo " class=\"selected\"";
+                }
+                echo "><a href=\"$siteroot/_src/intro.php\">HOME</a></li>";
+                
+                /*
+                 * MHM: 2017-01-18
+                 *
+                 * Comment:
+                 *  Common tabs that are available for each child. Luckily, they both played volleyball.
+                 *
+                 */
+                if (($student == THEO) || ($student == RACHEL)) {
+                    echo "<li";
+                    if ($selection == ACADEMIC) {
+                        echo " class=\"selected\"";
                     }
+                    echo "><a href=\"$siteroot/_src/academics.php?studentName=$student\">ACADEMICS</a></li>";
+                    
+                    echo "<li";
+                    if ($selection == VB) {
+                        echo " class=\"selected\"";
+                    }
+                    echo "><a href=\"$siteroot/_src/volleyball.php?studentName=$student\">VOLLEYBALL</a></li>";
+                    
+                    /*
+                     * MHM: 2017-01-18
+                     *
+                     * Comment:
+                     *  Theo specific tabs
+                     *
+                     */
+                    if ($student == THEO) {
+                        echo "<li";
+                        if ($selection == SOC) {
+                            echo " class=\"selected\"";
+                        }
+                        echo "><a href=\"$siteroot/_src/soccer.php?studentName=$student\">SOCCER</a></li>";
+                    
+                        echo "<li";
+                        if ($selection == TRAVEL) {
+                            echo " class=\"selected\"";
+                        }
+                        echo "><a href=\"$siteroot/_src/travel.php?studentName=$student\">TRAVEL</a></li>";
+                    }
+
+                    /*
+                     * MHM: 2017-01-18
+                     *
+                     * Comment:
+                     *  Rachel specific tabs.
+                     *
+                     */
+                    if ($student == RACHEL) {
+                        echo "<li";
+                        if ($selection == SB) {
+                            echo " class=\"selected\"";
+                        }
+                        echo "><a href=\"$siteroot/_src/softball.php?studentName=$student\">SOFTBALL</a></li>";
+                    
+                        echo "<li";
+                        if ($selection == TENNIS) {
+                            echo " class=\"selected\"";
+                        }
+                        echo "><a href=\"$siteroot/_src/tennis.php?studentName=$student\">TENNIS</a></li>";
+                    }
+                } else {
+                    
+                    /*
+                     * MHM: 2017-01-18
+                     *
+                     * Comment:
+                     *  This is the home navigation page, so the tabs will just navigate us to
+                     *  the student's academic page.
+                     *
+                     *  In this case, student is either null or someone passed in an unspported student.
+                     *  Build the supported tabs and then set $student to null.
+                     *
+                     */
+                    $student=RACHEL;
+                    echo "<li><a href=\"$siteroot/_src/academics.php?studentName=$student\">RACHEL</a></li>";
+                    $student=THEO;
+                    echo "<li><a href=\"$siteroot/_src/academics.php?studentName=$student\">THEO</a></li>";
+                    $student=null;
                 }
             ?>
             <li><a href="http://mbhs.slcusd.org" title="Morro Bay HS Homepage" target="_blank" class="flowRight">MBHS HOME</a></li>

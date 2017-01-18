@@ -5,11 +5,18 @@
      * Comment:
      *  Student's home page.
      *  Include constants and set up global variables.
+     *
+     * MHM: 2017-01-18
+     *
+     * Comment:
+     *  Added $selection variable to be consistant with all pages.
+     *
      */
     require '../_includes/constants.php';
     $siteroot = HOMEROOT;
     $imagepath = IMGROOT;
     $pagelogo = "$imagepath" . PHOTOMISC . "/logo.jpg";
+    $selection = HOME;
 
     /*
      * MHM: 2017-01-16

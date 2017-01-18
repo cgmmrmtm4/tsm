@@ -5,11 +5,25 @@
      * Comment:
      *  Travel main page.
      *  Include constants and set up global variables.
+     *
+     * MHM: 2017-01-18
+     *
+     * Comment:
+     *  Added $selection variable to be consistant with all pages.
+     *  Also added check for $year so page will load properly while
+     *  under construction.
+     * 
+     *  Added default values for video, picture and stat variables.
+     *
      */
     require("../_includes/constants.php");
     $siteroot = HOMEROOT;
     $imagepath = IMGROOT;
     $pagelogo = "$imagepath" . PHOTOMISC . "/logo.jpg";
+    $selection = TRAVEL;
+    $pictures = NOPICS;
+    $videos = NOVIDS;
+    $stats = NOSTATS;
 
     /*
      * MHM: 2017-01-16
@@ -22,6 +36,11 @@
         $student = $_GET['studentName'];
     } else {
         $student = THEO;
+    }
+    if (isset($_GET['year'])) {
+        $year = $_GET['year'];
+    } else {
+        $year = 2016;
     }
     /*
      * MHM: 2017-01-16
@@ -55,7 +74,7 @@
                     <img src="<?= $imagepath . PHOTOMISC; ?>/mrock.jpg" height="200" class="floatRight">
                 </div>
                 <div class="theoPic">
-                    <img src="<?= $photopath . "/2015"; ?>/Theo.jpg" width="310" height="375" class="theoPic">
+                    <img src="<?= $photopath; ?>/Theo.jpg" width="310" height="375" class="theoPic">
                 </div>
             </section>
             <aside id="sidebar" class="clearfix">

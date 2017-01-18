@@ -5,12 +5,21 @@
      * Comment:
      *  Academic main page.
      *  Include constants and set up global variables.
+     *
+     * MHM: 2017-01-18
+     *
+     * Comment:
+     *  Added default values for video, picture and stat variables.
+     *
      */
     require("../_includes/constants.php");
     $siteroot = HOMEROOT;
     $imagepath = IMGROOT;
     $pagelogo = "$imagepath" . PHOTOMISC . "/spft.jpg";
     $selection = ACADEMIC;
+    $pictures = NOPICS;
+    $videos = NOVIDS;
+    $stats = NOSTATS;
 
     /*
      * MHM: 2017-01-16

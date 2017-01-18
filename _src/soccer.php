@@ -5,12 +5,20 @@
      * Comment:
      *  Soccer main page.
      *  Include constants and set up global variables.
+     *
+     * MHM: 2017-01-18
+     *
+     * Comment:
+     *  Added default values for video and stat variables.
+     *
      */
     require("../_includes/constants.php");
     $siteroot = HOMEROOT;
     $imagepath = IMGROOT;
     $pagelogo = "$imagepath" . PHOTOMISC . "/dsb.jpg";
     $selection = SOC;
+    $videos = NOVIDS;
+    $stats = NOSTATS;
 
     /*
      * MHM: 2017-01-16

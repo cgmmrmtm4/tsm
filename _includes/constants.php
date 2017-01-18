@@ -4,6 +4,11 @@
  *
  * Comment:
  *  Constants used by all pages
+ *
+ * MHM: 2017-01-18
+ * Comment:
+ *  Added defines for home pages and additional non-sport activities.
+ *
  */
 
 // File directory Constants
@@ -16,6 +21,8 @@ define ("PHOTOTRAVEL", "/Photos/Travel");
 define ("VIDEOSPORTS", "/Videos/Sports");
 define ("FOOTERPIC", "../../img/mbhs/Photos/Misc/logo.jpg");
 
+// Intro and home pages
+define ("HOME", "Home");
 
 // Student Constants
 define ("THEO", "Theodore");
@@ -30,8 +37,9 @@ define ("FROSH", "Frosh");
 define ("JV", "JV");
 define ("VARSITY", "Varsity");
 
-// Academics
+// Non-sport activities
 define ("ACADEMIC", "Academic");
+define ("TRAVEL", "Travel");
 
 // Seasons
 define ("SUMMER", "SUMMER");

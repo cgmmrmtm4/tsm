@@ -1,3 +1,10 @@
+/*
+ * MHM: 2017-01-18
+ *
+ * Comment:
+ *  Added red text on selected navigation buttons. For the unselected navigation buttons, the color remains white.
+ *
+ */
 html, body, body div, span, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, abbr, address, cite, code, del, dfn, em, img, ins, kbd, q, samp, small, strong, sub, sup, var, b, i, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, figure, footer, header, hgroup, menu, nav, section, time, mark, audio, video {
 	margin: 0;
 	padding: 0;
@@ -168,6 +175,14 @@ header nav li a {
 	color: #FFF;
 	padding: 10px 30px 10px 30px;
 }
+header nav li.selected a {
+	display: block;
+	float: left;
+	text-decoration: none;
+	font-size: 1em;
+	color: red;
+	padding: 10px 30px 10px 30px;
+}
 header nav li a:hover {
 	background-image: -moz-linear-gradient(82% 0% -90deg, rgb(14,65,130) 0%, rgb(23,130,207) 100%);
 	background-image: -webkit-gradient(linear, 82% 0%, 82% 100%, color-stop(0, rgb(14,65,130)), color-stop(1, rgb(23,130,207)));
@@ -292,6 +307,9 @@ footer nav li:last-child a {
 	margin-bottom: 10px;
 	padding-right: 60px;
     color: white;
+}
+#sidebar input.selected {
+    color: red;
 }
 #awards h2 {
     font-size: 1.4em;
