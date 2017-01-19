@@ -1,7 +1,6 @@
 <?php
     /*
      * MHM: 2017-01-16
-     *
      * Comment:
      *  Do not allow direct access to include files.
      *  selection_menu.php:
@@ -11,13 +10,17 @@
      *      year.
      *
      * MHM: 2017-01-18
-     *
      * Comment:
      *  Add class selected to the input[type=submit] line so that the seleccted tab can
      *  be highlighted in the sidebar menu area. Add logic to ensure that only one tab
      *  is highlighted when there are multiple tab sections in the sidebar navigation
      *  area.
      *
+     * MHM: 2017-01-19
+     * Comment:
+     *  Changes needed to support the travel page, since that page only has a picture gallery.
+     *  Need to refactor this file to simplify. Since the forms are almost equal, we may be able
+     *  to use just one form definition instead of four.
      */
     if (count(get_included_files()) == 1) {
             exit("direct access not allowed.");
@@ -31,76 +34,78 @@
      * Comment:
      *  Will either be an academic or a season selector
      */
-    if ($selection == ACADEMIC) {
+    if ($selection != TRAVEL) {
+        if ($selection == ACADEMIC) {
 ?>
-    <h2 class="highlight">Select a Semester</h2>
+        <h2 class="highlight">Select a Semester</h2>
 <?php
-    /*
-     * MHM: 2017-01-16
-     *
-     * Comment:
-     *  Figure out the number of semester buttons we'll neeed.
-     */
-    $result = get_academic_years($connection, $student);
-} else {
-?>
-    <h2 class="highlight">Select a Season</h2>
-<?php
-    /*
-     * MHM: 2017-01-16
-     *
-     * Comment:
-     *  Figure out the number of navigation buttons we'll need for this sport.
-     */
-    $result = get_sport_seasons($connection, $selection, $student);
-}
-?>
-    <nav>
-    <?php
         /*
          * MHM: 2017-01-16
          *
          * Comment:
-         *  Display all of the buttons and their GET actions when the button is selected.
+         *  Figure out the number of semester buttons we'll neeed.
          */
-        while ($semester = mysqli_fetch_assoc($result)) {
-            $get_season = $semester["season"];
-            $get_year = $semester["year"];
-            $getSubLabel = $get_season . " " . $get_year;
-    ?>
-            <form method="get" action="<?= $_SERVER['PHP_SELF']; ?>">
-                <input type="hidden" name="studentName" value="<?= $student ?>">
-                <input type="hidden" name="season" value="<?= $get_season ?>">
-                <input type="hidden" name="year" value="<?= $get_year ?>">
-            <?php
-                /*
-                 * MHM: 2017-01-18
-                 *
-                 * Comment:
-                 *  Need to find a better way then this long if statement to ensure that only the select semester
-                 *  tab is highlighted.
-                 * 
-                 */
-                if (($season == $get_season) && ($year == $get_year) && ($pictures == NOPICS) && ($videos == NOVIDS) && ($stats == NOSTATS)) {
-                    echo "<input class=\"selected\" type=\"submit\" value=\"$getSubLabel\">";
-                } else {
-                    echo "<input type=\"submit\" value=\"$getSubLabel\">";
-                }
-            ?>
-            </form>
-    <?php
+        $result = get_academic_years($connection, $student);
+        } else {
+?>
+        <h2 class="highlight">Select a Season</h2>
+<?php
+        /*
+         * MHM: 2017-01-16
+         *
+         * Comment:
+         *  Figure out the number of navigation buttons we'll need for this sport.
+         */
+        $result = get_sport_seasons($connection, $selection, $student);
         }
-        /*
-         * MHM: 2017-01-16
-         *
-         * Comment:
-         *  Free results from database query
-         */
-        mysqli_free_result($result);
-    ?>
-    </nav>
-    <br>
+?>
+        <nav>
+        <?php
+            /*
+             * MHM: 2017-01-16
+             *
+             * Comment:
+             *  Display all of the buttons and their GET actions when the button is selected.
+             */
+            while ($semester = mysqli_fetch_assoc($result)) {
+                $get_season = $semester["season"];
+                $get_year = $semester["year"];
+                $getSubLabel = $get_season . " " . $get_year;
+        ?>
+                <form method="get" action="<?= $_SERVER['PHP_SELF']; ?>">
+                    <input type="hidden" name="studentName" value="<?= $student ?>">
+                    <input type="hidden" name="season" value="<?= $get_season ?>">
+                    <input type="hidden" name="year" value="<?= $get_year ?>">
+                <?php
+                    /*
+                     * MHM: 2017-01-18
+                     *
+                     * Comment:
+                     *  Need to find a better way then this long if statement to ensure that only the select semester
+                     *  tab is highlighted.
+                     * 
+                     */
+                    if (($season == $get_season) && ($year == $get_year) && ($pictures == NOPICS) && ($videos == NOVIDS) && ($stats == NOSTATS)) {
+                        echo "<input class=\"selected\" type=\"submit\" value=\"$getSubLabel\">";
+                    } else {
+                        echo "<input type=\"submit\" value=\"$getSubLabel\">";
+                    }
+                ?>
+                </form>
     <?php
+            }
+            /*
+             * MHM: 2017-01-16
+             *
+             * Comment:
+             *  Free results from database query
+             */
+            mysqli_free_result($result);
+    ?>
+        </nav>
+        <br>
+    <?php
+    }
         /*
          * MHM: 2017-01-16
          *

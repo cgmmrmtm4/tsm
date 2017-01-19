@@ -1,7 +1,6 @@
 <?php
 /*
  * MHM: 2017-01-17
- *
  * Comment:
  *  Constants used by all pages
  *
@@ -9,6 +8,9 @@
  * Comment:
  *  Added defines for home pages and additional non-sport activities.
  *
+ * MHM: 2017-01-19
+ * Comment:
+ *  Added PICS constant.
  */
 
 // File directory Constants
@@ -49,6 +51,7 @@ define ("SPRING", "SPRING");
 
 // Pictures
 define ("NOPICS", "nopics");
+define ("PICS", "pics");
 
 // Videos
 define ("NOVIDS", "novideos");

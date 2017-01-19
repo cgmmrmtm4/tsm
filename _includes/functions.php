@@ -6,9 +6,7 @@
      *  Do not allow direct access to include files.
      *  functions.php:
      *      Contains the CRUD functions to manipulate the MYSQL database.
-     */
-
-    /*
+     *
      * MHM: 2017-01-16
      *
      * Comment:
@@ -16,6 +14,12 @@
      *  Input: The return value of a database query.
      *  Output: None.
      *  Special: Kills application on failure.
+     *
+     * MHM: 2017-01-19
+     *
+     * Comment:
+     *  Add a new database query to get the travel location
+     *
      */
     function confirm_query($result_set) {
         if (!$result_set) {
@@ -479,5 +483,26 @@
         $result = mysqli_query($connection, $query);
         confirm_query($result);
         return $result;
+    }
+
+    /*
+     * MHM: 2017-01-19
+     *
+     * Comment:
+     *  Return the location of the trip.
+     */
+    function get_travel_location($connection, $season, $year) {
+        $query  = "SELECT travel.location ";
+        $query .= "FROM travel ";
+        $query .= "JOIN hsseasons ";
+        $query .= "ON hsseasons.id=travel.seasonId ";
+        $query .= "AND hsseasons.season=\"$season\" ";
+        $query .= "AND hsseasons.year=$year";
+        $result = mysqli_query($connection, $query);
+        confirm_query($result);
+        $location = mysqli_fetch_assoc($result);
+        $retloc = $location['location'];
+        mysqli_free_result($result);
+        return $retloc;
     }
 ?>
