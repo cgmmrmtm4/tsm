@@ -218,24 +218,50 @@
     <h2 class="highlight">Statistics</h2>
     <nav>
         <?php
-            $get_season = SPRING;
-            $get_year = 2016;
-            $getSubLabel = $get_season . " " . $get_year;
+            /*
+             * MHM: 2017-01-19
+             *
+             * Comment:
+             *  Figure out the number of navigation buttons we'll need for this statistics area.
+             */
+            $result = get_vb_stat_seasons($connection, $year);
+        
+            /*
+             * MHM: 2017-01-19
+             *
+             * Comment:
+             *  Display all of the buttons and their GET actions when the button is selected.
+             */
+                
+            while ($picform = mysqli_fetch_assoc($result)) {
+                $get_season = $picform["season"];
+                $get_year = $picform["year"];
+                $getSubLabel = $get_season . " " . $get_year;
         ?>
         
-        <form method="get" action="<?= $_SERVER['PHP_SELF']; ?>">
-            <input type="hidden" name="studentName" value="<?= $student ?>">
-            <input type="hidden" name="season" value="<?= $get_season ?>">
-            <input type="hidden" name="stats" value="stats">
-            <input type="hidden" name="year" value=2016>
+                <form method="get" action="<?= $_SERVER['PHP_SELF']; ?>">
+                    <input type="hidden" name="studentName" value="<?= $student ?>">
+                    <input type="hidden" name="season" value="<?= $get_season ?>">
+                    <input type="hidden" name="stats" value="stats">
+                    <input type="hidden" name="year" value=2016>
+                <?php
+                    if (($season == $get_season) && ($year == $get_year) && ($stats == "stats")) {
+                        echo "<input class=\"selected\" type=\"submit\" value=\"$getSubLabel\">";
+                    } else {
+                        echo "<input type=\"submit\" value=\"$getSubLabel\">";
+                    }
+                ?>
+                </form>
         <?php
-            if (($season == $get_season) && ($year == $get_year) && ($stats == "stats")) {
-                echo "<input class=\"selected\" type=\"submit\" value=\"$getSubLabel\">";
-            } else {
-                echo "<input type=\"submit\" value=\"$getSubLabel\">";
             }
+            /*
+             * MHM: 2017-01-19
+             *
+             * Comment:
+             *  Free results from database query
+             */
+            mysqli_free_result($result);
         ?>
-        </form>
     </nav>
     <?php
             }

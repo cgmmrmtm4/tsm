@@ -183,6 +183,26 @@
     }
 
     /*
+     * MHM: 2017-01-19
+     *
+     * Comment:
+     *  Return a list seaons that have statasitcal content.
+     *  Input: Database handle, activity name, picture or video boolean, student name
+     *  Output: List of seasons.
+     */
+    function get_vb_stat_seasons($connection, $year) {
+        $query  = "SELECT DISTINCT hsseasons.season, hsseasons.year ";
+        $query .= "FROM hsseasons ";
+        $query .= "JOIN vbstats ON ";
+        $query .= "vbstats.seasonId=hsseasons.id AND ";
+        $query .= "hsseasons.year=\"$year\" ";
+        $query .= "ORDER BY year ASC";
+        $result = mysqli_query($connection, $query);
+        confirm_query($result);
+        return $result;
+    }
+
+    /*
      * MHM: 2017-01-16
      *
      * Comment:
