@@ -1,25 +1,25 @@
 <?php
     /*
      * MHM: 2017-01-17
-     *
      * Comment:
      *  Do not allow direct access to include files.
      *  displayvbstats.php:
      *      Display the volleyball statistics on the page.
      *      Not a sports generic php file. If we add statistics from other
      *      sports we will need to redo this file to be more generic.
+     *
+     * MHM: 2017-01-21
+     * Comment:
+     *  Remove Varsity and JV string from the header and add "Stats" to header.
+     *  Remove caption in anticipation of scroll bar. Also it's redundant.
+     *  Add new div tag so that we can add the scroll bar. Will need to rethink since
+     *  this scrolls the whole table and we only want to scroll the body.
+     *  Add tbody, thead and tfoot tags to the table.
+     *
      */
     if (count(get_included_files()) == 1) {
             exit("direct access not allowed.");
     }
-    
-    /*
-     * MHM: 2017-01-17
-     *
-     * Comment:
-     *  Get the Varsity or JV header.
-     */
-    $headerLabel=get_varsity_or_jv_label($connection, "Volleyball", $year);
 
     /*
      * MHM: 2017-01-17
@@ -33,12 +33,11 @@
     $result = get_volleyball_stats($connection, $season, $year);
 ?>
 <div id="vbstatstab">
-    <h1><?= $year ?> <?= $headerLabel ?> Volleyball</h1>
+    <h1><?= $year ?> Volleyball Stats</h1>
     <br>
-    <table id="stattab" class="centered-table" border="1" cellspacing="0" cellpadding="0" summary="Stats">
-        <caption>
-            <h3>Statistics</h3>
-        </caption>
+    <div id="stattab">
+    <table class="centered-table" border="1" cellspacing="0" cellpadding="0" summary="Stats">
+        <thead>
         <tr>
             <th scope="col">Opponent </th>
             <th scope="col" class="assists">Assists </th>
@@ -49,6 +48,8 @@
             <th scope="col" class="aces">Aces</th>
             <th scope="col" class="sideOut">Side Out</th>
         </tr>
+        </thead>
+        <tbody>
         <?php
             while ($stat = mysqli_fetch_assoc($result)) {
                 $opponent = $stat["opponent"];
@@ -71,7 +72,7 @@
                     <td class="sideOut"><?= $sideouts ?></td>
                 </tr>
         <?php
-            }
+            }        
             /*
              * MHM: 2017-01-17
              *
@@ -80,6 +81,10 @@
              */
             mysqli_free_result($result);
         
+        ?>
+        </tbody>
+        <tfoot>
+        <?php
             /*
              * MHM: 2017-01-17
              *
@@ -128,6 +133,8 @@
              */
             mysqli_free_result($result);
         ?>
+        </tfoot>
         
     </table>
+    </div>
 </div>

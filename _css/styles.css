@@ -4,6 +4,10 @@
  * Comment:
  *  Added red text on selected navigation buttons. For the unselected navigation buttons, the color remains white.
  *
+ * MHM: 2017-01-21
+ * Comment:
+ *  Make a first attempt at a scrolling table for the stats page. Needs more thought.
+ *
  */
 html, body, body div, span, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, abbr, address, cite, code, del, dfn, em, img, ins, kbd, q, samp, small, strong, sub, sup, var, b, i, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, figure, footer, header, hgroup, menu, nav, section, time, mark, audio, video {
 	margin: 0;
@@ -401,6 +405,10 @@ caption h3 {
 }
 #volleyballtab h1 {
     text-align: center;
+}
+#stattab {
+    height: 400px;
+    overflow: scroll;
 }
 #page_softball table {
     border-collapse: collapse;

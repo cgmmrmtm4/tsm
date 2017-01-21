@@ -21,6 +21,11 @@
      *  Changes needed to support the travel page, since that page only has a picture gallery.
      *  Need to refactor this file to simplify. Since the forms are almost equal, we may be able
      *  to use just one form definition instead of four.
+     *
+     * MHM: 2017-01-21
+     * Comment:
+     *  Simplify get_vb_stat_season(). We really only need the database handle.
+     *
      */
     if (count(get_included_files()) == 1) {
             exit("direct access not allowed.");
@@ -229,7 +234,7 @@
              * Comment:
              *  Figure out the number of navigation buttons we'll need for this statistics area.
              */
-            $result = get_vb_stat_seasons($connection, $year);
+            $result = get_vb_stat_seasons($connection);
         
             /*
              * MHM: 2017-01-19

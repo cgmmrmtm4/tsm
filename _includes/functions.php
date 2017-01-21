@@ -1,14 +1,12 @@
 <?php
     /*
      * MHM: 2017-01-16
-     *
      * Comment:
      *  Do not allow direct access to include files.
      *  functions.php:
      *      Contains the CRUD functions to manipulate the MYSQL database.
      *
      * MHM: 2017-01-16
-     *
      * Comment:
      *  Verify database query returned a result.
      *  Input: The return value of a database query.
@@ -16,9 +14,12 @@
      *  Special: Kills application on failure.
      *
      * MHM: 2017-01-19
-     *
      * Comment:
      *  Add a new database query to get the travel location
+     *
+     * MHM: 2017-01-21
+     * Comment:
+     *  Simplify get_vb_stat_season(). We really only need the handle to the database.
      *
      */
     function confirm_query($result_set) {
@@ -193,13 +194,16 @@
      *  Return a list seaons that have statasitcal content.
      *  Input: Database handle, activity name, picture or video boolean, student name
      *  Output: List of seasons.
+     *
+     * MHM: 2017-01-21
+     *  Input: Database handle.
+     *
      */
-    function get_vb_stat_seasons($connection, $year) {
+    function get_vb_stat_seasons($connection) {
         $query  = "SELECT DISTINCT hsseasons.season, hsseasons.year ";
         $query .= "FROM hsseasons ";
         $query .= "JOIN vbstats ON ";
-        $query .= "vbstats.seasonId=hsseasons.id AND ";
-        $query .= "hsseasons.year=\"$year\" ";
+        $query .= "vbstats.seasonId=hsseasons.id ";
         $query .= "ORDER BY year ASC";
         $result = mysqli_query($connection, $query);
         confirm_query($result);
