@@ -16,6 +16,15 @@
      *  this scrolls the whole table and we only want to scroll the body.
      *  Add tbody, thead and tfoot tags to the table.
      *
+     * MHM: 2017-01-22
+     * Comment:
+     *  More scroll bar adjustments. Added css entries for thead, tfoot, tfoot.scrollable and 
+     *  tbody.scrollable. Updated tbody to be of class scrollable. Also added class opponent
+     *  to the thead and tfoot fields that didn't already assign that class to the appropriate
+     *  field. Makes the columns almost line up correctly. Still an issue with the scroll bar
+     *  making the table go out of alignment. Did some fudging with the width css attribute
+     *  for tbody, thead and tfoot to help address that issue.
+     *
      */
     if (count(get_included_files()) == 1) {
             exit("direct access not allowed.");
@@ -37,9 +46,14 @@
     <br>
     <div id="stattab">
     <table class="centered-table" border="1" cellspacing="0" cellpadding="0" summary="Stats">
+        <tbody>
+            <caption>
+            <h3> Statistics </h3>
+            </caption>
+        </tbody>
         <thead>
         <tr>
-            <th scope="col">Opponent </th>
+            <th scope="col" class="opponent">Opponent </th>
             <th scope="col" class="assists">Assists </th>
             <th scope="col" class="blocks">Blocks </th>
             <th scope="col" class="kills">Kills </th>
@@ -49,7 +63,7 @@
             <th scope="col" class="sideOut">Side Out</th>
         </tr>
         </thead>
-        <tbody>
+        <tbody class="scrollable">
         <?php
             while ($stat = mysqli_fetch_assoc($result)) {
                 $opponent = $stat["opponent"];
@@ -83,7 +97,7 @@
         
         ?>
         </tbody>
-        <tfoot>
+        <tfoot class="scrollable">
         <?php
             /*
              * MHM: 2017-01-17
@@ -104,7 +118,7 @@
                 <tr>
                 </tr>
                 <tr>
-                    <td><?= "Totals" ?></td>
+                    <td class="opponent"><?= "Totals" ?></td>
                     <td class="assists"><?= $seasonStats["totassists"] ?></td>
                     <td class="blocks"><?= $seasonStats["totblocks"] ?></td>
                     <td class="kills"><?= $seasonStats["totkills"] ?></td>
@@ -114,7 +128,7 @@
                     <td class="sideOut"><?= $seasonStats["totsideouts"] ?></td>
                 </tr>
                 <tr>
-                    <td><?= "Averages" ?></td>
+                    <td class="opponent"><?= "Averages" ?></td>
                     <td class="assists"><?= $seasonStats["avgassists"] ?></td>
                     <td class="blocks"><?= $seasonStats["avgblocks"] ?></td>
                     <td class="kills"><?= $seasonStats["avgkills"] ?></td>
