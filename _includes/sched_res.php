@@ -1,7 +1,6 @@
 <?php
     /*
      * MHM: 2017-01-16
-     *
      * Comment:
      *  Do not allow direct access to include files.
      *  sched_res.php:
@@ -14,7 +13,6 @@
     }
     /*
      * MHM: 2017-01-16
-     *
      * Comment:
      *  Determine if this is a JV or Varsity season.
      */
@@ -23,7 +21,6 @@
 
     /*
      * MHM: 2017-01-16
-     *
      * Comment:
      *  Get overall record
      */
@@ -34,7 +31,6 @@
 
     /*
      * MHM: 2017-01-16
-     *
      * Comment:
      *  Get league record
      */
@@ -74,7 +70,6 @@
     <?php
         /*
          * MHM: 2017-01-16
-         *
          * Comment:
          *  Get results for the selected season.
          */
@@ -95,7 +90,6 @@
         <?php
             /*
              * MHM: 2017-01-16
-             *
              * Comment:
              *  Populate table with each game.
              */
@@ -120,7 +114,6 @@
             }
             /*
              * MHM: 2017-01-16
-             *
              * Comment:
              *  Free results from database query
              */

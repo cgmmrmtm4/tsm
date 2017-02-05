@@ -1,7 +1,6 @@
 <?php
     /*
      * MHM: 2017-01-16
-     *
      * Comment:
      *  Volleyball main page.
      *  Include constants and set up global variables.
@@ -14,7 +13,6 @@
 
     /*
      * MHM: 2017-01-16
-     *
      * Comment:
      *  Check which $_GET variables have been passed in via the URL.
      *  Set to default values if nothing was passed in.
@@ -60,7 +58,6 @@
 
     /*
      * MHM: 2017-01-16
-     *
      * Comment:
      *  Set picture and video paths based on year.
      */
@@ -69,7 +66,6 @@
 
     /*
      * MHM: 2017-01-16
-     *
      * Comment:
      *  Assign banner pictures based on year.
      */
@@ -88,7 +84,6 @@
 
     /*
      * MHM: 2017-01-16
-     *
      * Comment:
      *  Include database and CRUD function calls
      */
@@ -117,7 +112,6 @@
             <?php 
                 /*
                  * MHM: 2017-01-16
-                 *
                  * Comment:
                  *  Include common navigational header.
                  */
@@ -133,7 +127,6 @@
                     <?php
                     /*
                      * MHM: 2017-01-16
-                     *
                      * Comment:
                      *  Sidebar navigation will either be for schedules/results, pictures, videos or stats
                      *  We can only have one of these choices. Will leave the area empty if more then one
@@ -142,7 +135,6 @@
                     if (($pictures == "nopics") && ($videos == "novideos") && ($stats == "nostats")) {
                         /*
                          * MHM: 2017-01-16
-                         *
                          * Comment:
                          *  Include Schedule and result.
                          */
@@ -151,7 +143,6 @@
                     if (($pictures == "pics") && ($videos == "novideos") && ($stats == "nostats")) {
                         /*
                          * MHM: 2017-01-16
-                         *
                          * Comment:
                          *  Include pictures page.
                          */
@@ -160,7 +151,6 @@
                     if (($pictures == "nopics") && ($videos == "videos") && ($stats == "nostats")) {
                         /*
                          * MHM: 2017-01-16
-                         *
                          * Comment:
                          *  Include videos only for Theodore.
                          */
@@ -171,7 +161,6 @@
                     if ($stats == "stats") {
                         /*
                          * MHM: 2017-01-16
-                         *
                          * Comment:
                          *  Include stats only for Theodore.
                          */
@@ -185,7 +174,6 @@
                     <?php
                         /*
                          * MHM: 2017-01-16
-                         *
                          * Comment:
                          *  Include sidebar navigational menu. Depending on sport,
                          *  this may include, schedule, picture, video and statistical
@@ -199,7 +187,6 @@
                         <?php
                             /*
                              * MHM: 2017-01-16
-                             *
                              * Comment:
                              *  If any exist, get the students awards for this sport
                              */
@@ -220,7 +207,6 @@
             <?php
                 /*
                  * MHM: 2017-01-16
-                 *
                  * Comment:
                  *  Include copyright and footer information.
                  */
@@ -233,7 +219,6 @@
 <?php
     /*
      * MHM: 2017-01-16
-     *
      * Comment:
      *  Close database files
      */

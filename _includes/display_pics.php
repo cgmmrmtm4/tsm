@@ -17,7 +17,6 @@
 
     /*
      * MHM: 2017-01-17
-     *
      * Comment:
      *  Get the number of pictures associated with the pages activity.
      */
@@ -25,7 +24,6 @@
 
     /*
      * MHM: 2017-01-19
-     *
      * Comment:
      *  Get the travel location for the given year. Also set the value
      *  to be displayed in the heading.
@@ -40,7 +38,6 @@
 
     /*
      * MHM: 2017-01-17
-     *
      * Comment:
      *  Get the list of pictures from the av database.
      *
@@ -49,7 +46,6 @@
 
     /*
      * MHM: 2017-01-17
-     *
      * Comment:
      *  Consider using a constant instead of a string.
      */
@@ -66,7 +62,6 @@
     <?php
         /*
          * MHM: 2017-01-17
-         *
          * Comment:
          *  Layout out 4 pictures per row.
          */
@@ -95,7 +90,6 @@
         }
         /*
          * MHM: 2017-01-17
-         *
          * Comment:
          *  Free results from database query
          */

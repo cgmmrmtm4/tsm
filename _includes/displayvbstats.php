@@ -32,7 +32,6 @@
 
     /*
      * MHM: 2017-01-17
-     *
      * Comment:
      *  Get the volleyball statistics for the given year.
      *  Future consideration, a more generic function call or
@@ -89,7 +88,6 @@
             }        
             /*
              * MHM: 2017-01-17
-             *
              * Comment:
              *  Free results from database query
              */
@@ -101,7 +99,6 @@
         <?php
             /*
              * MHM: 2017-01-17
-             *
              * Comment:
              *  Get totals and averages. May want to consider using
              *  javascript to compute this information instead of another
@@ -141,7 +138,6 @@
             }
             /*
              * MHM: 2017-01-17
-             *
              * Comment:
              *  Free results from database query.
              */

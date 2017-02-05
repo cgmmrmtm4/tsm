@@ -1,13 +1,11 @@
 <?php 
     /*
      * MHM: 2017-01-16
-     *
      * Comment:
      *  Soccer main page.
      *  Include constants and set up global variables.
      *
      * MHM: 2017-01-18
-     *
      * Comment:
      *  Added default values for video and stat variables.
      *
@@ -22,7 +20,6 @@
 
     /*
      * MHM: 2017-01-16
-     *
      * Comment:
      *  Check which $_GET variables have been passed in via the URL.
      *  Set to default values if nothing was passed in.
@@ -50,7 +47,6 @@
 
     /*
      * MHM: 2017-01-16
-     *
      * Comment:
      *  Set picture path based on year.
      */
@@ -58,7 +54,6 @@
 
     /*
      * MHM: 2017-01-16
-     *
      * Comment:
      *  Assign banner pictures based on year.
      */
@@ -72,7 +67,6 @@
 
     /*
      * MHM: 2017-01-16
-     *
      * Comment:
      *  Include database and CRUD function calls
      */
@@ -91,7 +85,6 @@
             <?php
                 /*
                  * MHM: 2017-01-16
-                 *
                  * Comment:
                  *  Include common navigational header.
                  */
@@ -107,7 +100,6 @@
                     <?php 
                     /*
                      * MHM: 2017-01-16
-                     *
                      * Comment:
                      *  Sidebar navigation will either be for schedules/results, or pictures.
                      *  We can only have one of these choices. Will leave the area empty if more then one
@@ -116,7 +108,6 @@
                     if ($pictures == "nopics") {
                         /*
                          * MHM: 2017-01-16
-                         *
                          * Comment:
                          *  Include Schedule and result.
                          */
@@ -125,7 +116,6 @@
                     if ($pictures == "pics") {
                         /*
                          * MHM: 2017-01-16
-                         *
                          * Comment:
                          *  Include pictures page.
                          */
@@ -137,7 +127,6 @@
                     <?php
                         /*
                          * MHM: 2017-01-16
-                         *
                          * Comment:
                          *  Include sidebar navigational menu. Depending on sport,
                          *  this may include, schedule, picture, video and statistical
@@ -151,7 +140,6 @@
                         <?php
                             /*
                              * MHM: 2017-01-16
-                             *
                              * Comment:
                              *  If any exist, get the students awards for this sport
                              */
@@ -176,7 +164,6 @@
             <?php 
                 /*
                  * MHM: 2017-01-16
-                 *
                  * Comment:
                  *  Include copyright and footer information.
                  */
@@ -189,7 +176,6 @@
 <?php
      /*
      * MHM: 2017-01-16
-     *
      * Comment:
      *  Close database files
      */

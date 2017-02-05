@@ -1,13 +1,11 @@
 <?php
     /*
      * MHM: 2017-01-16
-     *
      * Comment:
      *  Academic main page.
      *  Include constants and set up global variables.
      *
      * MHM: 2017-01-18
-     *
      * Comment:
      *  Added default values for video, picture and stat variables.
      *
@@ -23,7 +21,6 @@
 
     /*
      * MHM: 2017-01-16
-     *
      * Comment:
      *  Check which $_GET variables have been passed in via the URL.
      *  Set to default values if nothing was passed in.
@@ -54,7 +51,6 @@
 
     /*
      * MHM: 2017-01-16
-     *
      * Comment:
      *  Include database and CRUD function calls
      */
@@ -73,7 +69,6 @@
             <?php 
                 /*
                  * MHM: 2017-01-16
-                 *
                  * Comment:
                  *  Include common navigational header.
                  */
@@ -85,7 +80,6 @@
                     <?php 
                         /*
                          * MHM: 2017-01-16
-                         *
                          * Comment:
                          *  Include Semester results.
                          */
@@ -96,7 +90,6 @@
                     <?php
                         /*
                          * MHM: 2017-01-16
-                         *
                          * Comment:
                          *  Include sidebar navigational menu.
                          */
@@ -108,7 +101,6 @@
                         <?php
                             /*
                              * MHM: 2017-01-16
-                             *
                              * Comment:
                              *  If any exist, get the students awards for this sport
                              */
@@ -133,7 +125,6 @@
             <?php 
                 /*
                  * MHM: 2017-01-16
-                 *
                  * Comment:
                  *  Include copyright and footer information.
                  */
@@ -146,7 +137,6 @@
 <?php
     /*
      * MHM: 2017-01-16
-     *
      * Comment:
      *  Close database files
      */

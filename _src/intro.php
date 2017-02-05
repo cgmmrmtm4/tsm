@@ -1,13 +1,11 @@
 <?php
     /*
      * MHM: 2017-01-16
-     *
      * Comment:
      *  Student selection, site, home page.
      *  Include constants and set up global variables.
      *
      * MHM: 2017-01-18
-     *
      * Comment:
      *  Added $selection variable to be consistant with all pages.
      *
@@ -20,7 +18,6 @@
 
     /*
      * MHM: 2017-01-16
-     *
      * Comment:
      *  Set picture path based on year.
      */
@@ -39,7 +36,6 @@
             <?php 
                 /*
                  * MHM: 2017-01-16
-                 *
                  * Comment:
                  *  Include common navigational header.
                  */
@@ -72,7 +68,6 @@
             <?php 
                 /*
                  * MHM: 2017-01-16
-                 *
                  * Comment:
                  *  Include copyright and footer information.
                  */

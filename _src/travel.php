@@ -31,7 +31,6 @@
 
     /*
      * MHM: 2017-01-16
-     *
      * Comment:
      *  Check which $_GET variables have been passed in via the URL.
      *  Set to default values if nothing was passed in.
@@ -44,7 +43,6 @@
 
     /*
      * MHM: 2017-01-16
-     *
      * Comment:
      *  Set picture path based on year.
      */
@@ -52,7 +50,6 @@
 
     /*
      * MHM: 2017-01-19
-     *
      * Comment:
      *  Assign banner pictures based on year.
      */
@@ -62,7 +59,6 @@
 
     /*
      * MHM: 2017-01-16
-     *
      * Comment:
      *  Include database and CRUD function calls
      */
@@ -81,7 +77,6 @@
             <?php 
                 /*
                  * MHM: 2017-01-16
-                 *
                  * Comment:
                  *  Include common navigational header.
                  */
@@ -97,7 +92,6 @@
                     <?php
                     /*
                      * MHM: 2017-01-16
-                     *
                      * Comment:
                      *  Sidebar navigation will only be pictures.
                      */
@@ -109,7 +103,6 @@
                     <?php
                         /*
                          * MHM: 2017-01-16
-                         *
                          * Comment:
                          *  Include sidebar navigational menu. Only pictures for travel by year.
                          */
@@ -120,7 +113,6 @@
             <?php
                 /*
                  * MHM: 2017-01-16
-                 *
                  * Comment:
                  *  Include copyright and footer information.
                  */
@@ -130,3 +122,11 @@
         </div>
     </body>
 </html>
+<?php
+    /*
+     * MHM: 2017-01-16
+     * Comment:
+     *  Close database files
+     */
+    require_once("../_includes/db_close.php");
+?>

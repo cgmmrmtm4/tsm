@@ -1,7 +1,6 @@
 <?php
     /*
      * MHM: 2017-01-17
-     *
      * Comment:
      *  Do not allow direct access to include files.
      *  displayvolleyballvids.php:
@@ -16,7 +15,6 @@
     
     /*
      * MHM: 2017-01-17
-     *
      * Comment:
      *  Get the number of volleyball videos stored in the av database.
      *
@@ -27,7 +25,6 @@
     
     /*
      * MHM: 2017-01-17
-     *
      * Comment:
      *  Get the list of videos from the av database.
      *
@@ -47,7 +44,6 @@
     <?php
         /*
          * MHM: 2017-01-17
-         *
          * Comment:
          *  Layout the table with two videos per line.
          */
@@ -66,7 +62,6 @@
     <?php
                 /*
                  * MHM: 2017-01-17
-                 *
                  * Comment:
                  *  Need a closing /tr after placing the 2nd video on a row,
                  *  unless this is the last row.
@@ -85,7 +80,6 @@
         }
         /*
          * MHM: 2017-01-71
-         *
          * Comment:
          *  Free results from database query
          */

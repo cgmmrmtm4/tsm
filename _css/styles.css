@@ -1,6 +1,5 @@
 /*
  * MHM: 2017-01-18
- *
  * Comment:
  *  Added red text on selected navigation buttons. For the unselected navigation buttons, the color remains white.
  *
@@ -12,6 +11,10 @@
  * Comment:
  *  Make adjustments to scrolling. Added tbody.scrollable, tfoot.scrollable, thead and tfoot to id stattab.
  *  Removed the parent #stattab definition.
+ *
+ * MHM: 2017-02-05
+ * Comment:
+ *  Remove background URL for now.
  *
  */
 html, body, body div, span, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, abbr, address, cite, code, del, dfn, em, img, ins, kbd, q, samp, small, strong, sub, sup, var, b, i, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, figure, footer, header, hgroup, menu, nav, section, time, mark, audio, video {
@@ -119,7 +122,7 @@ a:link {
 /* MyStuff
 -------------------------------------------------------------------------------*/
 body {
-	background: #495B95 url(../images/background_buildings.png) repeat-x;
+	background: #495B95 /*url(../../img/mbhs/Photos/Misc/logo.jpg) repeat-x*/;
 }
 header {
 	height: 170px;

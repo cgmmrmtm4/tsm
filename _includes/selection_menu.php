@@ -26,6 +26,11 @@
      * Comment:
      *  Simplify get_vb_stat_season(). We really only need the database handle.
      *
+     * MHM: 2017-02-05
+     * Comment:
+     *  Add the Add button for all side panel navigation buttons. Also change the submit
+     *  name from submit to add. This will allow us to use the add_*.php files in multiple
+     *  ways.
      */
     if (count(get_included_files()) == 1) {
             exit("direct access not allowed.");
@@ -35,7 +40,6 @@
 <?php
     /*
      * MHM: 2017-01-16
-     *
      * Comment:
      *  Will either be an academic or a season selector
      */
@@ -46,7 +50,6 @@
 <?php
         /*
          * MHM: 2017-01-16
-         *
          * Comment:
          *  Figure out the number of semester buttons we'll neeed.
          */
@@ -57,7 +60,6 @@
 <?php
         /*
          * MHM: 2017-01-16
-         *
          * Comment:
          *  Figure out the number of navigation buttons we'll need for this sport.
          */
@@ -68,7 +70,6 @@
         <?php
             /*
              * MHM: 2017-01-16
-             *
              * Comment:
              *  Display all of the buttons and their GET actions when the button is selected.
              */
@@ -84,7 +85,6 @@
                 <?php
                     /*
                      * MHM: 2017-01-18
-                     *
                      * Comment:
                      *  Need to find a better way then this long if statement to ensure that only the select semester
                      *  tab is highlighted.
@@ -99,9 +99,33 @@
                 </form>
     <?php
             }
+            if ($selection == ACADEMIC) {
+                if (($semester_count = mysqli_num_rows($result)) < 8) {
+    ?>
+                    <form method="post" action="add_semester.php">
+                        <input type="hidden" name="studentName" value="<?= $student ?>">
+                        <input type="hidden" name="season" value="<?= $get_season ?>">
+                        <input type="hidden" name="year" value="<?= $get_year ?>">
+                        <input type="hidden" name="activity" value="<?= $selection ?>">
+                        <input type="submit" name="add" value="Add Semester">
+                    </form>
+    <?php       }
+            } else {
+                if (($season_count = mysqli_num_rows($result)) < 4) {
+    ?>
+                    <form method="post" action="add_season.php">
+                        <input type="hidden" name="studentName" value="<?= $student ?>">
+                        <input type="hidden" name="season" value="<?= $get_season ?>">
+                        <input type="hidden" name="year" value="<?= $get_year ?>">
+                        <input type="hidden" name="activity" value="<?= $selection ?>">
+                        <input type="submit" name="add" value="Add Season">
+                    </form>
+    <?php
+                }
+            }
+                   
             /*
              * MHM: 2017-01-16
-             *
              * Comment:
              *  Free results from database query
              */
@@ -113,7 +137,6 @@
     }
         /*
          * MHM: 2017-01-16
-         *
          * Comment:
          *  If not academic, we will always have a picture gallery.
          */
@@ -124,7 +147,6 @@
         <?php
             /*
              * MHM: 2017-01-16
-             *
              * Comment:
              *  Figure out the number of navigation buttons we'll need for this picture gallery.
              */
@@ -132,7 +154,6 @@
         
             /*
              * MHM: 2017-01-16
-             *
              * Comment:
              *  Display all of the buttons and their GET actions when the button is selected.
              */
@@ -157,9 +178,17 @@
                 </form>
         <?php
             }
+        ?>
+            <form method="post" action="add_picture.php">
+                <input type="hidden" name="studentName" value="<?= $student ?>">
+                <input type="hidden" name="season" value="<?= $get_season ?>">
+                <input type="hidden" name="year" value="<?= $get_year ?>">
+                <input type="hidden" name="activity" value="<?= $selection ?>">
+                <input type="submit" name="add" value="Add Picture">
+            </form>
+        <?php
             /*
              * MHM: 2017-01-16
-             *
              * Comment:
              *  Free results from database query
              */
@@ -170,7 +199,6 @@
     <?php
             /*
              * MHM: 2017-01-16
-             *
              * Comment:
              *  If volleyball and Theodore we need a video and statistic navigation area.
              */
@@ -181,7 +209,6 @@
         <?php
             /*
              * MHM: 2017-01-17
-             *
              * Comment:
              *  Figure out the number of navigation buttons we'll need for this video gallery.
              */
@@ -189,7 +216,6 @@
         
             /*
              * MHM: 2017-01-17
-             *
              * Comment:
              *  Display all of the buttons and their GET actions when the button is selected.
              */
@@ -215,9 +241,17 @@
                 </form>
         <?php
             }
+        ?>
+            <form method="post" action="add_video.php">
+                <input type="hidden" name="studentName" value="<?= $student ?>">
+                <input type="hidden" name="season" value="<?= $get_season ?>">
+                <input type="hidden" name="year" value="<?= $get_year ?>">
+                <input type="hidden" name="activity" value="<?= $selection ?>">
+                <input type="submit" name="add" value="Add Video">
+            </form>
+        <?php
             /*
              * MHM: 2017-01-17
-             *
              * Comment:
              *  Free results from database query
              */
@@ -230,7 +264,6 @@
         <?php
             /*
              * MHM: 2017-01-19
-             *
              * Comment:
              *  Figure out the number of navigation buttons we'll need for this statistics area.
              */
@@ -238,7 +271,6 @@
         
             /*
              * MHM: 2017-01-19
-             *
              * Comment:
              *  Display all of the buttons and their GET actions when the button is selected.
              */
@@ -264,9 +296,17 @@
                 </form>
         <?php
             }
+        ?>
+            <form method="post" action="add_stats.php">
+                <input type="hidden" name="studentName" value="<?= $student ?>">
+                <input type="hidden" name="season" value="<?= $get_season ?>">
+                <input type="hidden" name="year" value="<?= $get_year ?>">
+                <input type="hidden" name="activity" value="<?= $selection ?>">
+                <input type="submit" name="add" value="Add Stats">
+            </form>
+        <?php
             /*
              * MHM: 2017-01-19
-             *
              * Comment:
              *  Free results from database query
              */

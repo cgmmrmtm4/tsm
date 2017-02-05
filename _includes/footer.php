@@ -1,7 +1,6 @@
 <?php
     /*
      * MHM: 2017-01-17
-     *
      * Comment:
      *  Do not allow direct access to include files.
      *  footer.php:

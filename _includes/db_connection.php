@@ -1,7 +1,6 @@
 <?php
     /*
      * MHM: 2017-01-17
-     *
      * Comment:
      *  Create a connection to the mysql database and store the database handle.
      *  Consider making a function instead of inline php.

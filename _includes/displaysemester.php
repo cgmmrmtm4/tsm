@@ -1,7 +1,6 @@
 <?php
     /*
      * MHM: 2017-01-17
-     *
      * Comment:
      *  Do not allow direct access to include files.
      *  displaysemester.php:
@@ -13,7 +12,6 @@
 
     /*
      * MHM: 2017-01-17
-     *
      * Comment:
      *  Get the students semester grades.
      */
@@ -60,7 +58,6 @@
     <?php
         /*
          * MHM: 2017-01-17
-         *
          * Comment:
          *  Get the semesters unweighted and weighted GPA. May want to consider using
          *  javascript to compute this information instead of another
@@ -76,7 +73,6 @@
     
         /*
          * MHM: 2017-01-17
-         *
          * Comment:
          *  Free results from database query
          */
@@ -86,7 +82,6 @@
     <?php
         /*
          * MHM: 2017-01-17
-         *
          * Comment:
          *  Get the students weighted and unweighted GPA from their first
          *  semester until the selected semester.
@@ -102,7 +97,6 @@
 
         /*
          * MHM: 2017-01-17
-         *
          * Comment:
          *  Free results from database query
          */
@@ -113,7 +107,6 @@
     <?php
         /*
          * MHM: 2017-01-17
-         *
          * Comment:
          *  Get the students class ranking.
          */
@@ -128,7 +121,6 @@
         }
         /*
          * MHM: 2017-01-17
-         *
          * Comment:
          *  Free results from database query
          */

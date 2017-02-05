@@ -1,7 +1,6 @@
 <?php
 /*
  * MHM: 2017-01-17
- *
  * Comment:
  *  Compute the copyright years for all pages.
  *  Consider moving to functions.php to keep all functions

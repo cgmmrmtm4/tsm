@@ -21,6 +21,43 @@
      * Comment:
      *  Simplify get_vb_stat_season(). We really only need the handle to the database.
      *
+     * MHM: 2017-02-05
+     * Comment:
+     *  Add mysql_prep() to handle potential escape characters. And redirect_to() to load
+     *  a specific page.
+     *
+     */
+
+    /*
+     * MHM: 2017-02-05
+     * Comment:
+     *  Redirect to a different URL.
+     *  Input: New php file.
+     */
+    function redirect_to($new_location) {
+	  header("Location: " . $new_location);
+	  exit;
+	}
+
+    /*
+     * MHM: 2017-02-05
+     * Comment:
+     *  Escape special characters before making a SQL call.
+     *  Input: string that needs to be escaped.
+     *  Output: escaped string.
+     */
+	function mysql_prep($string) {
+		global $connection;
+		
+		$escaped_string = mysqli_real_escape_string($connection, $string);
+		return $escaped_string;
+	}
+    
+    /*
+     * MHM: 2017-02-05
+     * Comment:
+     *  Check status of database query. If failure, terminate.
+     *  Input: result set from database query.
      */
     function confirm_query($result_set) {
         if (!$result_set) {
@@ -30,7 +67,6 @@
 
     /*
      * MHM: 2017-01-16
-     *
      * Comment:
      *  Return a list of rewards the student received for a particular activity
      *  Input: Database handle, type of activity, student name
@@ -50,7 +86,6 @@
 
     /*
      * MHM: 2017-01-16
-     *
      * Comment:
      *  Return a list of academic semesters a student attended school.
      *  Input: Database handle, student name
@@ -71,7 +106,6 @@
 
     /*
      * MHM: 2017-01-16
-     *
      * Comment:
      *  Return a list of academic results from a selected semester.
      *  Input: Database handle, the semester season, the year and the students name.
@@ -94,7 +128,6 @@
 
     /*
      * MHM: 2017-01-16
-     *
      * Comment:
      *  Return a semester's GPA value.
      *  Input: Database handle, the semester season, the year and the students name.
@@ -118,7 +151,6 @@
 
     /*
      * MHM: 2017-01-16
-     *
      * Comment:
      *  Return a running GPA from first semester to selected semester.
      *  Input: Database handle, the semester season, the year and the students name.
@@ -143,7 +175,6 @@
 
     /*
      * MHM: 2017-01-16
-     *
      * Comment:
      *  Return a list of seasons for a particular sport the
      *  student participated.
@@ -166,7 +197,6 @@
 
     /*
      * MHM: 2017-01-16
-     *
      * Comment:
      *  Return a list seaons that have pictures and/or video content.
      *  Input: Database handle, activity name, picture or video boolean, student name
@@ -189,7 +219,6 @@
 
     /*
      * MHM: 2017-01-19
-     *
      * Comment:
      *  Return a list seaons that have statasitcal content.
      *  Input: Database handle, activity name, picture or video boolean, student name
@@ -212,7 +241,6 @@
 
     /*
      * MHM: 2017-01-16
-     *
      * Comment:
      *  Return wheter the sport season is for Varsity or JV.
      *  Input: Database handle, sport name, year
@@ -242,7 +270,6 @@
 
     /*
      * MHM: 2017-01-16
-     *
      * Comment:
      *  Return the teams overall record for a given season.
      *  Input: Database handle, sport name, season, year
@@ -279,7 +306,6 @@
 
     /*
      * MHM: 2017-01-16
-     *
      * Comment:
      *  Return the teams league record for a given season.
      *  Input: Database handle, sport name, season, year
@@ -317,7 +343,6 @@
 
     /*
      * MHM: 2017-01-16
-     *
      * Comment:
      *  Return the teams game results for a given season.
      *  Input: Database handle, sport name, season, year
@@ -340,7 +365,6 @@
 
     /*
      * MHM: 2017-01-16
-     *
      * Comment:
      *  Return the individual stats for a given season.
      *  Input: Database handle, season, year
@@ -357,7 +381,6 @@
 
     /*
      * MHM: 2017-01-16
-     *
      * Comment:
      *  Return the individuals total stats for a given season.
      *  Input: Database handle, season, year
@@ -387,7 +410,6 @@
 
     /*
      * MHM: 2017-01-16
-     *
      * Comment:
      *  Return the number of pictures for a given season.
      *  Input: Database handle, activity name, season, year
@@ -410,7 +432,6 @@
 
     /*
      * MHM: 2017-01-16
-     *
      * Comment:
      *  Return the list of picture file names.
      *  Input: Database handle, activity name, season, year
@@ -429,7 +450,6 @@
 
     /*
      * MHM: 2017-01-16
-     *
      * Comment:
      *  Return the number of videos for a given season.
      *  Input: Database handle, activity name, season, year
@@ -452,7 +472,6 @@
 
     /*
      * MHM: 2017-01-16
-     *
      * Comment:
      *  Return a list video file names.
      *  Input: Database handle, activity name, season, year
@@ -471,7 +490,6 @@
 
     /*
      * MHM: 2017-01-16
-     *
      * Comment:
      *  Return student ranking for a given semester.
      *  Input: Database handle, season, year
@@ -491,7 +509,6 @@
 
     /*
      * MHM: 2017-01-19
-     *
      * Comment:
      *  Return the location of the trip.
      */

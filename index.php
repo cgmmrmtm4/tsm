@@ -1,7 +1,6 @@
 <?php
     /*
      * MHM: 2017-01-16
-     *
      * Comment:
      *  If someone attempts to access the base URL, redirect them to
      *  the intro page.

@@ -1,7 +1,6 @@
 <?php
     /*
      * MHM: 2017-01-16
-     *
      * Comment:
      *  Do not allow direct access to include files.
      *  header.php:
@@ -10,10 +9,15 @@
      *      students main web page.
      *
      * MHM: 2017-01-18
-     *
      * Comment:
      *  Add class=selected to the navigation button of the page we are currently on.
      *  This will change the text to red highlighting the selected navigation tab.
+     *
+     * MHM: 2017-02-05
+     * Comment:
+     *  The intro navigational header should point to the students home page and not
+     *  their academic page.
+     *
      */
     if (count(get_included_files()) == 1) {
             exit("direct access not allowed.");
@@ -63,7 +67,6 @@
                 
                 /*
                  * MHM: 2017-01-18
-                 *
                  * Comment:
                  *  Common tabs that are available for each child. Luckily, they both played volleyball.
                  *
@@ -83,7 +86,6 @@
                     
                     /*
                      * MHM: 2017-01-18
-                     *
                      * Comment:
                      *  Theo specific tabs
                      *
@@ -104,7 +106,6 @@
 
                     /*
                      * MHM: 2017-01-18
-                     *
                      * Comment:
                      *  Rachel specific tabs.
                      *
@@ -126,7 +127,6 @@
                     
                     /*
                      * MHM: 2017-01-18
-                     *
                      * Comment:
                      *  This is the home navigation page, so the tabs will just navigate us to
                      *  the student's academic page.
@@ -136,9 +136,9 @@
                      *
                      */
                     $student=RACHEL;
-                    echo "<li><a href=\"$siteroot/_src/academics.php?studentName=$student\">RACHEL</a></li>";
+                    echo "<li><a href=\"$siteroot/_src/khp.php?studentName=$student\">RACHEL</a></li>";
                     $student=THEO;
-                    echo "<li><a href=\"$siteroot/_src/academics.php?studentName=$student\">THEO</a></li>";
+                    echo "<li><a href=\"$siteroot/_src/khp.php?studentName=$student\">THEO</a></li>";
                     $student=null;
                 }
             ?>
