@@ -31,6 +31,13 @@
      *  Add the Add button for all side panel navigation buttons. Also change the submit
      *  name from submit to add. This will allow us to use the add_*.php files in multiple
      *  ways.
+     *
+     * MHM: 2017-02-06
+     * Comment:
+     *  Remove test for number of rows to determine if the add semester button should be visible.
+     *  It was not working correctly. For now, just check for Theo. Will need to add logic so the
+     *  add semester button will not show up after June of 2018.
+     *  Change Add Semester to Add Class, Change Add Season to Add Game.
      */
     if (count(get_included_files()) == 1) {
             exit("direct access not allowed.");
@@ -100,28 +107,26 @@
     <?php
             }
             if ($selection == ACADEMIC) {
-                if (($semester_count = mysqli_num_rows($result)) < 8) {
+                if ($student == THEO) {
     ?>
                     <form method="post" action="add_semester.php">
                         <input type="hidden" name="studentName" value="<?= $student ?>">
                         <input type="hidden" name="season" value="<?= $get_season ?>">
                         <input type="hidden" name="year" value="<?= $get_year ?>">
                         <input type="hidden" name="activity" value="<?= $selection ?>">
-                        <input type="submit" name="add" value="Add Semester">
+                        <input type="submit" name="add" value="Add Class">
                     </form>
     <?php       }
             } else {
-                if (($season_count = mysqli_num_rows($result)) < 4) {
     ?>
-                    <form method="post" action="add_season.php">
-                        <input type="hidden" name="studentName" value="<?= $student ?>">
-                        <input type="hidden" name="season" value="<?= $get_season ?>">
-                        <input type="hidden" name="year" value="<?= $get_year ?>">
-                        <input type="hidden" name="activity" value="<?= $selection ?>">
-                        <input type="submit" name="add" value="Add Season">
-                    </form>
+                <form method="post" action="add_season.php">
+                    <input type="hidden" name="studentName" value="<?= $student ?>">
+                    <input type="hidden" name="season" value="<?= $get_season ?>">
+                    <input type="hidden" name="year" value="<?= $get_year ?>">
+                    <input type="hidden" name="activity" value="<?= $selection ?>">
+                    <input type="submit" name="add" value="Add Game">
+                </form>
     <?php
-                }
             }
                    
             /*

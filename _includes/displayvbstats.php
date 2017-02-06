@@ -25,6 +25,11 @@
      *  making the table go out of alignment. Did some fudging with the width css attribute
      *  for tbody, thead and tfoot to help address that issue.
      *
+     * MHM: 2017-02-06
+     * Comment:
+     *  Added class modify to support the edit delete buttons.
+     *  Store Stat Id so that we can call the edit and delete functions.
+     *  Added edit and delete buttons to all non-total rows.
      */
     if (count(get_included_files()) == 1) {
             exit("direct access not allowed.");
@@ -60,11 +65,13 @@
             <th scope="col" class="serves">Serves</th>
             <th scope="col" class="aces">Aces</th>
             <th scope="col" class="sideOut">Side Out</th>
+            <th score="col" class="modify"></th>
         </tr>
         </thead>
         <tbody class="scrollable">
         <?php
             while ($stat = mysqli_fetch_assoc($result)) {
+                $statId = $stat["id"];
                 $opponent = $stat["opponent"];
                 $assists = $stat["assists"];
                 $blocks = $stat["blocks"];
@@ -83,6 +90,23 @@
                     <td class="serves"><?= $serves ?></td>
                     <td class="aces"><?= $aces ?></td>
                     <td class="sideOut"><?= $sideouts ?></td>
+                    <td class="modify">
+                        <div class="button-container">
+                            <form method="post" action="edit_stats.php">
+                                <div>
+                                    <input type="hidden" name="statId" value="<?= $statId ?>">
+                                    <input type="submit" name="edit" value="EDIT">
+                                </div>
+                            </form>
+                            
+                            <form method="post" action="delete_stats.php">
+                                <div>
+                                    <input type="hidden" name="statId" value="<?= $statId ?>">
+                                    <input type="submit" name="delete" value="DELETE">
+                                </div>
+                            </form>
+                        </div>
+                    </td>
                 </tr>
         <?php
             }        
@@ -123,6 +147,7 @@
                     <td class="serves"><?= $seasonStats["totserves"] ?></td>
                     <td class="aces"><?= $seasonStats["totaces"] ?></td>
                     <td class="sideOut"><?= $seasonStats["totsideouts"] ?></td>
+                    <td class="modify"></td>
                 </tr>
                 <tr>
                     <td class="opponent"><?= "Averages" ?></td>
@@ -132,7 +157,8 @@
                     <td class="digs"><?= $seasonStats["avgdigs"] ?></td>
                     <td class="serves"><?= $seasonStats["avgserves"] ?></td>
                     <td class="aces"><?= $seasonStats["avgaces"] ?></td>
-                    <td class="sideOut"><?= $seasonStats["avgsideouts"] ?></td>   
+                    <td class="sideOut"><?= $seasonStats["avgsideouts"] ?></td>
+                    <td class="modify"></td>
                 </tr>
         <?php
             }

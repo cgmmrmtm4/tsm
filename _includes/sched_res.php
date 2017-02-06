@@ -7,6 +7,11 @@
      *      Regardless of sport:
      *      Display overall and league records.
      *      Display game and result information.
+     *
+     * MHM: 2017-02-06
+     * Comment:
+     *  Added class modify so that the edit delete buttons can be added.
+     *  Store Sched Id so that we can call the edit and delete functions.
      */
     if (count(get_included_files()) == 1) {
             exit("direct access not allowed.");
@@ -86,6 +91,7 @@
             <th scope="col" class="opponent">Opponent </th>
             <th scope="col" class="matchScore">Score </th>
             <th scope="col" class="result">Result</th>
+            <th scope="col" class="modify"></th>
         </tr>
         <?php
             /*
@@ -94,6 +100,7 @@
              *  Populate table with each game.
              */
             while ($game = mysqli_fetch_assoc($result)) {
+                $schedId = $game["id"];
                 $date = $game["date"];
                 $location = $game["location"];
                 $league = $game["league"];
@@ -109,6 +116,23 @@
                     <td class="opponent"><?= $opponent ?></td>
                     <td class="matchScore"><?= $score ?></td>
                     <td class=result><?= $gameResult ?></td>
+                    <td class="modify">
+                        <div class="button-container">
+                            <form method="post" action="edit_sched.php">
+                                <div>
+                                    <input type="hidden" name="schedId" value="<?= $schedId ?>">
+                                    <input type="submit" name="edit" value="EDIT">
+                                </div>
+                            </form>
+                            
+                            <form method="post" action="delete_sched.php">
+                                <div>
+                                    <input type="hidden" name="schedId" value="<?= $schedId ?>">
+                                    <input type="submit" name="delete" value="DELETE">
+                                </div>
+                            </form>
+                        </div>
+                    </td>
                 </tr>
         <?php
             }

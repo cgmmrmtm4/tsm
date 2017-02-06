@@ -16,6 +16,12 @@
  * Comment:
  *  Remove background URL for now.
  *
+ * MHM: 2017-02-06
+ * Comment:
+ *  Modified class score to be a smaller width. May need to re-think how I display volleyball scores.
+ *  For the academics page, I wanted borders around the database information, but not around the edit delete buttons. So
+ *  removed the globle div rules and tables rules for borders and went with borders on the individual cells that need them.
+ *  Added support for update and delete buttons.
  */
 html, body, body div, span, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, abbr, address, cite, code, del, dfn, em, img, ins, kbd, q, samp, small, strong, sub, sup, var, b, i, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, figure, footer, header, hgroup, menu, nav, section, time, mark, audio, video {
 	margin: 0;
@@ -375,11 +381,7 @@ caption h3 {
     font-size: 1.2em;
     color: rgb(255,255,255);
 }
-#page_academics th, td {
-    border: 2px solid white;
-}
 #page_academics table {
-    border: 2px solid white;
     border-collapse: collapse;
     color: white;
 }
@@ -508,7 +510,7 @@ caption h3 {
 }
 .matchScore {
     font-weight: bold;
-    width: 250px;
+    width: 150px;
 }
 .soccerMatchScore {
     font-weight: bold;
@@ -524,19 +526,66 @@ caption h3 {
 .result {
     width: 2px;
 }
+td.period {
+    border: 2px solid white;
+}
 .period {
     width: 10px;
     text-align: center;
 }
+td.className {
+    border: 2px solid white;
+}
 .className {
-    width: 175px;
+    width: 200px;
+}
+td.teacher {
+    border: 2px solid white;
 }
 .teacher {
-    width: 175px;
+    width: 150px;
+}
+td.grade {
+    border: 2px solid white;
 }
 .grade {
     width: 10px;
     text-align: center;
+}
+.delpics {
+    width: 150px;
+    height: 150px;
+}
+.modify {
+    width: 100px;
+}
+.modify .button-container input,
+.delpics .button-container input {
+    width: 5em;
+}
+.modify .button-container form,
+.delpics .button-container form {
+    display: inline;
+    margin-left: 1px;
+    margin-right: 1px;
+}
+.modify .button-container form div,
+.delpics .button-container form div {
+    display: inline;
+}
+.modify .button-container input[type=submit],
+.delpics .button-container input[type=submit] {
+    font-weight:normal;
+    font-size: .5em;
+    padding:1px 1px;
+    margin-left: 1px;
+    display: inline;
+}
+td.modify {
+    border-style: none;
+}
+th.modify {
+    border-style: none;
 }
 .assists {
     width: 60px;

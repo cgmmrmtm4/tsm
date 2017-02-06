@@ -8,6 +8,11 @@
      *      Not a sports generic php file. If we add videos for other
      *      we will need to redo this file to be more generic to allow
      *      multiple sports.
+     *
+     * MHM: 2017-02-06
+     * Comment:
+     *  Store the video ID so that we can call the edit and delete functions.
+     *  Add the edit and delete buttons below the video.
      */
     if (count(get_included_files()) == 1) {
             exit("direct access not allowed.");
@@ -53,11 +58,26 @@
     <?php 
             for ($i=0; $i<$cnt; $i++) {
                 $vids = mysqli_fetch_assoc($result);
+                $videoId = $vids["id"];
     ?>    
-                <td>
-                    <video class="thumbvideo" preload="metadata" controls poster="<?= $photopath . $vids['thumbName']; ?>">
+                <td class="delpics">
+                    <div class="button-container">
+                        <video class="thumbvideo" preload="metadata" controls poster="<?= $photopath . $vids['thumbName']; ?>">
                                         <source src="<?= $videopath . $vids['avName']; ?>" type="video/mp4"></video>
-                    <p><b><?= ltrim($vids['avName'], "/") ?></b></p>
+                        <p><b><?= ltrim($vids['avName'], "/") ?></b></p>
+                        <form method="post" action="edit_video.php">
+                            <div>
+                                <input type="hidden" name="videoId" value="<?= $videoId ?>">
+                                <input type="submit" name="edit" value="EDIT">
+                            </div>
+                        </form>
+                        <form method="post" action="delete_photo.php">
+                            <div>
+                                <input type="hidden" name="videoId" value="<?= $videoId ?>">
+                                <input type="submit" name="delete" value="DELETE">
+                            </div>
+                        </form>
+                    </div>
                 </td>
     <?php
                 /*

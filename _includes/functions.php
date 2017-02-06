@@ -26,6 +26,10 @@
      *  Add mysql_prep() to handle potential escape characters. And redirect_to() to load
      *  a specific page.
      *
+     * MHM: 2017-02-06
+     * Comment:
+     *  Changed get picture, get video and get stat functions to return all fields so that we have
+     *  access to each rows Id.
      */
 
     /*
@@ -371,7 +375,7 @@
      *  Output: A list of statisics for each game for the selected season.
      */
     function get_volleyball_stats($connection, $season, $year) {
-        $query  = "SELECT * FROM vbstats ";
+        $query  = "SELECT vbstats.* FROM vbstats ";
         $query .= "JOIN hsseasons on hsseasons.id=vbstats.seasonId ";
         $query .= "WHERE hsseasons.season=\"$season\" AND hsseasons.year=$year";
         $result = mysqli_query($connection, $query);
@@ -438,7 +442,7 @@
      *  Output: List of picture names.
      */
     function get_pictures($connection, $activity, $season, $year) {
-        $query  = "SELECT av.thumbName, av.avName ";
+        $query  = "SELECT av.* ";
         $query .= "FROM av ";
         $query .= "JOIN hsseasons on av.seasonId=hsseasons.id ";
         $query .= "WHERE av.subject=\"$activity\" AND av.video=0 ";
@@ -478,7 +482,7 @@
      *  Output: List of video names.
      */
     function get_vids($connection, $activity, $season, $year) {
-        $query  = "SELECT av.thumbName, av.avName ";
+        $query  = "SELECT av.* ";
         $query .= "FROM av ";
         $query .= "JOIN hsseasons on av.seasonId=hsseasons.id ";
         $query .= "WHERE av.subject=\"$activity\" AND av.video=1 ";

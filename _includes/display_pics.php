@@ -10,6 +10,11 @@
      * Comment:
      *  Add support for the TRAVEL page. Requires additonal logic to display
      *  the header above the pictures.
+     *
+     * MHM: 2017-02-06
+     * Comment:
+     *  Store the picture ID so that we can call the edit and delete functions.
+     *  Add the edit and delete buttons below the picture.
      */
     if (count(get_included_files()) == 1) {
             exit("direct access not allowed.");
@@ -71,9 +76,24 @@
     <?php 
             for ($i=0; $i<$cnt; $i++) {
                 $pics = mysqli_fetch_assoc($result);
+                $photoId = $pics["id"];
     ?>
-                <td>
-                    <a href="<?= $photopath . $pics['avName']; ?>" download> <img src="<?= $photopath . $pics['thumbName']; ?>" class="thumbnail"></a>    
+                <td class="delpics">
+                    <div class="button-container">
+                        <a href="<?= $photopath . $pics['avName']; ?>" download> <img src="<?= $photopath . $pics['thumbName']; ?>" class="thumbnail"></a> 
+                        <form method="post" action="edit_photo.php">
+                            <div>
+                                <input type="hidden" name="photoId" value="<?= $photoId ?>">
+                                <input type="submit" name="edit" value="EDIT">
+                            </div>
+                        </form>
+                        <form method="post" action="delete_photo.php">
+                            <div>
+                                <input type="hidden" name="photoId" value="<?= $photoId ?>">
+                                <input type="submit" name="delete" value="DELETE">
+                            </div>
+                        </form>
+                    </div>
                 </td>
     <?php
                 $needtr = ($i + 1) % 4;

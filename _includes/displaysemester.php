@@ -5,6 +5,12 @@
      *  Do not allow direct access to include files.
      *  displaysemester.php:
      *      Display the semester grades on the page.
+     *
+     * MHM: 2017-02-06
+     * Comment:
+     *  Added class modify so that the edit delete buttons do not appear within a table border.
+     *  Store Class Id so that we can call the edit and delete functions.
+     *  Added edit and delete buttons to all rows.
      */
     if (count(get_included_files()) == 1) {
             exit("direct access not allowed.");
@@ -27,10 +33,12 @@
             <th scope="col" class="className">Class </th>
             <th scope="col" class="teacher">Teacher </th>
             <th scope="col" class="grade">Grade </th>
+            <th scope="col" class="modify"></th>
         </tr>
         <?php
             // Use return data (if any)
             while ($course = mysqli_fetch_assoc($result)) {
+                $classId = $course["id"];
                 $period = $course["period"];
                 $class = $course["className"];
                 $teacher = $course["teacherName"];
@@ -42,6 +50,23 @@
                     <td class="className"><?= $class ?></td>
                     <td class="teacher"><i><?= $teacher ?></i></td>
                     <td class="grade"><b><?= $grade ?></b></td>
+                    <td class="modify">
+                        <div class="button-container">
+                            <form method="post" action="edit_class.php">
+                                <div>
+                                    <input type="hidden" name="classId" value="<?= $classId ?>">
+                                    <input type="submit" name="edit" value="EDIT">
+                                </div>
+                            </form>
+                            
+                            <form method="post" action="delete_class.php">
+                                <div>
+                                    <input type="hidden" name="classId" value="<?= $classId ?>">
+                                    <input type="submit" name="delete" value="DELETE">
+                                </div>
+                            </form>
+                        </div>
+                    </td>
                 </tr>
         <?php
             }
