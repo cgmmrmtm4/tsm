@@ -13,6 +13,10 @@
  *  Added PICS constant.
  */
 
+if (count(get_included_files()) == 1) {
+    exit("direct access not allowed.");
+}
+
 // File directory Constants
 define ("HOMEROOT", "/MBHSSQL");
 define ("IMGROOT", "../../img/mbhs");

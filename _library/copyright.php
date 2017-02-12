@@ -6,6 +6,11 @@
  *  Consider moving to functions.php to keep all functions
  *  in one file.
  */
+
+if (count(get_included_files()) == 1) {
+    exit("direct access not allowed.");
+}
+
 function mhm_copyright($startYear) {
     $currentYear = date('Y');
     if ($startYear == $currentYear) {
@@ -15,3 +20,4 @@ function mhm_copyright($startYear) {
         return "&copy; $startYear&ndash;$currentYear";
     }
 }
+?>

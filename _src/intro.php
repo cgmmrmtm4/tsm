@@ -1,28 +1,32 @@
 <?php
-    /*
-     * MHM: 2017-01-16
-     * Comment:
-     *  Student selection, site, home page.
-     *  Include constants and set up global variables.
-     *
-     * MHM: 2017-01-18
-     * Comment:
-     *  Added $selection variable to be consistant with all pages.
-     *
-     */
-    require '../_includes/constants.php';
-    $siteroot = HOMEROOT;
-    $imagepath = IMGROOT;
-    $pagelogo = "$imagepath" . PHOTOMISC . "/logo.jpg";
-    $selection = HOME;
+/*
+ * MHM: 2017-01-16
+ * Comment:
+ *  Student selection, site, home page.
+ *  Include constants and set up global variables.
+ *
+ * MHM: 2017-01-18
+ * Comment:
+ *  Added $selection variable to be consistant with all pages.
+ *
+ * MHM: 2017-02-10
+ * Comment:
+ *  Changes for include layout. Some format changes so the code 
+ *  does not sprawl so far to the right.
+ */
+require("../_includes/req_includes.php");
+$siteroot = HOMEROOT;
+$imagepath = IMGROOT;
+$pagelogo = "$imagepath" . PHOTOMISC . "/logo.jpg";
+$selection = HOME;
 
-    /*
-     * MHM: 2017-01-16
-     * Comment:
-     *  Set picture path based on year.
-     */
-    $photopath = "$imagepath" . PHOTOACADEMICS;
-    $student=null;
+/*
+ * MHM: 2017-01-16
+ * Comment:
+ *  Set picture path based on year.
+ */
+$photopath = "$imagepath" . PHOTOACADEMICS;
+$student=null;
 ?>
 <!DOCTYPE HTML>
 <html lang="en">
@@ -33,14 +37,14 @@
     </head>
     <body id="page_home">
         <div class="wrapper">
-            <?php 
-                /*
-                 * MHM: 2017-01-16
-                 * Comment:
-                 *  Include common navigational header.
-                 */
-                require '../_includes/header.php'; 
-            ?>
+<?php 
+        /*
+         * MHM: 2017-01-16
+         * Comment:
+         *  Include common navigational header.
+         */
+        require '../_includes/header.php'; 
+?>
             <section id="main">
                 <div>
                     <img src="<?= $imagepath . PHOTOMISC; ?>/mbhs.jpg" height="200" class="floatLeft">
@@ -65,15 +69,14 @@
                     <h1>Students</h1>
                 </article>
             </aside>
-            <?php 
-                /*
-                 * MHM: 2017-01-16
-                 * Comment:
-                 *  Include copyright and footer information.
-                 */
-                require '../_includes/copyright.php';
-                require '../_includes/footer.php'; 
-            ?>
+<?php 
+        /*
+         * MHM: 2017-01-16
+         * Comment:
+         *  Include copyright and footer information.
+         */
+        require '../_includes/footer.php'; 
+?>
         </div>
     </body>
 </html>
