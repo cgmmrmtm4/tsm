@@ -19,6 +19,10 @@
  * MHM: 2017-02-12
  * Comment:
  *  Build POST calls for edit and delete class.
+ *
+ * MHM: 2017-02-13
+ * Comment:
+ *  If rank doesn't exist, don't print the line.
  */
 if (count(get_included_files()) == 1) {
     exit("direct access not allowed.");
@@ -156,6 +160,7 @@ $result = get_semester_academics($connection, $season, $year, $student);
      * Comment:
      *  Get the students class ranking.
      */
+    $rank = null;
     $result = get_top_of_class($connection, $season, $year);
     while ($theoRank = mysqli_fetch_assoc($result)) {
         $rank = $theoRank["rank"];
@@ -169,6 +174,10 @@ $result = get_semester_academics($connection, $season, $year, $student);
      *  Free results from database query
      */
     mysqli_free_result($result);
+    if ($rank != null) {
 ?>
-    <pre><?= "\t   "?>Rank: <?= $rank ?> <?= "   " ?> Class Size: <?= $totStudents ?> <?= "   "?> Top <?= $pct ?>%</pre>
+        <pre><?= "\t   "?>Rank: <?= $rank ?> <?= "   " ?> Class Size: <?= $totStudents ?> <?= "   "?> Top <?= $pct ?>%</pre>
+<?php
+    }
+?>
 </div>

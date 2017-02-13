@@ -22,6 +22,11 @@
  * Comment:
  *  Build POST calls for edit and delete videos. Also no longer load video meta-data.
  *  This greatly improves the load time of the page.
+ *
+ * MHM: 2017-02-13
+ * Comment:
+ *  Removed variables pictures, videos and stats and now just use pIndex to
+ *  reference the different panels.
  */
 if (count(get_included_files()) == 1) {
     exit("direct access not allowed.");
@@ -80,7 +85,7 @@ $result = get_vids($connection, "Volleyball", $season, $year);
                                 <input type="hidden" name="studentName" value="<?= $student ?>">
                                 <input type="hidden" name="season" value="<?= $season ?>">
                                 <input type="hidden" name="year" value="<?= $year ?>">
-                                <input type="hidden" name="videos" value="<?= $videos ?>">
+                                <input type="hidden" name="pIndex" value="<?= $pIndex ?>">
                                 <input type="hidden" name="selection" value="<?= $selection ?>">
                                 <input type="hidden" name="retPage" value="<?= $_SERVER['PHP_SELF'] ?>">
                                 <input type="submit" name="edit" value="EDIT">
@@ -92,7 +97,7 @@ $result = get_vids($connection, "Volleyball", $season, $year);
                                 <input type="hidden" name="studentName" value="<?= $student ?>">
                                 <input type="hidden" name="season" value="<?= $season ?>">
                                 <input type="hidden" name="year" value="<?= $year ?>">
-                                <input type="hidden" name="videos" value="<?= $videos ?>">
+                                <input type="hidden" name="pIndex" value="<?= $pIndex ?>">
                                 <input type="hidden" name="selection" value="<?= $selection ?>">
                                 <input type="hidden" name="retPage" value="<?= $_SERVER['PHP_SELF'] ?>">
                                 <input type="submit" name="delete" value="DELETE">

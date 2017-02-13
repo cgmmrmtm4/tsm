@@ -18,15 +18,17 @@
  *  Initial layout to support add. Three parts, submit: called only from this file.
  *  Add and submit: Add called from external location, submit used to handle form error recovery.
  *  GET: return to intro page. Need to have a message for this case.
+ *
+ * MHM: 2017-02-13
+ * Comment:
+ *  Removed variables pictures, videos and stats and now just use pIndex to
+ *  reference the different panels.
  */
 require("../_includes/req_includes.php");
 
 $siteroot = HOMEROOT;
 $imagepath = IMGROOT;
 $pagelogo = "$imagepath" . PHOTOMISC . "/spft.jpg";
-$pictures = NOPICS;
-$videos = NOVIDS;
-$stats = NOSTATS;
 
 $connection = open_db();
 if (isset($_POST['submit'])) {

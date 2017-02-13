@@ -46,6 +46,11 @@
  * MHM: 2017-02-12
  * Comment:
  *  Pass the correct season and year to the add class form.
+ *
+ * MHM: 2017-02-13
+ * Comment:
+ *  Removed variables pictures, videos and stats and now just use pIndex to
+ *  reference the different panels.
  */
 if (count(get_included_files()) == 1) {
     exit("direct access not allowed.");
@@ -105,7 +110,7 @@ if ($selection != TRAVEL) {
                  *  tab is highlighted.
                  * 
                  */
-                if (($season == $get_season) && ($year == $get_year) && ($pictures == NOPICS) && ($videos == NOVIDS) && ($stats == NOSTATS)) {
+                if (($season == $get_season) && ($year == $get_year) && ($pIndex == SCHED)) {
                     echo "<input class=\"selected\" type=\"submit\" value=\"$getSubLabel\">";
                 } else {
                     echo "<input type=\"submit\" value=\"$getSubLabel\">";
@@ -121,6 +126,7 @@ if ($selection != TRAVEL) {
                     <input type="hidden" name="studentName" value="<?= $student ?>">
                     <input type="hidden" name="season" value="<?= $season ?>">
                     <input type="hidden" name="year" value="<?= $year ?>">
+                    <input type="hidden" name="pIndex" value="<?= $pIndex ?>">
                     <input type="hidden" name="selection" value="<?= $selection ?>">
                     <input type="hidden" name="retPage" value="<?= $_SERVER['PHP_SELF']; ?>">
                     <input type="submit" name="add" value="Add Class">
@@ -133,6 +139,7 @@ if ($selection != TRAVEL) {
                 <input type="hidden" name="studentName" value="<?= $student ?>">
                 <input type="hidden" name="season" value="<?= $season ?>">
                 <input type="hidden" name="year" value="<?= $year ?>">
+                <input type="hidden" name="pIndex" value="<?= $pIndex ?>">
                 <input type="hidden" name="selection" value="<?= $selection ?>">
                 <input type="hidden" name="retPage" value="<?= $_SERVER['PHP_SELF']; ?>">
                 <input type="submit" name="add" value="Add Game">
@@ -182,10 +189,10 @@ if ($selection != ACADEMIC) {
         <form method="get" action="<?= $_SERVER['PHP_SELF']; ?>">
             <input type="hidden" name="studentName" value="<?= $student ?>">
             <input type="hidden" name="season" value="<?= $get_season ?>">
-            <input type="hidden" name="pictures" value="pics">
+            <input type="hidden" name="pIndex" value="<?= constant("PICS") ?>">
             <input type="hidden" name="year" value="<?= $get_year ?>">
 <?php
-            if (($season == $get_season) && ($year == $get_year) && ($pictures == "pics")) {
+            if (($season == $get_season) && ($year == $get_year) && ($pIndex == PICS)) {
                 echo "<input class=\"selected\" type=\"submit\" value=\"$getSubLabel\">";
             } else {
                 echo "<input type=\"submit\" value=\"$getSubLabel\">";
@@ -199,7 +206,7 @@ if ($selection != ACADEMIC) {
         <input type="hidden" name="studentName" value="<?= $student ?>">
         <input type="hidden" name="season" value="<?= $season ?>">
         <input type="hidden" name="year" value="<?= $year ?>">
-        <input type="hidden" name="pictures" value="<?= $pictures ?>">
+        <input type="hidden" name="pIndex" value="<?= $pIndex ?>">
         <input type="hidden" name="selection" value="<?= $selection ?>">
         <input type="hidden" name="retPage" value="<?= $_SERVER['PHP_SELF']; ?>">
         <input type="submit" name="add" value="Add Picture">
@@ -247,10 +254,10 @@ if ($selection != ACADEMIC) {
             <form method="get" action="<?= $_SERVER['PHP_SELF']; ?>">
                 <input type="hidden" name="studentName" value="<?= $student ?>">
                 <input type="hidden" name="season" value="<?= $get_season ?>">
-                <input type="hidden" name="videos" value="videos">
+                <input type="hidden" name="pIndex" value="<?= constant("VIDS") ?>">
                 <input type="hidden" name="year" value="<?= $get_year ?>">
 <?php
-                if (($season == $get_season) && ($year == $get_year) && ($videos == "videos")) {
+                if (($season == $get_season) && ($year == $get_year) && ($pIndex == VIDS)) {
                     echo "<input class=\"selected\" type=\"submit\" value=\"$getSubLabel\">";
                 } else {
                     echo "<input type=\"submit\" value=\"$getSubLabel\">";
@@ -264,7 +271,7 @@ if ($selection != ACADEMIC) {
             <input type="hidden" name="studentName" value="<?= $student ?>">
             <input type="hidden" name="season" value="<?= $season ?>">
             <input type="hidden" name="year" value="<?= $year ?>">
-            <input type="hidden" name="videos" value="<?= $videos ?>">
+            <input type="hidden" name="pIndex" value="<?= $pIndex ?>">
             <input type="hidden" name="selection" value="<?= $selection ?>">
             <input type="hidden" name="retPage" value="<?= $_SERVER['PHP_SELF']; ?>">
             <input type="submit" name="add" value="Add Video">
@@ -304,10 +311,10 @@ if ($selection != ACADEMIC) {
         <form method="get" action="<?= $_SERVER['PHP_SELF']; ?>">
             <input type="hidden" name="studentName" value="<?= $student ?>">
             <input type="hidden" name="season" value="<?= $get_season ?>">
-            <input type="hidden" name="stats" value="stats">
+            <input type="hidden" name="pIndex" value="<?= constant("STATS") ?>">
             <input type="hidden" name="year" value=2016>
 <?php
-            if (($season == $get_season) && ($year == $get_year) && ($stats == "stats")) {
+            if (($season == $get_season) && ($year == $get_year) && ($pIndex == STATS)) {
                 echo "<input class=\"selected\" type=\"submit\" value=\"$getSubLabel\">";
             } else {
                 echo "<input type=\"submit\" value=\"$getSubLabel\">";
@@ -321,7 +328,7 @@ if ($selection != ACADEMIC) {
         <input type="hidden" name="studentName" value="<?= $student ?>">
         <input type="hidden" name="season" value="<?= $season ?>">
         <input type="hidden" name="year" value="<?= $year ?>">
-        <input type="hidden" name="stats" value="<?= $stats ?>">
+        <input type="hidden" name="pIndex" value="<?= $pIndex ?>">
         <input type="hidden" name="selection" value="<?= $selection ?>">
         <input type="hidden" name="retPage" value="<?= $_SERVER['PHP_SELF']; ?>">
         <input type="submit" name="add" value="Add Stats">

@@ -4,15 +4,16 @@
  * Comment:
  *  Future support for edit game.
  *
+ * MHM: 2017-02-13
+ * Comment:
+ *  Removed variables pictures, videos and stats and now just use pIndex to
+ *  reference the different panels.
  */
 require("../_includes/req_includes.php");
 $siteroot = HOMEROOT;
 $imagepath = IMGROOT;
 $pagelogo = "$imagepath" . PHOTOMISC . "/spft.jpg";
 $selection = ACADEMIC;
-$pictures = NOPICS;
-$videos = NOVIDS;
-$stats = NOSTATS;
 
 if (isset($_POST['edit'])) {
     $student = $_POST['studentName'];

@@ -23,6 +23,11 @@
  * MHM: 2017-02-12
  * Comment:
  *  Build POST calls for edit and delete pictures.
+ *
+ * MHM: 2017-02-13
+ * Comment:
+ *  Removed variables pictures, videos and stats and now just use pIndex to
+ *  reference the different panels.
  */
 if (count(get_included_files()) == 1) {
     exit("direct access not allowed.");
@@ -95,7 +100,7 @@ $headerLabel = $year . " " . $dynamic_heading . " " . "Pictures";
                                 <input type="hidden" name="studentName" value="<?= $student ?>">
                                 <input type="hidden" name="season" value="<?= $season ?>">
                                 <input type="hidden" name="year" value="<?= $year ?>">
-                                <input type="hidden" name="pictures" value="<?= $pictures ?>">
+                                <input type="hidden" name="pIndex" value="<?= $pIndex ?>">
                                 <input type="hidden" name="selection" value="<?= $selection ?>">
                                 <input type="hidden" name="retPage" value="<?= $_SERVER['PHP_SELF'] ?>">
                                 <input type="submit" name="edit" value="EDIT">
@@ -107,7 +112,7 @@ $headerLabel = $year . " " . $dynamic_heading . " " . "Pictures";
                                 <input type="hidden" name="studentName" value="<?= $student ?>">
                                 <input type="hidden" name="season" value="<?= $season ?>">
                                 <input type="hidden" name="year" value="<?= $year ?>">
-                                <input type="hidden" name="pictures" value="<?= $pictures ?>">
+                                <input type="hidden" name="pIndex" value="<?= $pIndex ?>">
                                 <input type="hidden" name="selection" value="<?= $selection ?>">
                                 <input type="hidden" name="retPage" value="<?= $_SERVER['PHP_SELF'] ?>">
                                 <input type="submit" name="delete" value="DELETE">

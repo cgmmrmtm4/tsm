@@ -9,6 +9,11 @@
  * Comment:
  *  Changes for include layout. Some format changes so the code 
  *  does not sprawl so far to the right.
+ *
+ * MHM: 2017-02-13
+ * Comment:
+ *  Removed variables pictures, videos and stats and now just use pIndex to
+ *  reference the different panels.
  */
 require("../_includes/req_includes.php");
 $siteroot = HOMEROOT;
@@ -36,20 +41,10 @@ if (isset($_GET['season'])) {
         $season = FALL;
     }
 }
-if (isset($_GET['pictures'])) {
-    $pictures = $_GET['pictures'];
+if (isset($_GET['pIndex'])) {
+    $pIndex = $_GET['pIndex'];
 } else {
-    $pictures = NOPICS;
-}
-if (isset($_GET['videos'])) {
-    $videos = $_GET['videos'];
-} else {
-    $videos = NOVIDS;
-}
-if (isset($_GET['stats'])) {
-    $stats = $_GET['stats'];
-} else {
-    $stats = NOSTATS;
+    $pIndex = SCHED;
 }
 if (isset($_GET['year'])) {
     $year = $_GET['year'];
@@ -136,7 +131,7 @@ $connection = open_db();
                  *  We can only have one of these choices. Will leave the area empty if more then one
                  *  choice is passed in.
                  */
-                if (($pictures == "nopics") && ($videos == "novideos") && ($stats == "nostats")) {
+                if ($pIndex == SCHED) {
                     /*
                      * MHM: 2017-01-16
                      * Comment:
@@ -144,7 +139,7 @@ $connection = open_db();
                      */
                     require '../_includes/sched_res.php';
                 }
-                if (($pictures == "pics") && ($videos == "novideos") && ($stats == "nostats")) {
+                if ($pIndex == PICS) {
                     /*
                      * MHM: 2017-01-16
                      * Comment:
@@ -152,7 +147,7 @@ $connection = open_db();
                      */
                     require '../_includes/display_pics.php';
                 }
-                if (($pictures == "nopics") && ($videos == "videos") && ($stats == "nostats")) {
+                if ($pIndex == VIDS) {
                     /*
                      * MHM: 2017-01-16
                      * Comment:
@@ -162,7 +157,7 @@ $connection = open_db();
                         require '../_includes/displayvolleyballvids.php';
                     }
                 }
-                if ($stats == "stats") {
+                if ($pIndex == STATS) {
                     /*
                      * MHM: 2017-01-16
                      * Comment:

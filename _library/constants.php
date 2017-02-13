@@ -13,8 +13,12 @@
  *  Added PICS constant.
  *
  * MHM: 2017-02-12
- * Comments:
+ * Comment:
  *  Add STATS and VIDS constants.
+ *
+ * MHM: 2017-02-13
+ * Comment:
+ *  Added NOSCHED and SCHED constants. Additional pIndex references.
  */
 
 if (count(get_included_files()) == 1) {
@@ -57,13 +61,17 @@ define ("FALL", "FALL");
 define ("WINTER", "WINTER");
 define ("SPRING", "SPRING");
 
+// Schedule
+define ("NOSCHED", "noschedule");
+define ("SCHED", "schedule");
+
 // Pictures
 define ("NOPICS", "nopics");
 define ("PICS", "pics");
 
 // Videos
 define ("NOVIDS", "novideos");
-define ("VIDS", "videos")
+define ("VIDS", "videos");
 
 // stats
 define ("NOSTATS", "nostats");

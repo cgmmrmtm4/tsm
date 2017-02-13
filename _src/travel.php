@@ -21,15 +21,17 @@
  * Comment:
  *  Changes for include layout. Some format changes so the code 
  *  does not sprawl so far to the right.
+ *
+ * MHM: 2017-02-13
+ * Comment:
+ *  Removed variables pictures, videos and stats and now just use pIndex to
+ *  reference the different panels.
  */
 require("../_includes/req_includes.php");
 $siteroot = HOMEROOT;
 $imagepath = IMGROOT;
 $pagelogo = "$imagepath" . PHOTOMISC . "/logo.jpg";
 $selection = TRAVEL;
-$pictures = PICS;
-$videos = NOVIDS;
-$stats = NOSTATS;
 $year = 2016;
 $season = SUMMER;
 

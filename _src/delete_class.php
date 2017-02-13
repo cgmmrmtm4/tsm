@@ -4,14 +4,15 @@
  * Comment:
  *  Future support for delete class.
  *
+ * MHM: 2017-02-13
+ * Comment:
+ *  Removed variables pictures, videos and stats and now just use pIndex to
+ *  reference the different panels.
  */
 require("../_includes/req_includes.php");
 $siteroot = HOMEROOT;
 $imagepath = IMGROOT;
 $pagelogo = "$imagepath" . PHOTOMISC . "/spft.jpg";
-$videos = NOVIDS;
-$stats = NOSTATS;
-$pictures = NOPICS;
 
 if (isset($_POST['delete'])) {
     $student = $_POST['studentName'];

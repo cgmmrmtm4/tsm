@@ -13,14 +13,17 @@
  * Comment:
  *  Changes for include layout. Some format changes so the code 
  *  does not sprawl so far to the right.
+ *
+ * MHM: 2017-02-13
+ * Comment:
+ *  Removed variables pictures, videos and stats and now just use pIndex to
+ *  reference the different panels.
  */
 require("../_includes/req_includes.php");
 $siteroot = HOMEROOT;
 $imagepath = IMGROOT;
 $pagelogo = "$imagepath" . PHOTOMISC . "/sb.png";
 $selection = SB;
-$videos = NOVIDS;
-$stats = NOSTATS;
 
 /*
  * MHM: 2017-01-16
@@ -38,10 +41,10 @@ if (isset($_GET['season'])) {
 } else {
     $season = SPRING;
 }
-if (isset($_GET['pictures'])) {
-    $pictures = $_GET['pictures'];
+if (isset($_GET['pIndex'])) {
+    $pIndex = $_GET['pIndex'];
 } else {
-    $pictures = NOPICS;
+    $pIndex = SCHED;
 }
 if (isset($_GET['year'])) {
     $year = $_GET['year'];
@@ -118,7 +121,7 @@ $connection = open_db();
                  *  We can only have one of these choices. Will leave the area empty if more then one
                  *  choice is passed in.
                  */
-                if ($pictures == "nopics") {
+                if ($pIndex == SCHED) {
                     /*
                      * MHM: 2017-01-16
                      * Comment:
@@ -126,7 +129,7 @@ $connection = open_db();
                      */
                     require '../_includes/sched_res.php';
                 } 
-                if ($pictures == "pics") {
+                if ($pIndex == "PICS") {
                     /*
                      * MHM: 2017-01-16
                      * Comment:
