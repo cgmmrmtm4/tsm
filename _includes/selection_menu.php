@@ -42,6 +42,10 @@
  * MHM: 2017-02-10
  * Comment:
  *  Some format changes so the code does not sprawl so far to the right.
+ *
+ * MHM: 2017-02-12
+ * Comment:
+ *  Pass the correct season and year to the add class form.
  */
 if (count(get_included_files()) == 1) {
     exit("direct access not allowed.");
@@ -113,22 +117,24 @@ if ($selection != TRAVEL) {
         if ($selection == ACADEMIC) {
             if ($student == THEO) {
 ?>
-                <form method="post" action="add_semester.php">
+                <form method="post" action="add_class.php">
                     <input type="hidden" name="studentName" value="<?= $student ?>">
-                    <input type="hidden" name="season" value="<?= $get_season ?>">
-                    <input type="hidden" name="year" value="<?= $get_year ?>">
-                    <input type="hidden" name="activity" value="<?= $selection ?>">
+                    <input type="hidden" name="season" value="<?= $season ?>">
+                    <input type="hidden" name="year" value="<?= $year ?>">
+                    <input type="hidden" name="selection" value="<?= $selection ?>">
+                    <input type="hidden" name="retPage" value="<?= $_SERVER['PHP_SELF']; ?>">
                     <input type="submit" name="add" value="Add Class">
                 </form>
 <?php
             }
         } else {
 ?>
-            <form method="post" action="add_season.php">
+            <form method="post" action="add_game.php">
                 <input type="hidden" name="studentName" value="<?= $student ?>">
-                <input type="hidden" name="season" value="<?= $get_season ?>">
-                <input type="hidden" name="year" value="<?= $get_year ?>">
-                <input type="hidden" name="activity" value="<?= $selection ?>">
+                <input type="hidden" name="season" value="<?= $season ?>">
+                <input type="hidden" name="year" value="<?= $year ?>">
+                <input type="hidden" name="selection" value="<?= $selection ?>">
+                <input type="hidden" name="retPage" value="<?= $_SERVER['PHP_SELF']; ?>">
                 <input type="submit" name="add" value="Add Game">
             </form>
 <?php
@@ -191,9 +197,11 @@ if ($selection != ACADEMIC) {
 ?>
     <form method="post" action="add_picture.php">
         <input type="hidden" name="studentName" value="<?= $student ?>">
-        <input type="hidden" name="season" value="<?= $get_season ?>">
-        <input type="hidden" name="year" value="<?= $get_year ?>">
-        <input type="hidden" name="activity" value="<?= $selection ?>">
+        <input type="hidden" name="season" value="<?= $season ?>">
+        <input type="hidden" name="year" value="<?= $year ?>">
+        <input type="hidden" name="pictures" value="<?= $pictures ?>">
+        <input type="hidden" name="selection" value="<?= $selection ?>">
+        <input type="hidden" name="retPage" value="<?= $_SERVER['PHP_SELF']; ?>">
         <input type="submit" name="add" value="Add Picture">
     </form>
 <?php
@@ -254,9 +262,11 @@ if ($selection != ACADEMIC) {
 ?>
         <form method="post" action="add_video.php">
             <input type="hidden" name="studentName" value="<?= $student ?>">
-            <input type="hidden" name="season" value="<?= $get_season ?>">
-            <input type="hidden" name="year" value="<?= $get_year ?>">
-            <input type="hidden" name="activity" value="<?= $selection ?>">
+            <input type="hidden" name="season" value="<?= $season ?>">
+            <input type="hidden" name="year" value="<?= $year ?>">
+            <input type="hidden" name="videos" value="<?= $videos ?>">
+            <input type="hidden" name="selection" value="<?= $selection ?>">
+            <input type="hidden" name="retPage" value="<?= $_SERVER['PHP_SELF']; ?>">
             <input type="submit" name="add" value="Add Video">
         </form>
 <?php
@@ -309,9 +319,11 @@ if ($selection != ACADEMIC) {
 ?>
     <form method="post" action="add_stats.php">
         <input type="hidden" name="studentName" value="<?= $student ?>">
-        <input type="hidden" name="season" value="<?= $get_season ?>">
-        <input type="hidden" name="year" value="<?= $get_year ?>">
-        <input type="hidden" name="activity" value="<?= $selection ?>">
+        <input type="hidden" name="season" value="<?= $season ?>">
+        <input type="hidden" name="year" value="<?= $year ?>">
+        <input type="hidden" name="stats" value="<?= $stats ?>">
+        <input type="hidden" name="selection" value="<?= $selection ?>">
+        <input type="hidden" name="retPage" value="<?= $_SERVER['PHP_SELF']; ?>">
         <input type="submit" name="add" value="Add Stats">
     </form>
 <?php

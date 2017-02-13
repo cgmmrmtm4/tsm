@@ -30,11 +30,50 @@
  * Comment:
  *  Changed get picture, get video and get stat functions to return all fields so that we have
  *  access to each rows Id.
+ *
+ * MHM: 2017-02-12
+ * Comment:
+ *  Two new read functions. Get the list of teachers and the list of classes for a specific student.
  */
 
 if (count(get_included_files()) == 1) {
     exit("direct access not allowed.");
 }
+
+/*
+ * MHM: 2017-02-12
+ * Comment:
+ *  Return a list of teaches the student has taken.
+ *  Input: Database handle, the students name.
+ *  Output: A list of teachers.
+ */
+function get_teachers_by_student($connection, $student) {
+    $query  = "SELECT DISTINCT academics.teacherName FROM academics ";
+    $query .= "JOIN students ON students.id=academics.studentId AND ";
+    $query .= "students.studentName=\"$student\" ";
+    $query .= "ORDER BY academics.teacherName ASC;";
+    $result = mysqli_query($connection, $query);
+    confirm_query($result);
+    return $result;
+}
+
+/*
+ * MHM: 2017-02-12
+ * Comment:
+ *  Return a list of classes the student has taken.
+ *  Input: Database handle, the students name.
+ *  Output: A list of classes.
+ */
+function get_classes_by_student($connection, $student) {
+    $query  = "SELECT DISTINCT academics.className FROM academics ";
+    $query .= "JOIN students ON students.id=academics.studentId AND ";
+    $query .= "students.studentName=\"$student\" ";
+    $query .= "ORDER BY academics.className ASC;";
+    $result = mysqli_query($connection, $query);
+    confirm_query($result);
+    return $result;
+}
+
 
 /*
  * MHM: 2017-01-16

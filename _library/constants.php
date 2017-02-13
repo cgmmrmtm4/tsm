@@ -11,6 +11,10 @@
  * MHM: 2017-01-19
  * Comment:
  *  Added PICS constant.
+ *
+ * MHM: 2017-02-12
+ * Comments:
+ *  Add STATS and VIDS constants.
  */
 
 if (count(get_included_files()) == 1) {
@@ -59,8 +63,10 @@ define ("PICS", "pics");
 
 // Videos
 define ("NOVIDS", "novideos");
+define ("VIDS", "videos")
 
 // stats
 define ("NOSTATS", "nostats");
+define ("STATS", "stats");
 
 ?>

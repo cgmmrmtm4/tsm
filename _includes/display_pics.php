@@ -19,6 +19,10 @@
  * MHM: 2017-02-10
  * Comment:
  *  Some format changes so the code does not sprawl so far to the right.
+ *
+ * MHM: 2017-02-12
+ * Comment:
+ *  Build POST calls for edit and delete pictures.
  */
 if (count(get_included_files()) == 1) {
     exit("direct access not allowed.");
@@ -85,15 +89,27 @@ $headerLabel = $year . " " . $dynamic_heading . " " . "Pictures";
                 <td class="delpics">
                     <div class="button-container">
                         <a href="<?= $photopath . $pics['avName']; ?>" download> <img src="<?= $photopath . $pics['thumbName']; ?>" class="thumbnail"></a> 
-                        <form method="post" action="edit_photo.php">
+                        <form method="post" action="edit_picture.php">
                             <div>
                                 <input type="hidden" name="photoId" value="<?= $photoId ?>">
+                                <input type="hidden" name="studentName" value="<?= $student ?>">
+                                <input type="hidden" name="season" value="<?= $season ?>">
+                                <input type="hidden" name="year" value="<?= $year ?>">
+                                <input type="hidden" name="pictures" value="<?= $pictures ?>">
+                                <input type="hidden" name="selection" value="<?= $selection ?>">
+                                <input type="hidden" name="retPage" value="<?= $_SERVER['PHP_SELF'] ?>">
                                 <input type="submit" name="edit" value="EDIT">
                             </div>
                         </form>
-                        <form method="post" action="delete_photo.php">
+                        <form method="post" action="delete_picture.php">
                             <div>
                                 <input type="hidden" name="photoId" value="<?= $photoId ?>">
+                                <input type="hidden" name="studentName" value="<?= $student ?>">
+                                <input type="hidden" name="season" value="<?= $season ?>">
+                                <input type="hidden" name="year" value="<?= $year ?>">
+                                <input type="hidden" name="pictures" value="<?= $pictures ?>">
+                                <input type="hidden" name="selection" value="<?= $selection ?>">
+                                <input type="hidden" name="retPage" value="<?= $_SERVER['PHP_SELF'] ?>">
                                 <input type="submit" name="delete" value="DELETE">
                             </div>
                         </form>

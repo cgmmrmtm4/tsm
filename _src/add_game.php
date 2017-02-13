@@ -2,27 +2,21 @@
 /*
  * MHM: 2017-02-05
  * Comment:
- *  Future support for add stats.
+ *  Future support for add game to season.
  *
  * MHM: 2017-02-10
  * Comment:
  *  Changes for include layout. Some format changes so the code 
  *  does not sprawl so far to the right.
- *
- * MHM: 2017-02-12
- * Comment:
- *  Initial layout to support add. Three parts, submit: called only from this file.
- *  Add and submit: Add called from external location, submit used to handle form error recovery.
- *  GET: return to intro page. Need to have a message for this case.
  */
 require("../_includes/req_includes.php");
     
 $siteroot = HOMEROOT;
 $imagepath = IMGROOT;
 $pagelogo = "$imagepath" . PHOTOMISC . "/spft.jpg";
-$pictures = NOPICS;
 $videos = NOVIDS;
-$stats = STATS;
+$stats = NOSTATS;
+$pictures = NOPICS;
 
 $_SESSION["message"] = "Not Implemented yet!";
 $connection = open_db();
@@ -30,7 +24,6 @@ if (isset($_POST['submit'])) {
     $student = $_POST['studentName'];
     $season = $_POST['season'];
     $year = $_POST['year'];
-    $stats = $_POST['stats'];
     $selection = $_POST['selection'];
     $returnPage = $_POST['retPage'];
     /*
@@ -45,14 +38,13 @@ if (isset($_POST['submit'])) {
          */
         $_SESSION["message"] = "Not Implemented yet!";
         close_db($connection);
-        redirect_to("$returnPage?studentName=$student&season=$season&stats=$stats&year=$year");
+        redirect_to("$returnPage?studentName=$student&season=$season&pictures=$pictures&year=$year");
     }
 }
 if ((isset($_POST['submit'])) || (isset($_POST['add']))) {
     $student = $_POST['studentName'];
     $season = $_POST['season'];
     $year = $_POST['year'];
-    $stats = $_POST['stats'];
     $selection = $_POST['selection'];
     $returnPage = $_POST['retPage'];
     /*
@@ -78,9 +70,9 @@ if ((isset($_POST['submit'])) || (isset($_POST['add']))) {
 ?>
                 <br>
                 <section id=main>
-                    <h1>Add Statistics</h1>
+                    <h1>Add Game</h1>
                     <div id=formalign>
-                        <form action="add_stats.php" method="post">
+                        <form action="add_game.php" method="post">
                             <p> 
                                 <label for="b">Year:</label>
                                 <select id="b" name="year">
@@ -95,11 +87,10 @@ if ((isset($_POST['submit'])) || (isset($_POST['add']))) {
                             <input type="hidden" name="studentName" value="<?= $student ?>">
                             <input type="hidden" name="season" value="<?= $season ?>">
                             <input type="hidden" name="year" value="<?= $year ?>">
-                            <input type="hidden" name="stats" value="<?= $stats ?>">
                             <input type="hidden" name="selection" value="<?= $selection ?>">
                             <input type="hidden" name="retPage" value="<?= $returnPage; ?>">
-                            <input type="submit" name="submit" value="Add Stats">
-                            <a href="<?= $returnPage ?>?studentName=<?= $student; ?>&season=<?= $season; ?>&stats=<?= $stats ?>&year=<?= $year; ?>">Cancel</a>
+                            <input type="submit" name="submit" value="Add Game">
+                            <a href="<?= $returnPage ?>?studentName=<?= $student; ?>&season=<?= $season; ?>&pictures=<?= $pictures ?>&year=<?= $year; ?>">Cancel</a>
                         </form>
                     </div>
                 </section>

@@ -21,13 +21,18 @@
  * MHM: 2017-02-10
  * Comment:
  *  Some format changes so the code does not sprawl so far to the right.
+ *
+ * MHM: 2017-02-12
+ * Comment:
+ *  Change branding height and width. Need to consider doing this in CSS only. Need to consider
+ *  the same change for the rotator image. Added a div for messaging.
  */
 if (count(get_included_files()) == 1) {
     exit("direct access not allowed.");
 }
 ?>
 <header>
-    <div class="branding"> <img src="<?= $pagelogo; ?>" width="90" height="105" alt="Logo">
+    <div class="branding"> <img src="<?= $pagelogo; ?>" width="90" height="75" alt="Logo">
         <p>Morro Bay High School<br>
             Academics • Sports</p>
     </div>
@@ -149,4 +154,8 @@ if (count(get_included_files()) == 1) {
         </ol>
     </nav>
 </header>
-<div id="rotator"><img src="<?= $imagepath . PHOTOMISC; ?>/mbhs.jpg" width="1000" height="220" alt="MBHS from land"></div>
+<div id="rotator"><img src="<?= $imagepath . PHOTOMISC; ?>/mbhs.jpg" width=100% height="120" alt="MBHS from land"></div>
+<?php
+echo message();
+echo form_errors($errors);
+?>
