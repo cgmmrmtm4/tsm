@@ -27,6 +27,10 @@
  * MHM: 2017-02-13
  * Comment:
  *  Fix alignment issues and field lengths.
+ *
+ * MHM: 2017-02-13
+ * Comment:
+ *  Free the correct SQL result.
  */
 require("../_includes/req_includes.php");
 
@@ -134,7 +138,7 @@ if ((isset($_POST['add'])) || (isset($_POST['submit']))) {
                                     <option value="<?= $studentClassName ?>"><?= $studentClassName ?></option>
 <?php
                                 }
-                                mysqli_free_result($teacherList);
+                                mysqli_free_result($studentList);
 ?>
                                 </datalist>
                             </p>
