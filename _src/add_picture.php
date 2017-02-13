@@ -79,9 +79,9 @@ if ((isset($_POST['submit'])) || (isset($_POST['add']))) {
             require '../_includes/header.php';
 ?>
                 <br>
-                <section id=main>
-                    <h1>Add Picture</h1>
+                <section>
                     <div id=formalign>
+                        <h1>Add Picture</h1>
                         <form action="add_picture.php" method="post">
 <?php
                         if ($student == THEO) {
