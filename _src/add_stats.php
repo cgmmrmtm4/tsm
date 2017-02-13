@@ -79,9 +79,9 @@ if ((isset($_POST['submit'])) || (isset($_POST['add']))) {
             require '../_includes/header.php';
 ?>
                 <br>
-                <section id=main>
+                <section>
                     <h1>Add Statistics</h1>
-                    <div id=formalign>
+                        <h1>Add Statistics</h1>
                         <form action="add_stats.php" method="post">
                             <p> 
                                 <label for="b">Year:</label>
