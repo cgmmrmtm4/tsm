@@ -23,6 +23,10 @@
  * Comment:
  *  Removed variables pictures, videos and stats and now just use pIndex to
  *  reference the different panels.
+ *
+ * MHM: 2017-02-13
+ * Comment:
+ *  Fix alignment issues and field lengths.
  */
 require("../_includes/req_includes.php");
 
@@ -85,9 +89,9 @@ if ((isset($_POST['add'])) || (isset($_POST['submit']))) {
             require '../_includes/header.php';
 ?>
                 <br>
-                <section id=main>
-                    <h1>Add Class</h1>
+                <section>
                     <div id=formalign>
+                        <h1>Add Class</h1>
                         <form action="add_class.php" method="post">
                             <input type="hidden" name="studentName" value="<?= $student ?>">
                             <p> 
@@ -120,7 +124,7 @@ if ((isset($_POST['add'])) || (isset($_POST['submit']))) {
                             </p>
                             <p> 
                                 <label for="d">Class Name:</label>
-                                <input id="d" type="text" list="studentClasses" name="className" value="">
+                                <input class="dbtext" maxlength="30" id="d" type="text" list="studentClasses" name="className" value="">
                                 <datalist id="studentClasses">
 <?php
                                 $studentClassList = get_classes_by_student($connection, $student);
@@ -136,7 +140,7 @@ if ((isset($_POST['add'])) || (isset($_POST['submit']))) {
                             </p>
                             <p> 
                                 <label for="e">Teacher Name:</label>
-                                <input id="e" type="text" list="Teachers" name="teacherName" value="">
+                                <input class="dbtext" maxlength="30" id="e" type="text" list="Teachers" name="teacherName" value="">
                                 <datalist id="Teachers">
 <?php
                                 $teacherList = get_teachers_by_student($connection, $student);

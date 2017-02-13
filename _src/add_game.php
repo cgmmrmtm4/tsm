@@ -19,6 +19,10 @@
  * Comment:
  *  Removed variables pictures, videos and stats and now just use pIndex to
  *  reference the different panels. Use student to determine years to display.
+ *
+ * MHM: 2017-02-13
+ * Comment:
+ *  Fix alignment issues and field lenghts.
  */
 require("../_includes/req_includes.php");
     
@@ -79,39 +83,42 @@ if ((isset($_POST['submit'])) || (isset($_POST['add']))) {
             require '../_includes/header.php';
 ?>
                 <br>
-                <section id=main>
-                    <h1>Add Game</h1>
+                <section>
                     <div id=formalign>
+                        <h1>Add Game</h1>
                         <form action="add_game.php" method="post">
-<?php
-                        if ($student == THEO) {
-?>
-                            <p> 
-                                <label for="b">Year:</label>
-                                <select id="b" name="year">
-                                    <option value=2014>2014</option>
-                                    <option value=2015>2015</option>
-                                    <option value=2016>2016</option>
-                                    <option value=2017>2017</option>
-                                    <option value=2018>2018</option>
-                                </select>
+                            <p>
+                                <label for="a">Date:</label>
+                                <input class="dbdate" type="text" name="date" maxlength="10" value="">
                             </p>
-<?php
-                        } else {
-?>
-                            <p> 
-                                <label for="b">Year:</label>
-                                <select id="b" name="year">
-                                    <option value=2009>2009</option>
-                                    <option value=2010>2010</option>
-                                    <option value=2011>2011</option>
-                                    <option value=2012>2012</option>
-                                    <option value=2013>2013</option>
-                                </select>
+                            <p>
+                                <label for="b">Location:</label>
+                                <input class="dbtext" type="text" name="location" maxlength="40" value="">
                             </p>
-<?php
-                        }
-?>
+                            <p>
+                                <label for="c">Opponent:</label>
+                                <input class="dbtext" type="text" name="opponent" maxlength="40" value="">
+                            </p>
+                            <p>
+                                <label for="d">Score Game 1:</label>
+                                <input class="dbscore" type="text" name="sg1" maxlength="5" value="">
+                            </p>
+                            <p>
+                                <label for="e">Score Game 2:</label>
+                                <input class="dbscore" type="text" name="sg2" maxlength="5" value="">
+                            </p>
+                            <p>
+                                <label for="f">Score Game 3:</label>
+                                <input class="dbscore" type="text" name="sg3" maxlength="5" value="">
+                            </p>
+                            <p>
+                                <label for="g">Score Game 4:</label>
+                                <input class="dbscore" type="text" name="sg4" maxlength="5" value="">
+                            </p>
+                            <p>
+                                <label for="h">Score Game 5:</label>
+                                <input class="dbscore" type="text" name="sgh" maxlength="5" value="">
+                            </p>
                             <br>
                             <input type="hidden" name="studentName" value="<?= $student ?>">
                             <input type="hidden" name="season" value="<?= $season ?>">

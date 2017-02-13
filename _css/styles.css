@@ -26,6 +26,10 @@
  * MHM: 2017-02=12
  * Comment:
  *  CSS changes to better control height, width and margins of pictures, videos, header and footer elements.
+ *
+ * MHM: 2017-02-13
+ * Comment:
+ *  Fix alignment issues in forms. Remove the id=main tag from the section and move all formatting to id=formalign
  */
 html, body, body div, span, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, abbr, address, cite, code, del, dfn, em, img, ins, kbd, q, samp, small, strong, sub, sup, var, b, i, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, figure, footer, header, hgroup, menu, nav, section, time, mark, audio, video {
 	margin: 0;
@@ -318,6 +322,15 @@ footer nav li:last-child a {
     padding: 2px 25px;
     float: right;
 }
+#formalign {
+    margin-left: 50px;
+}
+#formalign h1 {
+    margin-left: 15px;
+    font-size: 2.7em;
+    align-content: center;
+    color: white;
+}
 #formalign a {
     color: white;
 }
@@ -338,7 +351,6 @@ footer nav li:last-child a {
     background-color:#ffab23;
 }
 #formalign form {
-    display: table;
     font-size: 1em;
     margin-left: 15px;
     margin-bottom: 10px;
@@ -346,13 +358,27 @@ footer nav li:last-child a {
 }
 #formalign label {
     display: table-cell;
+    width: 175px;
+}
+#formalign input[type=text] {
+    display: table-cell;
 }
 #formalign p {
-    display: table-row;
+    display: table;
+    margin-bottom: 5px;
+    margin-left: 5px;
+    margin-right: 5px;
+    margin-top: 5px;
     font-size: 1.5em;
 }
-#formalign select {
-    display: table-cell;
+#formalign .dbscore {
+    width: 70px;
+}
+#formalign .dbtext {
+    width: 530px;
+}
+#formalign .dbdate {
+    width: 100px;
 }
 /* Sidebar
 -------------------------------------------------------------------------------*/
