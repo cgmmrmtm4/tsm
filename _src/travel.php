@@ -26,6 +26,10 @@
  * Comment:
  *  Removed variables pictures, videos and stats and now just use pIndex to
  *  reference the different panels.
+ *
+ * MHM: 2017-02-13
+ * Comment:
+ *  Forgot to declare pIndex.
  */
 require("../_includes/req_includes.php");
 $siteroot = HOMEROOT;
@@ -34,6 +38,7 @@ $pagelogo = "$imagepath" . PHOTOMISC . "/logo.jpg";
 $selection = TRAVEL;
 $year = 2016;
 $season = SUMMER;
+$pIndex = PICS;
 
 /*
  * MHM: 2017-01-16

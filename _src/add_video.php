@@ -19,6 +19,10 @@
  * Comment:
  *  Removed variables pictures, videos and stats and now just use pIndex to
  *  reference the different panels.
+ *
+ * MHM: 2017-02-13
+ * Comment:
+ *  Add form fields.
  */
 require("../_includes/req_includes.php");
     
@@ -79,10 +83,18 @@ if ((isset($_POST['submit'])) || (isset($_POST['add']))) {
             require '../_includes/header.php';
 ?>
                 <br>
-                <section id=main>
-                    <h1>Add Video</h1>
+                <section>
                     <div id=formalign>
+                        <h1>Add Video</h1>
                         <form action="add_video.php" method="post">
+                            <p> 
+                                <label for="a">Season:</label>
+                                <select id="a" name="season">
+                                    <option value="SUMMER">SUMMER</option>
+                                    <option value="FALL">FALL</option>
+                                    <option value="SPRING">SPRING</option>
+                                </select>
+                            </p>
                             <p> 
                                 <label for="b">Year:</label>
                                 <select id="b" name="year">
@@ -93,6 +105,14 @@ if ((isset($_POST['submit'])) || (isset($_POST['add']))) {
                                     <option value=2018>2018</option>
                                 </select>
                             </p>
+                            <p> 
+                                <label for="c">Thumbnail:</label>
+                                <input class="dbtext" maxlength="30" id="c" type="text" name="thumbName" value="">
+                            </p>
+                            <p> 
+                                <label for="d">File Name:</label>
+                                <input class="dbtext" maxlength="30" id="d" type="text" name="fileName" value="">
+                            </p>
                             <br>
                             <input type="hidden" name="studentName" value="<?= $student ?>">
                             <input type="hidden" name="season" value="<?= $season ?>">
@@ -101,7 +121,7 @@ if ((isset($_POST['submit'])) || (isset($_POST['add']))) {
                             <input type="hidden" name="selection" value="<?= $selection ?>">
                             <input type="hidden" name="retPage" value="<?= $returnPage; ?>">
                             <input type="submit" name="submit" value="Add Video">
-                            <a href="<?= $returnPage ?>?studentName=<?= $student; ?>&season=<?= $season; ?>&pIndex=<?= $pIndex ?>&year=<?= $year ?>">Cancel</a>
+                            <a href="<?= $returnPage ?>?studentName=<?= $student; ?>&season=<?= $season; ?>&pIndex=<?= $pIndex ?>&year=<?= $year; ?>">Cancel</a>
                         </form>
                     </div>
                 </section>

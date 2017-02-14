@@ -19,6 +19,10 @@
  * Comment:
  *  Removed variables pictures, videos and stats and now just use pIndex to
  *  reference the different panels. Check student Name to determine years to display.
+ *
+ * MHM: 2017-02-13
+ * Comment:
+ *  Add form fields.
  */
 require("../_includes/req_includes.php");
     
@@ -83,6 +87,14 @@ if ((isset($_POST['submit'])) || (isset($_POST['add']))) {
                     <div id=formalign>
                         <h1>Add Picture</h1>
                         <form action="add_picture.php" method="post">
+                            <p> 
+                                <label for="a">Season:</label>
+                                <select id="a" name="season">
+                                    <option value="SUMMER">SUMMER</option>
+                                    <option value="FALL">FALL</option>
+                                    <option value="SPRING">SPRING</option>
+                                </select>
+                            </p>
 <?php
                         if ($student == THEO) {
 ?>
@@ -112,6 +124,14 @@ if ((isset($_POST['submit'])) || (isset($_POST['add']))) {
 <?php
                         }
 ?>
+                            <p> 
+                                <label for="c">Thumbnail:</label>
+                                <input class="dbtext" maxlength="30" id="c" type="text" name="thumbName" value="">
+                            </p>
+                            <p> 
+                                <label for="d">File Name:</label>
+                                <input class="dbtext" maxlength="30" id="d" type="text" name="fileName" value="">
+                            </p>
                             <br>
                             <input type="hidden" name="studentName" value="<?= $student ?>">
                             <input type="hidden" name="season" value="<?= $season ?>">
