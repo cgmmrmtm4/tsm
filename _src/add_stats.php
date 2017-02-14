@@ -19,6 +19,10 @@
  * Comment:
  *  Removed variables pictures, videos and stats and now just use pIndex to
  *  reference the different panels.
+ *
+ * MHM: 2017-02-13
+ * Comment:
+ *  Populate the form.
  */
 require("../_includes/req_includes.php");
     
@@ -79,19 +83,57 @@ if ((isset($_POST['submit'])) || (isset($_POST['add']))) {
             require '../_includes/header.php';
 ?>
                 <br>
-                <section id=main>
-                    <h1>Add Statistics</h1>
+                <section>
                     <div id=formalign>
+                        <h1>Add Statistics</h1>
                         <form action="add_stats.php" method="post">
                             <p> 
-                                <label for="b">Year:</label>
-                                <select id="b" name="year">
+                                <label for="a">Year:</label>
+                                <select id="a" name="year">
                                     <option value=2014>2014</option>
                                     <option value=2015>2015</option>
                                     <option value=2016>2016</option>
                                     <option value=2017>2017</option>
                                     <option value=2018>2018</option>
                                 </select>
+                            </p>
+                            <p>
+                                <label for="b">Location:</label>
+                                <input class="dbtext" id="b" type="text" name="opponent" list="opponentList" maxlength="40" value="">
+                                <datalist id="opponentList">
+<?php
+                                $opponentList = get_vbstats_opponents($connection);
+                                while ($opponent = mysqli_fetch_assoc($opponentList)) {
+                                    $opponentName = $opponent["opponent"];
+?>
+                                    <option value="<?= $opponentName ?>"><?= $opponentName ?></option>
+<?php
+                                }
+                                mysqli_free_result($opponentList);
+?>
+                                </datalist>
+                            </p>
+                            <p>
+                                <label for="c">Assists:</label>
+                                <input class="dbnum" id="c" type="number" name="assists" min="0" value=0>
+                                <label for="d">Blocks:</label>
+                                <input class="dbnum" id="d" type="number" name="blocks" min="0" value=0>
+                            </p>
+                            <p>
+                                <label for="e">Kills:</label>
+                                <input class="dbnum" id="e" type="number" name="kills" min="0" value=0>
+                                <label for="f">Digs:</label>
+                                <input class="dbnum" id="f" type="number" name="digs" min="0" value=0>
+                            </p>
+                            <p>
+                                <label for="g">Serves:</label>
+                                <input class="dbnum" id="g" type="number" name="serves" min="0" value=0>
+                                <label for="h">Aces:</label>
+                                <input class="dbnum" id="h" type="number" name="aces" min="0" value=0>
+                            </p>
+                            <p>
+                                <label for="i">Side Out:</label>
+                                <input class="dbnum" id="i" type="number" name="sideOut" min="0" value=0>
                             </p>
                             <br>
                             <input type="hidden" name="studentName" value="<?= $student ?>">

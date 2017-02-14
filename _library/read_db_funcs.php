@@ -34,12 +34,60 @@
  * MHM: 2017-02-12
  * Comment:
  *  Two new read functions. Get the list of teachers and the list of classes for a specific student.
+ *
+ * MHM: 2017-02-13
+ * Comment:
+ *  Add functions to get opponents and locations from databases.
  */
 
 if (count(get_included_files()) == 1) {
     exit("direct access not allowed.");
 }
 
+/*
+ * MHM: 2017-02-13
+ * Comment:
+ *  Return a list of oppents from the statistic tables.
+ *  Input: none
+ *  Output: A list of oppenents
+ */
+function get_vbstats_opponents($connection) {
+    $query  = "SELECT DISTINCT vbstats.opponent FROM vbstats ";
+    $query .= "ORDER BY vbstats.opponent ASC;";
+    $result = mysqli_query($connection, $query);
+    confirm_query($result);
+    return $result;
+}
+
+/*
+ * MHM: 2017-02-13
+ * Comment:
+ *  Return a list of locations from the records tables.
+ *  Input: none
+ *  Output: A list of locations
+ */
+function get_records_locations($connection) {
+    $query  = "SELECT DISTINCT records.location FROM records ";
+    $query .= "ORDER BY records.location ASC;";
+    $result = mysqli_query($connection, $query);
+    confirm_query($result);
+    return $result;
+}
+
+/*
+ * MHM: 2017-02-13
+ * Comment:
+ *  Return a list of locations from the records tables.
+ *  Input: none
+ *  Output: A list of opponents
+ */
+function get_records_opponents($connection) {
+    $query  = "SELECT DISTINCT records.opponent FROM records ";
+    $query .= "ORDER BY records.opponent ASC;";
+    $result = mysqli_query($connection, $query);
+    confirm_query($result);
+    return $result;
+}
 /*
  * MHM: 2017-02-12
  * Comment:

@@ -23,6 +23,11 @@
  * MHM: 2017-02-13
  * Comment:
  *  Fix alignment issues and field lenghts.
+ *
+ * MHM: 2017-02-13
+ * Comment:
+ *  Assign ids to the input tags in the forms that match their label. Retrieve opponents and
+ *  locatons from the record database to help autofill the form.
  */
 require("../_includes/req_includes.php");
     
@@ -89,35 +94,59 @@ if ((isset($_POST['submit'])) || (isset($_POST['add']))) {
                         <form action="add_game.php" method="post">
                             <p>
                                 <label for="a">Date:</label>
-                                <input class="dbdate" type="text" name="date" maxlength="10" value="">
+                                <input class="dbdate" id="a" type="text" name="date" maxlength="10" value="">
                             </p>
                             <p>
                                 <label for="b">Location:</label>
-                                <input class="dbtext" type="text" name="location" maxlength="40" value="">
+                                <input class="dbtext" id="b" type="text" name="location" list="locationList" maxlength="40" value="">
+                                <datalist id="locationList">
+<?php
+                                $locationList = get_records_locations($connection);
+                                while ($location = mysqli_fetch_assoc($locationList)) {
+                                    $locationName = $location["location"];
+?>
+                                    <option value="<?= $locationName ?>"><?= $locationName ?></option>
+<?php
+                                }
+                                mysqli_free_result($locationList);
+?>
+                                </datalist>
                             </p>
                             <p>
                                 <label for="c">Opponent:</label>
-                                <input class="dbtext" type="text" name="opponent" maxlength="40" value="">
+                                <input class="dbtext" id="c" type="text" name="opponent" list="opponentList" maxlength="40" value="">
+                                <datalist id="opponentList">
+<?php
+                                $opponentList = get_vbstats_opponents($connection);
+                                while ($opponent = mysqli_fetch_assoc($opponentList)) {
+                                    $opponentName = $opponent["opponent"];
+?>
+                                    <option value="<?= $opponentName ?>"><?= $opponentName ?></option>
+<?php
+                                }
+                                mysqli_free_result($opponentList);
+?>
+                                </datalist>
                             </p>
                             <p>
                                 <label for="d">Score Game 1:</label>
-                                <input class="dbscore" type="text" name="sg1" maxlength="5" value="">
+                                <input class="dbscore" id="d" type="text" name="sg1" maxlength="5" value="">
                             </p>
                             <p>
                                 <label for="e">Score Game 2:</label>
-                                <input class="dbscore" type="text" name="sg2" maxlength="5" value="">
+                                <input class="dbscore" id="e" type="text" name="sg2" maxlength="5" value="">
                             </p>
                             <p>
                                 <label for="f">Score Game 3:</label>
-                                <input class="dbscore" type="text" name="sg3" maxlength="5" value="">
+                                <input class="dbscore" id="f" type="text" name="sg3" maxlength="5" value="">
                             </p>
                             <p>
                                 <label for="g">Score Game 4:</label>
-                                <input class="dbscore" type="text" name="sg4" maxlength="5" value="">
+                                <input class="dbscore" id="g" type="text" name="sg4" maxlength="5" value="">
                             </p>
                             <p>
                                 <label for="h">Score Game 5:</label>
-                                <input class="dbscore" type="text" name="sgh" maxlength="5" value="">
+                                <input class="dbscore" id="h" type="text" name="sgh" maxlength="5" value="">
                             </p>
                             <br>
                             <input type="hidden" name="studentName" value="<?= $student ?>">
