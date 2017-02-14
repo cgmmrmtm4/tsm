@@ -38,12 +38,30 @@
  * MHM: 2017-02-13
  * Comment:
  *  Add functions to get opponents and locations from databases.
+ *
+ * MHM: 2017-02-13
+ * Comment:
+ *  Get a single class entry to edit.
  */
 
 if (count(get_included_files()) == 1) {
     exit("direct access not allowed.");
 }
 
+/*
+ * MHM: 2017-02-13
+ * Comment:
+ *  Return a single class entry.
+ *  Input: none
+ *  Output: A single class row.
+ */
+function get_class_by_id($connection, $classId) {
+    $query  = "SELECT * FROM academics ";
+    $query .= "WHERE academics.id=\"$classId\"";
+    $result = mysqli_query($connection, $query);
+    confirm_query($result);
+    return $result;
+}
 /*
  * MHM: 2017-02-13
  * Comment:
