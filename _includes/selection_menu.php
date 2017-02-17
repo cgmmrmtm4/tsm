@@ -51,6 +51,10 @@
  * Comment:
  *  Removed variables pictures, videos and stats and now just use pIndex to
  *  reference the different panels.
+ *
+ * MHM: 2017-02-16
+ * Comment:
+ *  Modified URLs in cancel links to take optional parameters
  */
 if (count(get_included_files()) == 1) {
     exit("direct access not allowed.");
@@ -128,7 +132,7 @@ if ($selection != TRAVEL) {
                     <input type="hidden" name="year" value="<?= $year ?>">
                     <input type="hidden" name="pIndex" value="<?= $pIndex ?>">
                     <input type="hidden" name="selection" value="<?= $selection ?>">
-                    <input type="hidden" name="retPage" value="<?= $_SERVER['PHP_SELF']; ?>">
+                    <input type="hidden" name="retPage" value="<?= $_SERVER['PHP_SELF'] ?>?studentName=<?= $student ?>&season=<?= $season ?>&year=<?= $year ?>">
                     <input type="submit" name="add" value="Add Class">
                 </form>
 <?php
@@ -141,7 +145,7 @@ if ($selection != TRAVEL) {
                 <input type="hidden" name="year" value="<?= $year ?>">
                 <input type="hidden" name="pIndex" value="<?= $pIndex ?>">
                 <input type="hidden" name="selection" value="<?= $selection ?>">
-                <input type="hidden" name="retPage" value="<?= $_SERVER['PHP_SELF']; ?>">
+                <input type="hidden" name="retPage" value="<?= $_SERVER['PHP_SELF'] ?>?studentName=<?= $student ?>&season=<?= $season ?>&year=<?= $year ?>">
                 <input type="submit" name="add" value="Add Game">
             </form>
 <?php
@@ -208,7 +212,7 @@ if ($selection != ACADEMIC) {
         <input type="hidden" name="year" value="<?= $year ?>">
         <input type="hidden" name="pIndex" value="<?= $pIndex ?>">
         <input type="hidden" name="selection" value="<?= $selection ?>">
-        <input type="hidden" name="retPage" value="<?= $_SERVER['PHP_SELF']; ?>">
+        <input type="hidden" name="retPage" value="<?= $_SERVER['PHP_SELF'] ?>?studentName=<?= $student ?>&season=<?= $season ?>&year=<?= $year ?>">
         <input type="submit" name="add" value="Add Picture">
     </form>
 <?php
@@ -273,7 +277,7 @@ if ($selection != ACADEMIC) {
             <input type="hidden" name="year" value="<?= $year ?>">
             <input type="hidden" name="pIndex" value="<?= $pIndex ?>">
             <input type="hidden" name="selection" value="<?= $selection ?>">
-            <input type="hidden" name="retPage" value="<?= $_SERVER['PHP_SELF']; ?>">
+            <input type="hidden" name="retPage" value="<?= $_SERVER['PHP_SELF'] ?>?studentName=<?= $student ?>&season=<?= $season ?>&year=<?= $year ?>">
             <input type="submit" name="add" value="Add Video">
         </form>
 <?php
@@ -330,7 +334,7 @@ if ($selection != ACADEMIC) {
         <input type="hidden" name="year" value="<?= $year ?>">
         <input type="hidden" name="pIndex" value="<?= $pIndex ?>">
         <input type="hidden" name="selection" value="<?= $selection ?>">
-        <input type="hidden" name="retPage" value="<?= $_SERVER['PHP_SELF']; ?>">
+        <input type="hidden" name="retPage" value="<?= $_SERVER['PHP_SELF'] ?>?studentName=<?= $student ?>&season=<?= $season ?>&year=<?= $year ?>">
         <input type="submit" name="add" value="Add Stats">
     </form>
 <?php

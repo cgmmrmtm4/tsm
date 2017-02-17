@@ -19,6 +19,10 @@
  * MHM: 2017-02-13
  * Comment:
  *  Added NOSCHED and SCHED constants. Additional pIndex references.
+ *
+ * MHM: 2017-02-16
+ * Comment:
+ *  Added HONORS, AP and NORMAL to determine GP weight.
  */
 
 if (count(get_included_files()) == 1) {
@@ -77,4 +81,8 @@ define ("VIDS", "videos");
 define ("NOSTATS", "nostats");
 define ("STATS", "stats");
 
+// weights
+define ("NOWEIGHT", "Normal");
+define ("HONORS", "Honors");
+define ("AP", "AP");
 ?>

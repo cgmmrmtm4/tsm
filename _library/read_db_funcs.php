@@ -42,10 +42,84 @@
  * MHM: 2017-02-13
  * Comment:
  *  Get a single class entry to edit.
+ *
+ * MHM: 2017-02-16
+ * Comment:
+ *  More utility get requests to retrieve specific information.
+ *  Added get_studentId, getseasonId, covert_grade_to_gp and covert_grade_to_wgp.
  */
 
 if (count(get_included_files()) == 1) {
     exit("direct access not allowed.");
+}
+
+/* MHM: 2017-02-14
+ * Comment:
+ *  Return a student ID given a name.
+ *  Input: student name.
+ *  Output: student ID.
+ */
+function get_studentId($connection, $student) {
+    $query  = "SELECT students.id FROM students ";
+    $query .= "WHERE students.studentName=\"$student\";";
+    $result = mysqli_query($connection, $query);
+    confirm_query($result);
+    $row = mysqli_fetch_assoc($result);
+    $studentId = $row['id'];
+    mysqli_free_result($result);
+    return $studentId;
+}
+
+/* MHM: 2017-02-14
+ * Comment:
+ *  Return a season ID given a season and year
+ *  Input: season and year.
+ *  Output: season ID.
+ */
+function get_seasonId($connection, $season, $year) {
+    $query  = "SELECT hsseasons.id FROM hsseasons ";
+    $query .= "WHERE hsseasons.season=\"$season\" ";
+    $query .= "AND hsseasons.year=\"$year\";";
+    $result = mysqli_query($connection, $query);
+    confirm_query($result);
+    $row = mysqli_fetch_assoc($result);
+    $studentId = $row['id'];
+    mysqli_free_result($result);
+    return $studentId;
+}
+
+/* MHM: 2017-02-14
+ * Comment:
+ *  Return a gp value for a given grade.
+ *  Input: grade
+ *  Output: grade point value.
+ */
+function convert_grade_to_gp($connection, $grade) {
+    $query  = "SELECT grades.GP FROM grades ";
+    $query .= "WHERE grades.grade=\"$grade\";";
+    $result = mysqli_query($connection, $query);
+    confirm_query($result);
+    $row = mysqli_fetch_assoc($result);
+    $gp = $row['GP'];
+    mysqli_free_result($result);
+    return $gp;
+}
+
+/* MHM: 2017-02-14
+ * Comment:
+ *  Return a wgp value for a given grade.
+ *  Input: grade
+ *  Output: weighted grade point value.
+ */
+function convert_grade_to_wgp($connection, $grade) {
+    $query  = "SELECT grades.WGP FROM grades ";
+    $query .= "WHERE grades.grade=\"$grade\";";
+    $result = mysqli_query($connection, $query);
+    confirm_query($result);
+    $row = mysqli_fetch_assoc($result);
+    $wgp = $row['WGP'];
+    mysqli_free_result($result);
+    return $wgp;
 }
 
 /*
@@ -57,7 +131,7 @@ if (count(get_included_files()) == 1) {
  */
 function get_class_by_id($connection, $classId) {
     $query  = "SELECT * FROM academics ";
-    $query .= "WHERE academics.id=\"$classId\"";
+    $query .= "WHERE academics.id=\"$classId\";";
     $result = mysqli_query($connection, $query);
     confirm_query($result);
     return $result;

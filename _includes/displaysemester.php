@@ -23,6 +23,10 @@
  * MHM: 2017-02-13
  * Comment:
  *  If rank doesn't exist, don't print the line.
+ *
+ * MHM: 2017-02-16
+ * Comment:
+ *  Modify cancel URL to include parameters.
  */
 if (count(get_included_files()) == 1) {
     exit("direct access not allowed.");
@@ -71,7 +75,7 @@ $result = get_semester_academics($connection, $season, $year, $student);
                                 <input type="hidden" name="season" value="<?= $season ?>">
                                 <input type="hidden" name="year" value="<?= $year ?>">
                                 <input type="hidden" name="selection" value="<?= $selection ?>">
-                                <input type="hidden" name="retPage" value="<?= $_SERVER['PHP_SELF'] ?>">
+                                <input type="hidden" name="retPage" value="<?= $_SERVER['PHP_SELF'] ?>?studentName=<?= $student ?>&season=<?= $season ?>&year=<?= $year ?>">
                                 <input type="submit" name="edit" value="EDIT">
                             </div>
                         </form>

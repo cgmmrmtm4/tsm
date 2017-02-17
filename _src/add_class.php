@@ -31,6 +31,10 @@
  * MHM: 2017-02-13
  * Comment:
  *  Free the correct SQL result.
+ *
+ * MHM: 2017-02-16
+ * Comment:
+ *  Full support for Add class.
  */
 require("../_includes/req_includes.php");
 
@@ -40,36 +44,83 @@ $pagelogo = "$imagepath" . PHOTOMISC . "/spft.jpg";
 
 $connection = open_db();
 if (isset($_POST['submit'])) {
+    /*
+     * validate data
+     */
+    $required_fields = array("teacherName", "className");
+    validate_presences($required_fields);
+    
+    $fields_with_max_lengths = array("teacherName" => 40, "className" => 40);
+    validate_max_lengths($fields_with_max_lengths);
+    
     $student = $_POST['studentName'];
     $season = $_POST['season'];
     $year = $_POST['year'];
     $selection = $_POST['selection'];
-    /*
-     * validate data
-     */
+    $teacherName = mysql_prep($_POST['teacherName']);
+    $className = mysql_prep($_POST['className']);
+    $period = $_POST['period'];
+    $grade = $_POST['grade'];
+    $weighted = $_POST['weighted'];
+    $honors = 0;
+    $ap = 0;
+    $returnPage = $_POST['retPage'];
     
     if (empty($errors)) {
+        /*
+         * MHM: 17-02-14
+         * Comment:
+         *  Marshal parameters for INSERT
+         */
+        
+        $studentId = get_studentId($connection, $student);
+        $seasonId = get_seasonId($connection, $season, $year);
+        if ($weighted == HONORS) {
+            $honors = 1;
+        } else {
+            if ($weighted == AP) {
+                $ap = 1;
+            }
+        }
+        
+        $gp = convert_grade_to_gp($connection, $grade);
+        if (($honors == 1) || ($ap == 1)) {
+            $wgp = convert_grade_to_wgp($connection, $grade);
+        } else {
+            $wgp = $gp;
+        }
+        
         /*
          * MHM: 17-02-12
          * Comment:
          *  Perform create.
          */
-        $result = false;
+        $result = insert_class_into_db($connection, $seasonId, $studentId, $period, $honors, $ap, $className, $teacherName, $grade, $gp, $wgp);
+        
         if ($result) {
             $_SESSION["message"] = "Class successfully added to database.";
             close_db($connection);
             redirect_to("academics.php?studentName=$student&season=$season&year=$year");
         } else {
             $_SESSION["message"] = "Failed to add class to database.";
+            $errors["insert"] = mysqli_error($connection);
         }
     }
 }
 
 if ((isset($_POST['add'])) || (isset($_POST['submit']))) {
-    $student = $_POST['studentName'];
-    $season = $_POST['season'];
-    $year = $_POST['year'];
-    $selection = $_POST['selection'];
+    if (isset($_POST['add'])) {
+        $student = $_POST['studentName'];
+        $season = $_POST['season'];
+        $year = $_POST['year'];
+        $selection = $_POST['selection'];
+        $returnPage = $_POST['retPage'];
+        $teacherName = "";
+        $className = "";
+        $period = "";
+        $grade = "";
+        $weighted = "";
+    }
     
     /*
      * Display the form
@@ -101,57 +152,79 @@ if ((isset($_POST['add'])) || (isset($_POST['submit']))) {
                             <p> 
                                 <label for="a">Season:</label>
                                 <select id="a" name="season">
-                                    <option value="SUMMER">SUMMER</option>
-                                    <option value="FALL">FALL</option>
-                                    <option value="SPRING">SPRING</option>
+<?php
+                                echo get_seasons($season, isset($_POST['submit']));
+?>
                                 </select>
                             </p>
                             <p> 
                                 <label for="b">Year:</label>
                                 <select id="b" name="year">
-                                    <option value=2014>2014</option>
-                                    <option value=2015>2015</option>
-                                    <option value=2016>2016</option>
-                                    <option value=2017>2017</option>
-                                    <option value=2018>2018</option>
+<?php
+                                echo get_years($student, $year, isset($_POST['submit']));
+?>
                                 </select>
                             </p>
                             <p> 
                                 <label for="c">Period:</label>
                                 <select id="c" name="period">
 <?php
-                                for ($count=0; $count <= 7; $count++) {
-                                    echo "<option value=\"{$count}\">{$count}</option>";
-                                }
+                                echo get_periods($period, isset($_POST['submit']))
 ?>
                                 </select>
                             </p>
-                            <p> 
+                            <p>
+<?php
+                            if (isset($errors['className'])) {
+?>
+                                <label class="fielderror" for="d">Class Name:</label>
+<?php                       
+                            } else {
+?>       
                                 <label for="d">Class Name:</label>
-                                <input class="dbtext" maxlength="30" id="d" type="text" list="studentClasses" name="className" value="">
+<?php
+                            }
+?>
+                                <input class="dbtext" maxlength="30" id="d" type="text" list="studentClasses" name="className" value="<?= htmlentities($className) ?>">
                                 <datalist id="studentClasses">
 <?php
                                 $studentClassList = get_classes_by_student($connection, $student);
                                 while ($studentClass = mysqli_fetch_assoc($studentClassList)) {
                                     $studentClassName = $studentClass["className"];
 ?>
-                                    <option value="<?= $studentClassName ?>"><?= $studentClassName ?></option>
+                                    <option value="<?= $studentClassName ?>"><?= htmlentities($studentClassName) ?></option>
 <?php
                                 }
-                                mysqli_free_result($studentList);
+                                mysqli_free_result($studentClassList);
 ?>
                                 </datalist>
                             </p>
-                            <p> 
+                            <p>
+                                <label>Class Weight:</label>
+<?php
+                                echo get_weighted($weighted, isset($_POST['submit']))
+?>
+                            </p>
+                            <p>
+<?php
+                            if (isset($errors['teacherName'])) {
+?>
+                                <label class="fielderror" for="e">Teacher Name:</label>
+<?php                       
+                            } else {
+?>
                                 <label for="e">Teacher Name:</label>
-                                <input class="dbtext" maxlength="30" id="e" type="text" list="Teachers" name="teacherName" value="">
+<?php
+                            }
+?>
+                                <input class="dbtext" maxlength="30" id="e" type="text" list="Teachers" name="teacherName" value="<?= htmlentities($teacherName) ?>">
                                 <datalist id="Teachers">
 <?php
                                 $teacherList = get_teachers_by_student($connection, $student);
                                 while ($teacher = mysqli_fetch_assoc($teacherList)) {
                                     $teacherName = $teacher["teacherName"];
 ?>
-                                    <option value="<?= $teacherName ?>"><?= $teacherName ?></option>
+                                    <option value="<?= $teacherName ?>"><?= htmlentities($teacherName) ?></option>
 <?php
                                 }
                                 mysqli_free_result($teacherList);
@@ -161,22 +234,16 @@ if ((isset($_POST['add'])) || (isset($_POST['submit']))) {
                             <p> 
                                 <label for="f">Grade:</label>
                                 <select id="f" name="grade">
-                                    <option value="A+">A+</option>
-                                    <option value="A">A</option>
-                                    <option value="A-">A-</option>
-                                    <option value="B+">B+</option>
-                                    <option value="B">B</option>
-                                    <option value="B-">B-</option>
-                                    <option value="C+">C+</option>
-                                    <option value="C">C</option>
-                                    <option value="C-">C-</option>
-                                    <option value="D">D</option>
-                                    <option value="F">F</option>
+<?php
+                                echo get_grade_letters($grade, isset($_POST['submit']))
+?>
                                 </select>
                             </p>
                             <br>
+                            <input type="hidden" name="selection" value="<?= $selection ?>">
+                            <input type="hidden" name="retPage" value="<?= $returnPage ?>">
                             <input type="submit" name="submit" value="Add Class">
-                            <a href="academics.php?studentName=<?php echo $student; ?>&season=<?php echo $season; ?>&year=<?php echo $year; ?>">Cancel</a>
+                            <a href="<?= $returnPage ?>">Cancel</a>
                         </form>
                     </div>
                 </section>
