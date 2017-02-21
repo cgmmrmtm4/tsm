@@ -4,6 +4,10 @@
  * Comment:
  *  Add new functions to validate a match score against the games submitted and whether or not
  *  the game values look to be correct.
+ *
+ * MHM: 2017-02-21
+ * Comment:
+ *  Additonal error checking and better error location identification.
  */
 
 if (count(get_included_files()) == 1) {
@@ -57,8 +61,8 @@ function validate_match_score($matchScores=array()) {
     global $errors;
     
     $totGames = $matchScores['matchmb'] + $matchScores['matchopp'];
-    if ($totGames == 6) {
-        $errors['matchScore'] = "Match Score can not equal 6 games ";
+    if (($totGames >5) || ($totGames < 1)) {
+        $errors['matchScore'] = "Match Score total must be between 0 and 6 games ";
     } else {
         $gamesMBArray = array("mbs1", "mbs2", "mbs3", "mbs4", "mbs5");
         $gamesOppArray = array("opps1", "opps2", "opps3", "opps4", "opps5");
@@ -71,8 +75,7 @@ function validate_match_score($matchScores=array()) {
         }
         for ($count = $totGames; $count < 5; $count++) {
             if (($matchScores[$gamesMBArray[$count]] !=0) || ($matchScores[$gamesOppArray[$count]] != 0)) {
-                $errors['matchScore'] = "The total games is greater than the match score.";
-                break;
+                $errors[$gamesMBArray[$count]] = "The total games is greater than the match score.";
             }
         }
     }
@@ -87,13 +90,12 @@ function validate_game_scores($matchScores=array()) {
     
     $totGames = $matchScores['matchmb'] + $matchScores['matchopp'];
     for ($count = 0; $count < $totGames; $count++) {
-        $mbIdx = $gamesMBArray[$count];
         $mbScore = $matchScores[$gamesMBArray[$count]];
         $oppScore = $matchScores[$gamesOppArray[$count]];
         if ((abs($mbScore - $oppScore)) < 2) {
             $gameNumber = $count+1;
-            $errors['gameScore'] = "Must win game {$gameNumber} by at least two points.";
-            break;
+            $errors[$gamesMBArray[$count]
+            ] = "Must win game {$gameNumber} by at least two points.";
         }
     }
 }

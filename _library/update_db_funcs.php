@@ -13,6 +13,10 @@
  * MHM: 2017-02-16
  * Comment:
  *  update class entry in the database.
+ *
+ * MHM: 2017-02-20
+ * Comment:
+ *  update game is records database.
  */
 
 if (count(get_included_files()) == 1) {
@@ -21,7 +25,7 @@ if (count(get_included_files()) == 1) {
 
 /* MHM: 2017-02-16
  * Comment:
- *  Add record to academic database.
+ *  Update record in academic database.
  *  Input: connection to database, season ID, student ID, 
  *  class period, is class Honors, is class AP, class name,
  *  teacher name, grade, grade point value, and 
@@ -41,6 +45,30 @@ function update_class_into_db($connection, $classId, $seasonId, $studentId, $per
     $query .= "GP = {$gp}, ";
     $query .= "WGP = {$wgp} ";
     $query .= "WHERE id = {$classId}";
-    return($result = mysqli_query($connection, $query));
+    $result = mysqli_query($connection, $query);
+    return($result);
+}
+
+/*
+ * MHM: 2017-02-21
+ * Comment:
+ *  Update record in records database.
+ *  Input: connection to database, schedule Id, sports Id, date, location, league game,
+ *  opponent, score and result.
+ *  Output: result of database query.
+ */
+function update_game_into_records($connection, $schedId, $sportId, $dbDate, $locationName, $dbLeague, $opponentName, $dbScore, $dbResult) {
+    $query  = "UPDATE records SET ";
+    $query .= "sportId = '{$sportId}', ";
+    $query .= "date = '{$dbDate}', ";
+    $query .= "location = '{$locationName}', ";
+    $query .= "league = '{$dbLeague}', ";
+    $query .= "opponent = '{$opponentName}', ";
+    $query .= "score = '{$dbScore}', ";
+    $query .= "result = '{$dbResult}' ";
+    $query .= "WHERE id = {$schedId}";
+    print_r($query);
+    $result = mysqli_query($connection, $query);
+    return($result);
 }
 ?>

@@ -16,6 +16,10 @@
  * MHM: 2017-02-16
  * Comment:
  *  Full support for edit class.
+ *
+ * MHM: 2017-02-21
+ * Comment:
+ *  Fixed incorrect comment.
  */
 require("../_includes/req_includes.php");
 $siteroot = HOMEROOT;
@@ -74,7 +78,7 @@ if (isset($_POST['submit'])) {
         /*
          * MHM: 17-02-12
          * Comment:
-         *  Perform create.
+         *  Perform modify.
          */
         /*$errors["seasonId"] = $seasonId;
         $errors["studentId"] = $studentId;

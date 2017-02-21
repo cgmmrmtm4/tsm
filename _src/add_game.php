@@ -32,6 +32,11 @@
  * MHM: 2017-02-20
  * Comment:
  *  Add full support for add game to the records database.
+ *
+ * MHM: 2017-02-21
+ * Comment:
+ *  Support error handling and additional validation. Get todays day, month and year for the
+ *  default add game values. Cleanup up some headers.
  */
 require("../_includes/req_includes.php");
     
@@ -40,7 +45,6 @@ $imagepath = IMGROOT;
 $pagelogo = "$imagepath" . PHOTOMISC . "/spft.jpg";
 $matchScores = array();
 
-$_SESSION["message"] = "Not Implemented yet!";
 $connection = open_db();
 if (isset($_POST['submit'])) {
     /*
@@ -164,12 +168,12 @@ if ((isset($_POST['submit'])) || (isset($_POST['add']))) {
     /*
      * Display the form
      */
-    ?>
+?>
     <!DOCTYPE HTML>
     <html lang="en">
         <head>
         <meta charset="utf-8">
-        <title>Add a Class</title>
+        <title>Add a Game</title>
         <link href="../_css/styles.css" rel="stylesheet" type="text/css">
         </head>
         <body id="page_volleyball">
@@ -191,7 +195,7 @@ if ((isset($_POST['submit'])) || (isset($_POST['add']))) {
                                 <label>Year:</label>
                                 <select name="year">
 <?php
-                                echo get_years($student, $year, isset($_POST['submit']));
+                                echo get_years($student, $year, true);
 ?>
                                 </select>
                             </p>
@@ -200,7 +204,7 @@ if ((isset($_POST['submit'])) || (isset($_POST['add']))) {
                             if (isset($_POST['submit'])) {
                                 $dvalue = $_POST['month'];
                             } else {
-                                $dvalue = 2;
+                                $dvalue = date('m');
                             }
 ?>
                                 <label>Month:</label>
@@ -211,14 +215,24 @@ if ((isset($_POST['submit'])) || (isset($_POST['add']))) {
                             if (isset($_POST['submit'])) {
                                 $dvalue = $_POST['day'];
                             } else {
-                                $dvalue = 1;
+                                $dvalue = date('d');
                             }
 ?>
                                 <label>Day:</label>
                                 <input class="dbscore" type="number" name="day" min="1" max="31"   value="<?= $dvalue ?>">
                             </p>
                             <p>
+<?php
+                            if (isset($errors['location'])) {
+?>
+                                <label class="fielderror">Location:</label>
+<?php
+                            } else {
+?>
                                 <label>Location:</label>
+<?php
+                            }
+?>
                                 <input class="dbtext" type="text" name="location" list="locationList" maxlength="40" value="<?= $locationName ?>">
                                 <datalist id="locationList">
 <?php
@@ -234,7 +248,17 @@ if ((isset($_POST['submit'])) || (isset($_POST['add']))) {
                                 </datalist>
                             </p>
                             <p>
+<?php
+                            if (isset($errors['opponent'])) {
+?>
+                                <label class="fielderror">Opponent:</label>
+<?php
+                            } else {
+?>
                                 <label>Opponent:</label>
+<?php
+                            }
+?>
                                 <input class="dbtext" type="text" name="opponent" list="opponentList" maxlength="40" value="<?= $opponentName ?>">
                                 <datalist id="opponentList">
 <?php

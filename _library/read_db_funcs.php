@@ -51,10 +51,29 @@
  * MHM: 2017-20-20
  * Comment:
  *  Retrieve a sportId given a seasonId.
+ *
+ * MHM: 2017-02-21
+ * Comment:
+ *  Retieve a game record given a schedule Id
  */
 
 if (count(get_included_files()) == 1) {
     exit("direct access not allowed.");
+}
+
+/*
+ * MHM: 2017-02-21
+ * Comment:
+ *  Return a game record given the schedule Id.
+ *  Input: Connection to database and a schedule ID
+ *  Output: The result of the query.
+ */
+function get_game_by_id($connection, $schedId) {
+    $query  = "SELECT * FROM records ";
+    $query .= "WHERE records.id=\"$schedId\";";
+    $result = mysqli_query($connection, $query);
+    confirm_query($result);
+    return $result;
 }
 
 /*

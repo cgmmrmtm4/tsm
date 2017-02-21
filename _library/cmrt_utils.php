@@ -13,6 +13,11 @@
  * Comment:
  *  Add more support for add game and edit game. Support match and game scores on the add
  *  and edit forms.
+ *
+ * MHM: 2017-02-21
+ * Comment:
+ *  Added error support for match and game scores. Also cleaned up the loops to use
+ *  an array of constants instead of trying to build strings on the fly.
  */
 
 if (count(get_included_files()) == 1) {
@@ -159,44 +164,53 @@ function check_if_league_team($opponent) {
  *  Output: HMTL for the form.
  */
 function get_score_fields($isSubmit, $matchScores=array()) {
+    global $errors;
+    
+    $gamesMBArray = array("mbs1", "mbs2", "mbs3", "mbs4", "mbs5");
+    $gamesOppArray = array("opps1", "opps2", "opps3", "opps4", "opps5");
+    
     $output = "";
     $output .= "<h2> Match Score </h2>\n";
     $output .= "<p>\n";
     $output .= "<label>Match Final</label>\n";
-    $output .= "<label class=\"dbnum\">MB:</label>\n";
+    if (isset($errors['matchScore'])) {
+        $output .= "<label class=\"dbnum fielderror\">MB:</label>\n";
+    } else {
+        $output .= "<label class=\"dbnum\">MB:</label>\n";
+    }
     $output .= "<input class=\"dbnum\" type=\"number\" min=\"0\" max=\"3\" name=\"matchmb\" value=\"{$matchScores['matchmb']}\">\n";
-    $output .= "<label class=\"dbnum\">Opp.:</label>\n";
+    if (isset($errors['matchScore'])) {
+        $output .= "<label class=\"dbnum fielderror\">Opp.:</label>\n";
+    } else {
+        $output .= "<label class=\"dbnum\">Opp.:</label>\n";
+    }
     $output .= "<input class=\"dbnum\" type=\"number\" min=\"0\" max=\"3\" name=\"matchopp\" value=\"{$matchScores['matchopp']}\">\n";
     $output .= "</p>\n";
     $output .= "<h2> Game Scores </h2>\n";
-    for ($count=1; $count < 6; $count++) {
+    for ($count=0; $count < 5; $count++) {
         $output .= "<p>\n";
         $output .= "<label>Game ";
         $output .= $count;
         $output .= ":</label>\n";
-        $output .= "<label class=\"dbnum\">MB:</label>\n";
-        $output .= "<input class=\"dbnum\" type=\"number\" min=\"0\" name=\"mbs";
-        $output .= $count;
-        if ($isSubmit == true) {
-            $foo = "mbs";
-            $foo .= $count;
-            $dv = $matchScores[$foo];
-            $output .= "\" value=\"";
-            $output .= $dv;
-            $output .= "\">\n";
+        if (isset($errors[$gamesMBArray[$count]])) {
+            $output .= "<label class=\"dbnum fielderror\">MB:</label>\n";
         } else {
-            $output .= "\" value=\"0\">\n";
+            $output .= "<label class=\"dbnum\">MB:</label>\n";
         }
-        $output .= "<label class=\"dbnum\">Opp.:</label>\n";
-        $output .= "<input class=\"dbnum\" type=\"number\" min=\"0\" name=\"opps";
-        $output .= $count;
+        $output .= "<input class=\"dbnum\" type=\"number\" min=\"0\" name=\"{$gamesMBArray[$count]}\" ";
         if ($isSubmit == true) {
-            $foo = "opps";
-            $foo .= $count;
-            $dv = $matchScores[$foo];
-            $output .= "\" value=\"";
-            $output .= $dv;
-            $output .= "\">\n";
+            $output .= "value=\"{$matchScores[$gamesMBArray[$count]]}\">\n";
+        } else {
+            $output .= "value=\"0\">\n";
+        }
+        if (isset($errors[$gamesMBArray[$count]])) {
+            $output .= "<label class=\"dbnum fielderror\">Opp.:</label>\n";
+        } else {
+            $output .= "<label class=\"dbnum\">Opp.:</label>\n";
+        }
+        $output .= "<input class=\"dbnum\" type=\"number\" min=\"0\" name=\"{$gamesOppArray[$count]}\" ";
+        if ($isSubmit == true) {
+            $output .= "value=\"{$matchScores[$gamesOppArray[$count]]}\">\n";
         } else {
             $output .= "\" value=\"0\">\n";
         }

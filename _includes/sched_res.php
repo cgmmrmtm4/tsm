@@ -22,6 +22,10 @@
  * Comment:
  *  Build POST calls for edit and delete game. Updated the POST parameters to
  *  sync up with the changes to the add operations.
+ *
+ * MHM: 2017-02-21
+ * Comment:
+ *  Support for edit a game record.
  */
 if (count(get_included_files()) == 1) {
     exit("direct access not allowed.");
@@ -135,7 +139,8 @@ $yearLeagueTies=$record['Ties'];
                                 <input type="hidden" name="season" value="<?= $season ?>">
                                 <input type="hidden" name="year" value="<?= $year ?>">
                                 <input type="hidden" name="selection" value="<?= $selection ?>">
-                                <input type="hidden" name="retPage" value="<?= $_SERVER['PHP_SELF'] ?>">
+                                <input type="hidden" name="pIndex" value="<?= $pIndex ?>">
+                                <input type="hidden" name="retPage" value="<?= $_SERVER['PHP_SELF'] ?>?studentName=<?= $student ?>&season=<?= $season ?>&year=<?= $year ?>&pIndex=<?= $pIndex ?>">
                                 <input type="submit" name="edit" value="EDIT">
                             </div>
                         </form>
@@ -147,6 +152,7 @@ $yearLeagueTies=$record['Ties'];
                                 <input type="hidden" name="season" value="<?= $season ?>">
                                 <input type="hidden" name="year" value="<?= $year ?>">
                                 <input type="hidden" name="selection" value="<?= $selection ?>">
+                                <input type="hidden" name="pIndex" value="<?= $pIndex ?>">
                                 <input type="hidden" name="retPage" value="<?= $_SERVER['PHP_SELF'] ?>">
                                 <input type="submit" name="delete" value="DELETE">
                             </div>
