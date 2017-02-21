@@ -47,16 +47,37 @@
  * Comment:
  *  More utility get requests to retrieve specific information.
  *  Added get_studentId, getseasonId, covert_grade_to_gp and covert_grade_to_wgp.
+ *
+ * MHM: 2017-20-20
+ * Comment:
+ *  Retrieve a sportId given a seasonId.
  */
 
 if (count(get_included_files()) == 1) {
     exit("direct access not allowed.");
 }
 
+/*
+ * MHM: 2017-02-20
+ * Comment:
+ *  Get the sportId given the seasonId.
+ *  Input: connection to database and season Id.
+ *  Output: a sports Id.
+ */
+function get_sportId($connection, $seasonId) {
+    $query = "SELECT sports.id FROM sports ";
+    $query .= "WHERE sports.seasonId =\"$seasonId\";";
+    $result = mysqli_query($connection, $query);
+    confirm_query($result);
+    $row = mysqli_fetch_assoc($result);
+    $sportId = $row['id'];
+    return $sportId;
+}
+
 /* MHM: 2017-02-14
  * Comment:
  *  Return a student ID given a name.
- *  Input: student name.
+ *  Input: connection to database and student name.
  *  Output: student ID.
  */
 function get_studentId($connection, $student) {

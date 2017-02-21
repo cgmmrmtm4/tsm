@@ -28,25 +28,57 @@
  * Comment:
  *  Assign ids to the input tags in the forms that match their label. Retrieve opponents and
  *  locatons from the record database to help autofill the form.
+ *
+ * MHM: 2017-02-20
+ * Comment:
+ *  Add full support for add game to the records database.
  */
 require("../_includes/req_includes.php");
     
 $siteroot = HOMEROOT;
 $imagepath = IMGROOT;
 $pagelogo = "$imagepath" . PHOTOMISC . "/spft.jpg";
+$matchScores = array();
 
 $_SESSION["message"] = "Not Implemented yet!";
 $connection = open_db();
 if (isset($_POST['submit'])) {
+    /*
+     * validate data
+     */
+    
+    $required_fields = array("location", "opponent");
+    validate_presences($required_fields);
+    
+    $fields_with_max_lengths = array("location" => 40, "opponent" => 40);
+    validate_max_lengths($fields_with_max_lengths);
+    
+    $matchScores['matchmb'] = $_POST['matchmb'];
+    $matchScores['matchopp'] = $_POST['matchopp'];
+    $matchScores['mbs1'] = $_POST['mbs1'];
+    $matchScores['mbs2'] = $_POST['mbs2'];
+    $matchScores['mbs3'] = $_POST['mbs3'];
+    $matchScores['mbs4'] = $_POST['mbs4'];
+    $matchScores['mbs5'] = $_POST['mbs5']; 
+    $matchScores['opps1'] = $_POST['opps1'];
+    $matchScores['opps2'] = $_POST['opps2'];
+    $matchScores['opps3'] = $_POST['opps3'];
+    $matchScores['opps4'] = $_POST['opps4'];
+    $matchScores['opps5'] = $_POST['opps5'];
+    
+    validate_match_score($matchScores);
+    validate_game_scores($matchScores);
+    
     $student = $_POST['studentName'];
     $season = $_POST['season'];
     $year = $_POST['year'];
     $pIndex = $_POST['pIndex'];
     $selection = $_POST['selection'];
+    $locationName = $_POST['location'];
+    $opponentName = $_POST['opponent'];
+    $month = $_POST['month'];
+    $day = $_POST['day'];
     $returnPage = $_POST['retPage'];
-    /*
-     * validate data
-     */
     
     if (empty($errors)) {
         /*
@@ -54,18 +86,81 @@ if (isset($_POST['submit'])) {
          * Comment:
          *  Perform create.
          */
-        $_SESSION["message"] = "Not Implemented yet!";
-        close_db($connection);
-        redirect_to("$returnPage?studentName=$student&season=$season&pIndex=$pIndex&year=$year");
+        
+        $dbDate = $year . "-" . $month . "-" . $day;
+        $dbScore = "";
+        $maxGames = $matchScores['matchmb'] + $matchScores['matchopp'];
+        for ($count=1; $count <= $maxGames; $count++) {
+            $foo = "mbs";
+            $foo .= $count;
+            $mbScore = $matchScores[$foo];
+            $foo = "opps";
+            $foo .= $count;
+            $oppScore = $matchScores[$foo];
+            $dbScore .= $mbScore . " - " . $oppScore;
+            if ($count < $maxGames) {
+                $dbScore .= ", ";
+            } else {
+                $dbScore .= " ";
+            }
+        }
+        $dbScore .= " (";
+        $dbScore .= $matchScores['matchmb'] . " - " . $matchScores['matchopp'];
+        $dbScore .= ")";
+        if ($matchScores['matchmb'] > $matchScores['matchopp']) {
+            $dbResult = "W";
+        } else {
+            if ($matchScores['matchmb'] < $matchScores['matchopp']) {
+                $dbResult = "L";
+            } else {
+                $dbResult = "T";
+            }
+        }
+        
+        if (check_if_league_team($opponentName)) {
+            $dbLeague = "*";
+        } else {
+            $dbLeague = "";
+        }
+        $seasonId = get_seasonId($connection, $season, $year);
+        $sportId = get_sportId($connection, $seasonId);
+        $result = insert_game_into_records($connection, $sportId, $dbDate, $locationName, $dbLeague, $opponentName, $dbScore, $dbResult);
+        
+        if ($result) {
+            $_SESSION["message"] = "Game successfully added to database.";
+            close_db($connection);
+            redirect_to("volleyball.php?studentName=$student&season=$season&pIndex=$pIndex&year=$year");
+        } else {
+            $_SESSION["message"] = "Failed to add game to database!";
+            $errors["insert"] = mysqli_error($connection);
+        }
     }
 }
 if ((isset($_POST['submit'])) || (isset($_POST['add']))) {
-    $student = $_POST['studentName'];
-    $season = $_POST['season'];
-    $year = $_POST['year'];
-    $pIndex = $_POST['pIndex'];
-    $selection = $_POST['selection'];
-    $returnPage = $_POST['retPage'];
+    if (isset($_POST['add'])) {
+        $student = $_POST['studentName'];
+        $season = $_POST['season'];
+        $year = $_POST['year'];
+        $pIndex = $_POST['pIndex'];
+        $selection = $_POST['selection'];
+        $returnPage = $_POST['retPage'];
+        $locationName = "";
+        $opponentName = "";
+        $month = "";
+        $day = "";
+        $matchScores['matchmb'] = 0;
+        $matchScores['matchopp'] = 0;
+        $matchScores['mbs1'] = 0;
+        $matchScores['mbs2'] = 0;
+        $matchScores['mbs3'] = 0;
+        $matchScores['mbs4'] = 0;
+        $matchScores['mbs5'] = 0; 
+        $matchScores['opps1'] = 0;
+        $matchScores['opps2'] = 0;
+        $matchScores['opps3'] = 0;
+        $matchScores['opps4'] = 0;
+        $matchScores['opps5'] = 0;
+    }
     /*
      * Display the form
      */
@@ -92,13 +187,39 @@ if ((isset($_POST['submit'])) || (isset($_POST['add']))) {
                     <div id=formalign>
                         <h1>Add Game</h1>
                         <form action="add_game.php" method="post">
-                            <p>
-                                <label for="a">Date:</label>
-                                <input class="dbdate" id="a" type="text" name="date" maxlength="10" value="">
+                            <p> 
+                                <label>Year:</label>
+                                <select name="year">
+<?php
+                                echo get_years($student, $year, isset($_POST['submit']));
+?>
+                                </select>
                             </p>
                             <p>
-                                <label for="b">Location:</label>
-                                <input class="dbtext" id="b" type="text" name="location" list="locationList" maxlength="40" value="">
+<?php
+                            if (isset($_POST['submit'])) {
+                                $dvalue = $_POST['month'];
+                            } else {
+                                $dvalue = 2;
+                            }
+?>
+                                <label>Month:</label>
+                                <input class="dbscore" type="number" name="month" min="2" max="5"   value="<?= $dvalue ?>">
+                            </p>
+                            <p>
+<?php
+                            if (isset($_POST['submit'])) {
+                                $dvalue = $_POST['day'];
+                            } else {
+                                $dvalue = 1;
+                            }
+?>
+                                <label>Day:</label>
+                                <input class="dbscore" type="number" name="day" min="1" max="31"   value="<?= $dvalue ?>">
+                            </p>
+                            <p>
+                                <label>Location:</label>
+                                <input class="dbtext" type="text" name="location" list="locationList" maxlength="40" value="<?= $locationName ?>">
                                 <datalist id="locationList">
 <?php
                                 $locationList = get_records_locations($connection);
@@ -113,8 +234,8 @@ if ((isset($_POST['submit'])) || (isset($_POST['add']))) {
                                 </datalist>
                             </p>
                             <p>
-                                <label for="c">Opponent:</label>
-                                <input class="dbtext" id="c" type="text" name="opponent" list="opponentList" maxlength="40" value="">
+                                <label>Opponent:</label>
+                                <input class="dbtext" type="text" name="opponent" list="opponentList" maxlength="40" value="<?= $opponentName ?>">
                                 <datalist id="opponentList">
 <?php
                                 $opponentList = get_vbstats_opponents($connection);
@@ -128,35 +249,17 @@ if ((isset($_POST['submit'])) || (isset($_POST['add']))) {
 ?>
                                 </datalist>
                             </p>
-                            <p>
-                                <label for="d">Score Game 1:</label>
-                                <input class="dbscore" id="d" type="text" name="sg1" maxlength="5" value="">
-                            </p>
-                            <p>
-                                <label for="e">Score Game 2:</label>
-                                <input class="dbscore" id="e" type="text" name="sg2" maxlength="5" value="">
-                            </p>
-                            <p>
-                                <label for="f">Score Game 3:</label>
-                                <input class="dbscore" id="f" type="text" name="sg3" maxlength="5" value="">
-                            </p>
-                            <p>
-                                <label for="g">Score Game 4:</label>
-                                <input class="dbscore" id="g" type="text" name="sg4" maxlength="5" value="">
-                            </p>
-                            <p>
-                                <label for="h">Score Game 5:</label>
-                                <input class="dbscore" id="h" type="text" name="sgh" maxlength="5" value="">
-                            </p>
+<?php
+                            echo get_score_fields(isset($_POST['submit']), $matchScores);
+?>    
                             <br>
                             <input type="hidden" name="studentName" value="<?= $student ?>">
                             <input type="hidden" name="season" value="<?= $season ?>">
-                            <input type="hidden" name="year" value="<?= $year ?>">
                             <input type="hidden" name="pIndex" value="<?= $pIndex ?>">
                             <input type="hidden" name="selection" value="<?= $selection ?>">
                             <input type="hidden" name="retPage" value="<?= $returnPage; ?>">
                             <input type="submit" name="submit" value="Add Game">
-                            <a href="<?= $returnPage ?>?studentName=<?= $student; ?>&season=<?= $season; ?>&pIndex=<?= $pIndex ?>&year=<?= $year; ?>">Cancel</a>
+                            <a href="<?= $returnPage ?>">Cancel</a>
                         </form>
                     </div>
                 </section>

@@ -38,6 +38,10 @@
  * MHM: 2017-02-16
  * Comment:
  *  Add support to highlight errors on the forms.
+ *
+ * MHM: 2017-02-20
+ * Comment:
+ *  Add a formalign h2 tag.
  */
 html, body, body div, span, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, abbr, address, cite, code, del, dfn, em, img, ins, kbd, q, samp, small, strong, sub, sup, var, b, i, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, figure, footer, header, hgroup, menu, nav, section, time, mark, audio, video {
 	margin: 0;
@@ -336,6 +340,12 @@ footer nav li:last-child a {
 #formalign h1 {
     margin-left: 15px;
     font-size: 2.7em;
+    align-content: center;
+    color: white;
+}
+#formalign h2 {
+    margin-left: 15px;
+    font-size: 1.7em;
     align-content: center;
     color: white;
 }

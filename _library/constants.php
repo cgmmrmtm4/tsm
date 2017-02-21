@@ -23,6 +23,10 @@
  * MHM: 2017-02-16
  * Comment:
  *  Added HONORS, AP and NORMAL to determine GP weight.
+ *
+ * MHM: 2017-20-20
+ * Comment:
+ *  Move root directory to myMBHS and now have this directory be managed via git.
  */
 
 if (count(get_included_files()) == 1) {
@@ -30,7 +34,7 @@ if (count(get_included_files()) == 1) {
 }
 
 // File directory Constants
-define ("HOMEROOT", "/MBHSSQL");
+define ("HOMEROOT", "/myMBHS");
 define ("IMGROOT", "../../img/mbhs");
 define ("PHOTOSPORTS", "/Photos/Sports");
 define ("PHOTOACADEMICS", "/Photos/Academics");

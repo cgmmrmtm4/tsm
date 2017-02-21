@@ -14,6 +14,10 @@
  * Comment:
  *  Removed variables pictures, videos and stats and now just use pIndex to
  *  reference the different panels.
+ *
+ * MHM: 2017-02-20
+ * Comment:
+ *  Replace if/else with case statement to control pictures below the navigation bar.
  */
 require("../_includes/req_includes.php");
 $siteroot = HOMEROOT;
@@ -69,17 +73,23 @@ $videopath = $imagepath . VIDEOSPORTS . "/" . VB . "/" . $year;
  * Comment:
  *  Assign banner pictures based on year.
  */
-if ($year == 2016) {
-    $lbanner = "/IMGP4463-5.JPG";
-    $rbanner = "/IMGP4466-5.JPG";
-} else {
-    if ($year == 2015) {
+switch ($year) {
+    case 2016:
+        $lbanner = "/IMGP4463-5.JPG";
+        $rbanner = "/IMGP4466-5.JPG";
+        break;
+    case 2015:
         $lbanner = "/IMGP3816-5.JPG";
         $rbanner = "/IMGP3821-5.JPG";
-    } else {
+        break;
+    case 2009:
         $lbanner = "/P6260009-5.jpg";
         $rbanner = "/P6260014-5.jpg";
-    }
+        break;
+    default:
+        $lbanner = "/IMGP4463-5.JPG";
+        $rbanner = "/IMGP4466-5.JPG";
+        break;
 }
 
 /*

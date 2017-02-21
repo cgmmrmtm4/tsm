@@ -13,6 +13,10 @@
  * MHM: 2017-02-16
  * Comment:
  *  Insert into class database.
+ *
+ * MHM: 2017-02-20
+ * Comment:
+ *  Insert into records database.
  */
 
 if (count(get_included_files()) == 1) {
@@ -36,6 +40,22 @@ function insert_class_into_db($connection, $seasonId, $studentId, $period, $hono
     $query .= "'{$studentId}', '{$period}', '{$honors}', ";
     $query .= "'{$ap}', '{$className}', '{$teacherName}', ";
     $query .= "'{$grade}', '{$gp}', '{$wgp}')";
+    return($result = mysqli_query($connection, $query));
+}
+
+/* MHM: 2017-02-20
+ * Comment:
+ *  Add game to schedule and records database.
+ *  Input: connection to database, sport ID, date of game, location of game, is league opponent,
+ *  opponent name, score and result.
+ *  Output: result of database query.
+ */
+function insert_game_into_records($connection, $sportId, $date, $location, $league, $opponent, $score, $result) {
+    $query  = "INSERT INTO records (id, sportId, ";
+    $query .= "date, location, league, opponent, ";
+    $query .= "score, result) VALUES (NULL, '{$sportId}', ";
+    $query .= "'{$date}', '{$location}', '{$league}', ";
+    $query .= "'{$opponent}', '{$score}', '{$result}')";
     return($result = mysqli_query($connection, $query));
 }
 ?>

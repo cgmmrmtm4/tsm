@@ -8,6 +8,11 @@
  * Comment:
  *  Added simple utility functions to retrieve grade point values, seasons, years and grades.
  *  Use these routines to build HTML form logic.
+ *
+ * MHM: 2017-02-20
+ * Comment:
+ *  Add more support for add game and edit game. Support match and game scores on the add
+ *  and edit forms.
  */
 
 if (count(get_included_files()) == 1) {
@@ -106,6 +111,13 @@ function get_periods($period, $isSubmit) {
     return $output;
 }
 
+/*
+ * MHM: 2017-02-20
+ * Comment:
+ *  Return the grades used in grades pull down in the class forms.
+ *  Input: Provide a letter grade, boolean to determine if submit or error.
+ *  Output: The correct grade tags.
+ */
 function get_grade_letters($grade, $isSubmit) {
     $academicGradesArray = array("A+", "A", "A-", "B+", "B", "B-", "C+", "C", "C-", "D", "F");
     $academicGradesLength = count($academicGradesArray);
@@ -117,6 +129,78 @@ function get_grade_letters($grade, $isSubmit) {
         }
         $output .= "value=\"$academicGradesArray[$count]\">$academicGradesArray[$count]</option>";
         $output .= "\n";
+    }
+    return $output;
+}
+
+/*
+ * MHM 2017-02-20
+ * Comment:
+ *  Return true if the opponent is a league team.
+ *  Input: opponent name.
+ *  Output: true or false.
+ */
+function check_if_league_team($opponent) {
+    $leagueTeamsArray = array("Templeton", "Nipomo", "Santa Maria", "Santa Ynez", "Orcutt Academy", "Cabrillo");
+    $leagueTeamsLength = count($leagueTeamsArray);
+    for ($count=0; $count < $leagueTeamsLength; $count++) {
+        if ($leagueTeamsArray[$count] == $opponent) {
+            return true;
+        }
+    }
+    return false;
+}
+
+/*
+ * MHM 2017-02-20
+ * Comment:
+ *  Return the score form for add and edit game.
+ *  Input: A flag to determine if submit or edit, and the match and game scores.
+ *  Output: HMTL for the form.
+ */
+function get_score_fields($isSubmit, $matchScores=array()) {
+    $output = "";
+    $output .= "<h2> Match Score </h2>\n";
+    $output .= "<p>\n";
+    $output .= "<label>Match Final</label>\n";
+    $output .= "<label class=\"dbnum\">MB:</label>\n";
+    $output .= "<input class=\"dbnum\" type=\"number\" min=\"0\" max=\"3\" name=\"matchmb\" value=\"{$matchScores['matchmb']}\">\n";
+    $output .= "<label class=\"dbnum\">Opp.:</label>\n";
+    $output .= "<input class=\"dbnum\" type=\"number\" min=\"0\" max=\"3\" name=\"matchopp\" value=\"{$matchScores['matchopp']}\">\n";
+    $output .= "</p>\n";
+    $output .= "<h2> Game Scores </h2>\n";
+    for ($count=1; $count < 6; $count++) {
+        $output .= "<p>\n";
+        $output .= "<label>Game ";
+        $output .= $count;
+        $output .= ":</label>\n";
+        $output .= "<label class=\"dbnum\">MB:</label>\n";
+        $output .= "<input class=\"dbnum\" type=\"number\" min=\"0\" name=\"mbs";
+        $output .= $count;
+        if ($isSubmit == true) {
+            $foo = "mbs";
+            $foo .= $count;
+            $dv = $matchScores[$foo];
+            $output .= "\" value=\"";
+            $output .= $dv;
+            $output .= "\">\n";
+        } else {
+            $output .= "\" value=\"0\">\n";
+        }
+        $output .= "<label class=\"dbnum\">Opp.:</label>\n";
+        $output .= "<input class=\"dbnum\" type=\"number\" min=\"0\" name=\"opps";
+        $output .= $count;
+        if ($isSubmit == true) {
+            $foo = "opps";
+            $foo .= $count;
+            $dv = $matchScores[$foo];
+            $output .= "\" value=\"";
+            $output .= $dv;
+            $output .= "\">\n";
+        } else {
+            $output .= "\" value=\"0\">\n";
+        }
+        $output .= "</p>\n";
     }
     return $output;
 }
