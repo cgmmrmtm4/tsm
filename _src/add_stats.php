@@ -23,6 +23,10 @@
  * MHM: 2017-02-13
  * Comment:
  *  Populate the form.
+ *
+ * MHM: 2013-02-23
+ * Comment:
+ *  Support the add functionality.
  */
 require("../_includes/req_includes.php");
     
@@ -30,18 +34,32 @@ $siteroot = HOMEROOT;
 $imagepath = IMGROOT;
 $pagelogo = "$imagepath" . PHOTOMISC . "/spft.jpg";
 
-$_SESSION["message"] = "Not Implemented yet!";
 $connection = open_db();
 if (isset($_POST['submit'])) {
+    /*
+     * validate data
+     */
+    
+    $required_fields = array("opponent");
+    validate_presences($required_fields);
+    
+    $fields_with_max_lengths = array("opponent" => 40);
+    validate_max_lengths($fields_with_max_lengths);
+    
     $student = $_POST['studentName'];
     $season = $_POST['season'];
     $year = $_POST['year'];
     $pIndex = $_POST['pIndex'];
     $selection = $_POST['selection'];
     $returnPage = $_POST['retPage'];
-    /*
-     * validate data
-     */
+    $opponentName = $_POST['opponent'];
+    $dbAssists = $_POST['assists'];
+    $dbBlocks = $_POST['blocks'];
+    $dbKills = $_POST['kills'];
+    $dbDigs = $_POST['digs'];
+    $dbServes = $_POST['serves'];
+    $dbAces = $_POST['aces'];
+    $dbSideOuts = $_POST['sideOuts'];
     
     if (empty($errors)) {
         /*
@@ -49,27 +67,46 @@ if (isset($_POST['submit'])) {
          * Comment:
          *  Perform create.
          */
-        $_SESSION["message"] = "Not Implemented yet!";
-        close_db($connection);
-        redirect_to("$returnPage?studentName=$student&season=$season&pIndex=$pIndex&year=$year");
+        $seasonId = get_seasonId($connection, $season, $year);
+        $result = insert_stats_into_vbstats($connection, $seasonId, $opponentName, $dbAssists, $dbBlocks, $dbKills, $dbDigs, $dbServes, $dbAces, $dbSideOuts);
+        
+        if ($result) {
+            $_SESSION["message"] = "Stats successfully added to database.";
+            close_db($connection);
+            redirect_to("volleyball.php?studentName=$student&season=$season&pIndex=$pIndex&year=$year");
+        } else {
+            $_SESSION["message"] = "Failed to add stats to database!";
+            $errors["insert"] = mysqli_error($connection); 
+        }
     }
 }
 if ((isset($_POST['submit'])) || (isset($_POST['add']))) {
-    $student = $_POST['studentName'];
-    $season = $_POST['season'];
-    $year = $_POST['year'];
-    $pIndex = $_POST['pIndex'];
-    $selection = $_POST['selection'];
-    $returnPage = $_POST['retPage'];
+    if (isset($_POST['add'])) {
+        $student = $_POST['studentName'];
+        $season = $_POST['season'];
+        $year = $_POST['year'];
+        $pIndex = $_POST['pIndex'];
+        $selection = $_POST['selection'];
+        $returnPage = $_POST['retPage'];
+        $opponentName = "";
+        $dbAssists = 0;
+        $dbBlocks = 0;
+        $dbKills = 0;
+        $dbDigs = 0;
+        $dbServes = 0;
+        $dbAces = 0;
+        $dbSideOuts = 0;
+    }
     /*
      * Display the form
      */
-    ?>
+    
+?>
     <!DOCTYPE HTML>
     <html lang="en">
         <head>
         <meta charset="utf-8">
-        <title>Add a Class</title>
+        <title>Add a Statistic</title>
         <link href="../_css/styles.css" rel="stylesheet" type="text/css">
         </head>
         <body id="page_volleyball">
@@ -88,18 +125,27 @@ if ((isset($_POST['submit'])) || (isset($_POST['add']))) {
                         <h1>Add Statistics</h1>
                         <form action="add_stats.php" method="post">
                             <p> 
-                                <label for="a">Year:</label>
-                                <select id="a" name="year">
-                                    <option value=2014>2014</option>
-                                    <option value=2015>2015</option>
-                                    <option value=2016>2016</option>
-                                    <option value=2017>2017</option>
-                                    <option value=2018>2018</option>
+                                <label>Year:</label>
+                                <select name="year">
+<?php
+                                $dbYear = date('Y');
+                                echo get_years($student, $dbYear, true);
+?>
                                 </select>
                             </p>
                             <p>
-                                <label for="b">Location:</label>
-                                <input class="dbtext" id="b" type="text" name="opponent" list="opponentList" maxlength="40" value="">
+<?php
+                            if (isset($errors['opponent'])) {
+?>
+                                <label class="fielderror">Opponent:</label>
+<?php
+                            } else {
+?>
+                                <label>Opponent:</label>
+<?php
+                            }
+?>
+                                <input class="dbtext" type="text" name="opponent" list="opponentList" maxlength="40" value="<?= $opponentName ?>">
                                 <datalist id="opponentList">
 <?php
                                 $opponentList = get_vbstats_opponents($connection);
@@ -114,36 +160,35 @@ if ((isset($_POST['submit'])) || (isset($_POST['add']))) {
                                 </datalist>
                             </p>
                             <p>
-                                <label for="c">Assists:</label>
-                                <input class="dbnum" id="c" type="number" name="assists" min="0" value=0>
-                                <label for="d">Blocks:</label>
-                                <input class="dbnum" id="d" type="number" name="blocks" min="0" value=0>
+                                <label>Assists:</label>
+                                <input class="dbnum" type="number" name="assists" min="0" value="<?= $dbAssists ?>">
+                                <label>Blocks:</label>
+                                <input class="dbnum" type="number" name="blocks" min="0" value="<?= $dbBlocks ?>">
                             </p>
                             <p>
-                                <label for="e">Kills:</label>
-                                <input class="dbnum" id="e" type="number" name="kills" min="0" value=0>
-                                <label for="f">Digs:</label>
-                                <input class="dbnum" id="f" type="number" name="digs" min="0" value=0>
+                                <label>Kills:</label>
+                                <input class="dbnum" type="number" name="kills" min="0" value="<?= $dbKills ?>">
+                                <label>Digs:</label>
+                                <input class="dbnum" type="number" name="digs" min="0" value="<?= $dbDigs ?>">
                             </p>
                             <p>
-                                <label for="g">Serves:</label>
-                                <input class="dbnum" id="g" type="number" name="serves" min="0" value=0>
-                                <label for="h">Aces:</label>
-                                <input class="dbnum" id="h" type="number" name="aces" min="0" value=0>
+                                <label>Serves:</label>
+                                <input class="dbnum" type="number" name="serves" min="0" value="<?= $dbServes ?>">
+                                <label>Aces:</label>
+                                <input class="dbnum" type="number" name="aces" min="0" value="<?= $dbAces ?>">
                             </p>
                             <p>
-                                <label for="i">Side Out:</label>
-                                <input class="dbnum" id="i" type="number" name="sideOut" min="0" value=0>
+                                <label>Side Out:</label>
+                                <input class="dbnum" type="number" name="sideOuts" min="0" value="<?= $dbSideOuts ?>">
                             </p>
                             <br>
                             <input type="hidden" name="studentName" value="<?= $student ?>">
                             <input type="hidden" name="season" value="<?= $season ?>">
-                            <input type="hidden" name="year" value="<?= $year ?>">
                             <input type="hidden" name="pIndex" value="<?= $pIndex ?>">
                             <input type="hidden" name="selection" value="<?= $selection ?>">
                             <input type="hidden" name="retPage" value="<?= $returnPage; ?>">
                             <input type="submit" name="submit" value="Add Stats">
-                            <a href="<?= $returnPage ?>?studentName=<?= $student; ?>&season=<?= $season; ?>&pIndex=<?= $pIndex ?>&year=<?= $year; ?>">Cancel</a>
+                            <a href="<?= $returnPage ?>">Cancel</a>
                         </form>
                     </div>
                 </section>

@@ -30,6 +30,10 @@
  * MHM: 2017-02-13
  * Comment:
  *  Forgot to declare pIndex.
+ *
+ * MHM: 2017-02-23
+ * Comment:
+ *  Remove need for leading / in database entry.
  */
 require("../_includes/req_includes.php");
 $siteroot = HOMEROOT;
@@ -57,7 +61,7 @@ if (isset($_GET['studentName'])) {
  * Comment:
  *  Set picture path based on year.
  */
-$photopath = "$imagepath" . PHOTOTRAVEL. "/" . $year;
+$photopath = "$imagepath" . PHOTOTRAVEL. "/" . $year ."/";
 
 /*
  * MHM: 2017-01-19
@@ -65,8 +69,8 @@ $photopath = "$imagepath" . PHOTOTRAVEL. "/" . $year;
  *  Assign banner pictures based on year.
  */
 
-$lbanner = "/Theo-5.JPG";
-$rbanner = "/IMG_3561-5.JPG";
+$lbanner = "Theo-5.JPG";
+$rbanner = "IMG_3561-5.JPG";
 
 /*
  * MHM: 2017-01-16

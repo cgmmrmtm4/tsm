@@ -16,7 +16,12 @@
  *
  * MHM: 2017-02-20
  * Comment:
- *  update game is records database.
+ *  update game in records database.
+ *
+ * MHM: 2017-02-23
+ * Comment:
+ *  udpate stats in vbstats database.
+ *  Cleanup return value for all functions.
  */
 
 if (count(get_included_files()) == 1) {
@@ -46,7 +51,8 @@ function update_class_into_db($connection, $classId, $seasonId, $studentId, $per
     $query .= "WGP = {$wgp} ";
     $query .= "WHERE id = {$classId}";
     $result = mysqli_query($connection, $query);
-    return($result);
+    confirm_query($result);
+    return $result;
 }
 
 /*
@@ -59,7 +65,7 @@ function update_class_into_db($connection, $classId, $seasonId, $studentId, $per
  */
 function update_game_into_records($connection, $schedId, $sportId, $dbDate, $locationName, $dbLeague, $opponentName, $dbScore, $dbResult) {
     $query  = "UPDATE records SET ";
-    $query .= "sportId = '{$sportId}', ";
+    $query .= "sportId = {$sportId}, ";
     $query .= "date = '{$dbDate}', ";
     $query .= "location = '{$locationName}', ";
     $query .= "league = '{$dbLeague}', ";
@@ -67,8 +73,33 @@ function update_game_into_records($connection, $schedId, $sportId, $dbDate, $loc
     $query .= "score = '{$dbScore}', ";
     $query .= "result = '{$dbResult}' ";
     $query .= "WHERE id = {$schedId}";
-    print_r($query);
     $result = mysqli_query($connection, $query);
-    return($result);
+    confirm_query($result);
+    return $result;
+}
+
+/*
+ * MHM: 2017-02-21
+ * Comment:
+ *  Update statistical record in vbstat database.
+ *  Input: connection to database, stats Id, season Id, opponent,
+ *  assists, blocks, kills, digs, serves, aces, sideouts.
+ *  Output: result of database query.
+ */
+function update_stats_into_vbstats($connection, $statId, $seasonId, $opponent, $dbAssists, $dbBlocks, $dbKills, $dbDigs, $dbServes, $dbAces, $dbSideOuts) {
+    $query  = "UPDATE vbstats SET ";
+    $query .= "seasonId = {$seasonId}, ";
+    $query .= "opponent = '{$opponent}', ";
+    $query .= "assists = {$dbAssists}, ";
+    $query .= "blocks = {$dbBlocks}, ";
+    $query .= "kills = {$dbKills}, ";
+    $query .= "digs = {$dbDigs}, ";
+    $query .= "serves = {$dbServes}, ";
+    $query .= "aces = {$dbAces}, ";
+    $query .= "sideouts = {$dbSideOuts} ";
+    $query .= "WHERE id = {$statId}";
+    $result = mysqli_query($connection, $query);
+    confirm_query($result);
+    return $result;
 }
 ?>

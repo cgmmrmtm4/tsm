@@ -28,6 +28,10 @@
  * Comment:
  *  Removed variables pictures, videos and stats and now just use pIndex to
  *  reference the different panels.
+ *
+ * MHM: 2017-02-23
+ * Comment:
+ *  Remove need for leading / in database entry.
  */
 if (count(get_included_files()) == 1) {
     exit("direct access not allowed.");
@@ -49,7 +53,7 @@ $cnt = get_number_of_pictures($connection, $selection, $season, $year);
  */
 if ($selection == TRAVEL) {
     $dynamic_heading = get_travel_location($connection, $season, $year);
-    $photopath .= "/" . $dynamic_heading;
+    $photopath .= $dynamic_heading . "/";
 } else {
     $dynamic_heading = $selection;
 }
@@ -115,7 +119,7 @@ $headerLabel = $year . " " . $dynamic_heading . " " . "Pictures";
                                 <input type="hidden" name="pIndex" value="<?= $pIndex ?>">
                                 <input type="hidden" name="selection" value="<?= $selection ?>">
                                 <input type="hidden" name="retPage" value="<?= $_SERVER['PHP_SELF'] ?>">
-                                <input type="submit" name="delete" value="DELETE">
+                                <input type="submit" name="delete" value="DELETE" onclick="return confirm('Are you sure?')">
                             </div>
                         </form>
                     </div>

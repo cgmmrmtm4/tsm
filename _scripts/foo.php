@@ -8,8 +8,10 @@ $count = count($keywords);
 $str = "2:6(2:5)(2:6)";
 $humm = explode(')(', trim($str, '()'));
 echo date('d');
+echo date('Y');
 print_r($keywords);
 print_r($count);
 print_r($myDate);
 print_r($humm);
 ?>
+<input type="submit" name="delete" value="DELETE" onclick="return confirm('Are you sure?')">

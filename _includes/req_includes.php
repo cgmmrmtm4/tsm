@@ -7,6 +7,10 @@
  * MHM 2017-02-16
  * Comment:
  *  Add insert and update function files.
+ *
+ * MHM 2017-02-23
+ * Comment:
+ *  Add delete function file.
  */
 
 require_once("../_library/session.php");
@@ -19,4 +23,5 @@ require_once("../_library/validation_functions.php");
 require_once("../_library/read_db_funcs.php");
 require_once("../_library/insert_db_funcs.php");
 require_once("../_library/update_db_funcs.php");
+require_once("../_library/delete_db_funcs.php");
 ?>

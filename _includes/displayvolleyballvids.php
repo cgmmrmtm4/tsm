@@ -27,6 +27,10 @@
  * Comment:
  *  Removed variables pictures, videos and stats and now just use pIndex to
  *  reference the different panels.
+ *
+ * MHM: 2017-02-23
+ * Comment:
+ *  Remove need for leading / in database entry.
  */
 if (count(get_included_files()) == 1) {
     exit("direct access not allowed.");
@@ -78,7 +82,7 @@ $result = get_vids($connection, "Volleyball", $season, $year);
                     <div class="button-container">
                         <video class="thumbvideo" preload="none" controls poster="<?= $photopath . $vids['thumbName']; ?>">
                                         <source src="<?= $videopath . $vids['avName']; ?>" type="video/mp4"></video>
-                        <p><b><?= ltrim($vids['avName'], "/") ?></b></p>
+                        <p><b><?= $vids['avName'] ?></b></p>
                         <form method="post" action="edit_video.php">
                             <div>
                                 <input type="hidden" name="videoId" value="<?= $videoId ?>">
@@ -100,7 +104,7 @@ $result = get_vids($connection, "Volleyball", $season, $year);
                                 <input type="hidden" name="pIndex" value="<?= $pIndex ?>">
                                 <input type="hidden" name="selection" value="<?= $selection ?>">
                                 <input type="hidden" name="retPage" value="<?= $_SERVER['PHP_SELF'] ?>">
-                                <input type="submit" name="delete" value="DELETE">
+                                <input type="submit" name="delete" value="DELETE" onclick="return confirm('Are you sure?')">
                             </div>
                         </form>
                     </div>

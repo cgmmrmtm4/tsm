@@ -18,6 +18,11 @@
  * Comment:
  *  Removed variables pictures, videos and stats and now just use pIndex to
  *  reference the different panels.
+ *
+ * MHM: 2017-02-23
+ * Comment:
+ *  Remove need for leading / in database entry.
+ *  Compare against constant PICS instead of string "PICS"
  */
 require("../_includes/req_includes.php");
 $siteroot = HOMEROOT;
@@ -57,7 +62,7 @@ if (isset($_GET['year'])) {
  * Comment:
  *  Set picture path based on year.
  */
-$photopath = "$imagepath" . PHOTOSPORTS . "/" . SB . "/" . $year;
+$photopath = "$imagepath" . PHOTOSPORTS . "/" . SB . "/" . $year . "/";
 
 /*
  * MHM: 2017-01-16
@@ -65,19 +70,19 @@ $photopath = "$imagepath" . PHOTOSPORTS . "/" . SB . "/" . $year;
  *  Assign banner pictures based on year.
  */
 if ($year == 2013) {
-    $lbanner = "/P5100035-5.JPG";
-    $rbanner = "/P5100036-5.JPG";
+    $lbanner = "P5100035-5.JPG";
+    $rbanner = "P5100036-5.JPG";
 } else { 
     if ($year == 2012) {
-        $lbanner = "/P4200001-5.JPG";
-        $rbanner = "/P4200011-5.JPG";
+        $lbanner = "P4200001-5.JPG";
+        $rbanner = "P4200011-5.JPG";
     } else {
         if ($year == 2011) {
-            $lbanner = "/P5100011-5.JPG";
-            $rbanner = "/P5100014-5.JPG";
+            $lbanner = "P5100011-5.JPG";
+            $rbanner = "P5100014-5.JPG";
         } else {
-            $lbanner = "/IMAG0110-5.JPG";
-            $rbanner = "/IMAG0111-5.JPG";
+            $lbanner = "IMAG0110-5.JPG";
+            $rbanner = "IMAG0111-5.JPG";
         }
     }
 }
@@ -128,8 +133,8 @@ $connection = open_db();
                      *  Include Schedule and result.
                      */
                     require '../_includes/sched_res.php';
-                } 
-                if ($pIndex == "PICS") {
+                }
+                if ($pIndex == PICS) {
                     /*
                      * MHM: 2017-01-16
                      * Comment:

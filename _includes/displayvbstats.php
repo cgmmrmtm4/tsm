@@ -43,6 +43,11 @@
  * Comment:
  *  Removed variables pictures, videos and stats and now just use pIndex to
  *  reference the different panels.
+ *
+ * MHM: 2017-02-23
+ * Comment:
+ *  Support for delete a stats record and cleanup
+ *  return page setting.
  */
 if (count(get_included_files()) == 1) {
     exit("direct access not allowed.");
@@ -113,21 +118,16 @@ $result = get_volleyball_stats($connection, $season, $year);
                                         <input type="hidden" name="year" value="<?= $year ?>">
                                         <input type="hidden" name="pIndex" value="<?= $pIndex ?>">
                                         <input type="hidden" name="selection" value="<?= $selection ?>">
-                                        <input type="hidden" name="retPage" value="<?= $_SERVER['PHP_SELF'] ?>">
+                                        <input type="hidden" name="retPage" value="<?= $_SERVER['PHP_SELF'] ?>?studentName=<?= $student ?>&season=<?= $season ?>&year=<?= $year ?>&pIndex=<?= $pIndex ?>">
                                         <input type="submit" name="edit" value="EDIT">
                                     </div>
                                 </form>
                             
-                                <form method="post" action="delete_stats.php">
+                                <form method="post" action="delete_stat.php">
                                     <div>
                                         <input type="hidden" name="statId" value="<?= $statId ?>">
-                                        <input type="hidden" name="studentName" value="<?= $student ?>">
-                                        <input type="hidden" name="season" value="<?= $season ?>">
-                                        <input type="hidden" name="year" value="<?= $year ?>">
-                                        <input type="hidden" name="pIndex" value="<?= $pIndex ?>">
-                                        <input type="hidden" name="selection" value="<?= $selection ?>">
-                                        <input type="hidden" name="retPage" value="<?= $_SERVER['PHP_SELF'] ?>">
-                                        <input type="submit" name="delete" value="DELETE">
+                                        <input type="hidden" name="retPage" value="<?= $_SERVER['PHP_SELF'] ?>?studentName=<?= $student ?>&season=<?= $season ?>&year=<?= $year ?>&pIndex=<?= $pIndex ?>">
+                                        <input type="submit" name="delete" value="DELETE" onclick="return confirm('Are you sure?')">
                                     </div>
                                 </form>
                             </div>

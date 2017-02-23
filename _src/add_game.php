@@ -37,6 +37,10 @@
  * Comment:
  *  Support error handling and additional validation. Get todays day, month and year for the
  *  default add game values. Cleanup up some headers.
+ *
+ * MHM: 2017-02-23
+ * Comment:
+ *  Get today's year.
  */
 require("../_includes/req_includes.php");
     
@@ -195,7 +199,8 @@ if ((isset($_POST['submit'])) || (isset($_POST['add']))) {
                                 <label>Year:</label>
                                 <select name="year">
 <?php
-                                echo get_years($student, $year, true);
+                                $dbYear = date('Y');
+                                echo get_years($student, $dbYear, true);
 ?>
                                 </select>
                             </p>

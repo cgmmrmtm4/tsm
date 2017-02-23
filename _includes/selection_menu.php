@@ -55,6 +55,11 @@
  * MHM: 2017-02-16
  * Comment:
  *  Modified URLs in cancel links to take optional parameters
+ *
+ * MHM: 2017-02-23
+ * Comment:
+ *  Set return page correctly when adding a game or statistic.
+ *  Also set stat year correctly to highlight the correct stat button.
  */
 if (count(get_included_files()) == 1) {
     exit("direct access not allowed.");
@@ -145,7 +150,7 @@ if ($selection != TRAVEL) {
                 <input type="hidden" name="year" value="<?= $year ?>">
                 <input type="hidden" name="pIndex" value="<?= $pIndex ?>">
                 <input type="hidden" name="selection" value="<?= $selection ?>">
-                <input type="hidden" name="retPage" value="<?= $_SERVER['PHP_SELF'] ?>?studentName=<?= $student ?>&season=<?= $season ?>&year=<?= $year ?>">
+                <input type="hidden" name="retPage" value="<?= $_SERVER['PHP_SELF'] ?>?studentName=<?= $student ?>&season=<?= $season ?>&pIndex=<?= $pIndex ?>&year=<?= $year ?>">
                 <input type="submit" name="add" value="Add Game">
             </form>
 <?php
@@ -316,7 +321,7 @@ if ($selection != ACADEMIC) {
             <input type="hidden" name="studentName" value="<?= $student ?>">
             <input type="hidden" name="season" value="<?= $get_season ?>">
             <input type="hidden" name="pIndex" value="<?= constant("STATS") ?>">
-            <input type="hidden" name="year" value=2016>
+            <input type="hidden" name="year" value="<?= $get_year ?>">
 <?php
             if (($season == $get_season) && ($year == $get_year) && ($pIndex == STATS)) {
                 echo "<input class=\"selected\" type=\"submit\" value=\"$getSubLabel\">";
@@ -334,7 +339,7 @@ if ($selection != ACADEMIC) {
         <input type="hidden" name="year" value="<?= $year ?>">
         <input type="hidden" name="pIndex" value="<?= $pIndex ?>">
         <input type="hidden" name="selection" value="<?= $selection ?>">
-        <input type="hidden" name="retPage" value="<?= $_SERVER['PHP_SELF'] ?>?studentName=<?= $student ?>&season=<?= $season ?>&year=<?= $year ?>">
+        <input type="hidden" name="retPage" value="<?= $_SERVER['PHP_SELF'] ?>?studentName=<?= $student ?>&season=<?= $season ?>&pIndex=<?= $pIndex ?>&year=<?= $year ?>">
         <input type="submit" name="add" value="Add Stats">
     </form>
 <?php

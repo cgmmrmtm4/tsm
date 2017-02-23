@@ -18,6 +18,10 @@
  * MHM: 2017-02-20
  * Comment:
  *  Replace if/else with case statement to control pictures below the navigation bar.
+ *
+ * MHM: 2017-02-23
+ * Comment:
+ *  Remove need for leading / in database entry.
  */
 require("../_includes/req_includes.php");
 $siteroot = HOMEROOT;
@@ -65,8 +69,8 @@ if (isset($_GET['year'])) {
  * Comment:
  *  Set picture and video paths based on year.
  */
-$photopath = $imagepath . PHOTOSPORTS . "/" . VB . "/" . $year;
-$videopath = $imagepath . VIDEOSPORTS . "/" . VB . "/" . $year;
+$photopath = $imagepath . PHOTOSPORTS . "/" . VB . "/" . $year . "/";
+$videopath = $imagepath . VIDEOSPORTS . "/" . VB . "/" . $year . "/";
 
 /*
  * MHM: 2017-01-16
@@ -75,20 +79,20 @@ $videopath = $imagepath . VIDEOSPORTS . "/" . VB . "/" . $year;
  */
 switch ($year) {
     case 2016:
-        $lbanner = "/IMGP4463-5.JPG";
-        $rbanner = "/IMGP4466-5.JPG";
+        $lbanner = "IMGP4463-5.JPG";
+        $rbanner = "IMGP4466-5.JPG";
         break;
     case 2015:
-        $lbanner = "/IMGP3816-5.JPG";
-        $rbanner = "/IMGP3821-5.JPG";
+        $lbanner = "IMGP3816-5.JPG";
+        $rbanner = "IMGP3821-5.JPG";
         break;
     case 2009:
-        $lbanner = "/P6260009-5.jpg";
-        $rbanner = "/P6260014-5.jpg";
+        $lbanner = "P6260009-5.jpg";
+        $rbanner = "P6260014-5.jpg";
         break;
     default:
-        $lbanner = "/IMGP4463-5.JPG";
-        $rbanner = "/IMGP4466-5.JPG";
+        $lbanner = "IMGP4463-5.JPG";
+        $rbanner = "IMGP4466-5.JPG";
         break;
 }
 

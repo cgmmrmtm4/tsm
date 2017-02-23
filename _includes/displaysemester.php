@@ -27,6 +27,10 @@
  * MHM: 2017-02-16
  * Comment:
  *  Modify cancel URL to include parameters.
+ *
+ * MHM: 2017-02-23
+ * Commet:
+ *  Support delete a class from database.
  */
 if (count(get_included_files()) == 1) {
     exit("direct access not allowed.");
@@ -83,12 +87,8 @@ $result = get_semester_academics($connection, $season, $year, $student);
                         <form method="post" action="delete_class.php">
                             <div>
                                 <input type="hidden" name="classId" value="<?= $classId ?>">
-                                <input type="hidden" name="studentName" value="<?= $student ?>">
-                                <input type="hidden" name="season" value="<?= $season ?>">
-                                <input type="hidden" name="year" value="<?= $year ?>">
-                                <input type="hidden" name="selection" value="<?= $selection ?>">
-                                <input type="hidden" name="retPage" value="<?= $_SERVER['PHP_SELF'] ?>">
-                                <input type="submit" name="delete" value="DELETE">
+                                <input type="hidden" name="retPage" value="<?= $_SERVER['PHP_SELF'] ?>?studentName=<?= $student ?>&season=<?= $season ?>&year=<?= $year ?>">
+                                <input type="submit" name="delete" value="DELETE" onclick="return confirm('Are you sure?')">
                             </div>
                         </form>
                     </div>

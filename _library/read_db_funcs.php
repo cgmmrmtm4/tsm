@@ -54,11 +54,30 @@
  *
  * MHM: 2017-02-21
  * Comment:
- *  Retieve a game record given a schedule Id
+ *  Retrieve a game record given a schedule Id
+ *
+ * MHM: 2017-20-23
+ * Comment:
+ *  Retrieve a stat record given a stat Id.
  */
 
 if (count(get_included_files()) == 1) {
     exit("direct access not allowed.");
+}
+
+/*
+ * MHM: 2017-02-21
+ * Comment:
+ *  Return a stat record given the stat Id.
+ *  Input: Connection to database and stat ID.
+ *  Output: The result of the query.
+ */
+function get_stats_by_id($connection, $statId) {
+    $query  = "SELECT * FROM vbstats ";
+    $query .= "WHERE vbstats.id=\"$statId\";";
+    $result = mysqli_query($connection, $query);
+    confirm_query($result);
+    return $result;
 }
 
 /*

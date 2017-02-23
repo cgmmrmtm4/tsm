@@ -18,6 +18,10 @@
  * Comment:
  *  Removed variables pictures, videos and stats and now just use pIndex to
  *  reference the different panels.
+ *
+ * MHM: 2017-02-23
+ * Comment:
+ *  Remove need for leading / in database entry.
  */
 require("../_includes/req_includes.php");
 $siteroot = HOMEROOT;
@@ -57,7 +61,7 @@ if (isset($_GET['year'])) {
  * Comment:
  *  Set picture path based on year.
  */
-$photopath = "$imagepath" . PHOTOSPORTS . "/" . SOC . "/" . $year;
+$photopath = "$imagepath" . PHOTOSPORTS . "/" . SOC . "/" . $year . "/";
 
 /*
  * MHM: 2017-01-16
@@ -65,11 +69,11 @@ $photopath = "$imagepath" . PHOTOSPORTS . "/" . SOC . "/" . $year;
  *  Assign banner pictures based on year.
  */
 if ($year == 2016) {
-    $lbanner = "/IMGP4378-5.JPG";
-    $rbanner = "/IMGP4378-5.JPG";
+    $lbanner = "IMGP4378-5.JPG";
+    $rbanner = "IMGP4378-5.JPG";
 } else {
-    $lbanner = "/IMGP3069-5.JPG";
-    $rbanner = "/IMGP3053-5.JPG";
+    $lbanner = "IMGP3069-5.JPG";
+    $rbanner = "IMGP3053-5.JPG";
 }
 
 /*

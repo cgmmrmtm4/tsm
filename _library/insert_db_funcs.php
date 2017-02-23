@@ -17,13 +17,19 @@
  * MHM: 2017-02-20
  * Comment:
  *  Insert into records database.
+ *
+ * MHM: 2017-02-23
+ * Comment:
+ *  Insert stats in vbstats database.
+ *  Cleanup return value for all functions.
  */
 
 if (count(get_included_files()) == 1) {
     exit("direct access not allowed.");
 }
 
-/* MHM: 2017-02-16
+/*
+ * MHM: 2017-02-16
  * Comment:
  *  Add record to academic database.
  *  Input: connection to database, season ID, student ID, 
@@ -40,10 +46,13 @@ function insert_class_into_db($connection, $seasonId, $studentId, $period, $hono
     $query .= "'{$studentId}', '{$period}', '{$honors}', ";
     $query .= "'{$ap}', '{$className}', '{$teacherName}', ";
     $query .= "'{$grade}', '{$gp}', '{$wgp}')";
-    return($result = mysqli_query($connection, $query));
+    $result = mysqli_query($connection, $query);
+    confirm_query($result);
+    return $result;
 }
 
-/* MHM: 2017-02-20
+/* 
+ * MHM: 2017-02-20
  * Comment:
  *  Add game to schedule and records database.
  *  Input: connection to database, sport ID, date of game, location of game, is league opponent,
@@ -56,6 +65,27 @@ function insert_game_into_records($connection, $sportId, $date, $location, $leag
     $query .= "score, result) VALUES (NULL, '{$sportId}', ";
     $query .= "'{$date}', '{$location}', '{$league}', ";
     $query .= "'{$opponent}', '{$score}', '{$result}')";
-    return($result = mysqli_query($connection, $query));
+    $result = mysqli_query($connection, $query);
+    confirm_query($result);
+    return $result;
+}
+
+/*
+ * MHM: 2017-02-21
+ * Comment:
+ *  Add stats to volleyball statistics database.
+ *  Input: Connection to datebase, seasonId, opponent, assists, blocks, kills, digs, serves, aces and sideouts.
+ *  Output: result of database query.
+ */
+function insert_stats_into_vbstats($connection, $seasonId, $opponent, $dbAssists, $dbBlocks, $dbKills, $dbDigs, $dbServes, $dbAces, $dbSideOuts) {
+    $query  = "INSERT INTO vbstats (id, seasonId, ";
+    $query .= "opponent, assists, blocks, kills, digs, ";
+    $query .= "serves, aces, sideouts) VALUES (NULL, ";
+    $query .= "'{$seasonId}', '{$opponent}', '{$dbAssists}', ";
+    $query .= "'{$dbBlocks}', '{$dbKills}', '{$dbDigs}', ";
+    $query .= "'{$dbServes}', '{$dbAces}', '{$dbSideOuts}')";
+    $result = mysqli_query($connection, $query);
+    confirm_query($result);
+    return $result;
 }
 ?>

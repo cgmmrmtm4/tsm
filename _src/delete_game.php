@@ -8,25 +8,33 @@
  * Comment:
  *  Removed variables pictures, videos and stats and now just use pIndex to
  *  reference the different panels.
+ *
+ * MHM: 2013-02-23
+ * Comment:
+ *  Support the delete functionality.
  */
 require("../_includes/req_includes.php");
 $siteroot = HOMEROOT;
 $imagepath = IMGROOT;
 $pagelogo = "$imagepath" . PHOTOMISC . "/spft.jpg";
 
+$connection = open_db();
 if (isset($_POST['delete'])) {
-    $student = $_POST['studentName'];
-    $season = $_POST['season'];
-    $year = $_POST['year'];
-    $selection = $_POST['selection'];
-    $returnPage = $_POST['retPage'];
     
-    $_SESSION["message"] = "Action not implemented yet!";
-    redirect_to("$returnPage?studentName=$student&season=$season&year=$year");
+    $returnPage = $_POST['retPage'];
+    $schedId = $_POST['schedId'];
+    $result = delete_game_from_records($connection, $schedId);
+    
+    if ($result) {
+        $_SESSION["message"] = "Game successfully deleted from database.";
+        close_db($connection);
+        redirect_to("{$returnPage}");
+    } else {
+        $_SESSION["message"] = "Failed to delete game from database!"; 
+    }
 } else {
     /*
-     * This is neither a request for a new object, or the completion
-     * of the previous form. So let's go back to HOME.
+     * This is must be a get request.
      */
     redirect_to("intro.php");
 }
