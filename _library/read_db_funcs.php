@@ -59,10 +59,26 @@
  * MHM: 2017-20-23
  * Comment:
  *  Retrieve a stat record given a stat Id.
+ *  Retrieve a av recrod given a av Id.
  */
 
 if (count(get_included_files()) == 1) {
     exit("direct access not allowed.");
+}
+
+/*
+ * MHM: 2017-02-23
+ * Comment:
+ * Return a av record given an av ID.
+ * Input: Connection to database and an AV id.
+ * Output: The result of the query.
+ */
+function get_av_by_id($connection, $avId) {
+    $query  = "SELECT * FROM av ";
+    $query .= "WHERE av.id=\"$avId\";";
+    $result = mysqli_query($connection, $query);
+    confirm_query($result);
+    return $result;
 }
 
 /*

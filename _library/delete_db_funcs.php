@@ -9,6 +9,10 @@
  * MHM: 2017-02-21
  * Comment:
  *  delete functions for database requests.
+ *
+ * MHM: 2017-02-23
+ * Comment:
+ *  delete function for pictures and videos.
  */
 
 if (count(get_included_files()) == 1) {
@@ -51,6 +55,20 @@ function delete_game_from_records($connection, $schedId) {
  */
 function delete_stats_from_vbstats($connection, $statId) {
     $query  = "DELETE FROM vbstats WHERE id = {$statId}";
+    $result = mysqli_query($connection, $query);
+    confirm_query($result);
+    return $result;
+}
+
+/*
+ * MHM: 2017-02-23
+ * Comment
+ *  Delete a av record from the av database.
+ *  Input: Connection to database, av ID.
+ *  Output: result of database query.
+ */
+function delete_av_from_av($connection, $avId) {
+    $query  = "DELETE FROM av WHERE id = {$avId}";
     $result = mysqli_query($connection, $query);
     confirm_query($result);
     return $result;

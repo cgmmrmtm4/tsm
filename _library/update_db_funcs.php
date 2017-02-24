@@ -22,6 +22,7 @@
  * Comment:
  *  udpate stats in vbstats database.
  *  Cleanup return value for all functions.
+ *  Update av record in av database.
  */
 
 if (count(get_included_files()) == 1) {
@@ -98,6 +99,28 @@ function update_stats_into_vbstats($connection, $statId, $seasonId, $opponent, $
     $query .= "aces = {$dbAces}, ";
     $query .= "sideouts = {$dbSideOuts} ";
     $query .= "WHERE id = {$statId}";
+    $result = mysqli_query($connection, $query);
+    confirm_query($result);
+    return $result;
+}
+
+/*
+ * MHM: 2017-02-23
+ * Comment:
+ *  Update av record in av database
+ *  Input: Connection to database, av Id, season Id, student ID, av type, subject, thumb name
+ *  av file name.
+ *  Output: result of database query
+ */
+function update_av_into_av($connection, $avId, $seasonId, $studentId, $dbav, $subject, $thumbName, $avName) {
+    $query  = "UPDATE av SET ";
+    $query .= "seasonId = {$seasonId}, ";
+    $query .= "studentId = {$studentId}, ";
+    $query .= "video = ${dbav}, ";
+    $query .= "subject = '{$subject}', ";
+    $query .= "thumbName = '{$thumbName}', ";
+    $query .= "avName = '{$avName}' ";
+    $query .= "WHERE id = {$avId}";
     $result = mysqli_query($connection, $query);
     confirm_query($result);
     return $result;

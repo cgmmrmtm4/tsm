@@ -12,26 +12,27 @@
  * MHM: 2013-02-23
  * Comment:
  *  Support the delete functionality.
+ *  Do some minor logic clean-up.
  */
 require("../_includes/req_includes.php");
 $siteroot = HOMEROOT;
 $imagepath = IMGROOT;
 $pagelogo = "$imagepath" . PHOTOMISC . "/spft.jpg";
 
-$connection = open_db();
 if (isset($_POST['delete'])) {
     
+    $connection = open_db();
     $returnPage = $_POST['retPage'];
     $schedId = $_POST['schedId'];
     $result = delete_game_from_records($connection, $schedId);
     
     if ($result) {
         $_SESSION["message"] = "Game successfully deleted from database.";
-        close_db($connection);
-        redirect_to("{$returnPage}");
     } else {
         $_SESSION["message"] = "Failed to delete game from database!"; 
     }
+    close_db($connection);
+    redirect_to("{$returnPage}");
 } else {
     /*
      * This is must be a get request.

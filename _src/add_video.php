@@ -23,6 +23,10 @@
  * MHM: 2017-02-13
  * Comment:
  *  Add form fields.
+ *
+ * MHM: 2017-02-23
+ * Comment:
+ *  Support add video.
  */
 require("../_includes/req_includes.php");
     
@@ -30,18 +34,26 @@ $siteroot = HOMEROOT;
 $imagepath = IMGROOT;
 $pagelogo = "$imagepath" . PHOTOMISC . "/spft.jpg";
 
-$_SESSION["message"] = "Not Implemented yet!";
 $connection = open_db();
 if (isset($_POST['submit'])) {
+     /*
+     * validate data
+     */
+    
+    $required_fields = array("thumbName", "fileName");
+    validate_presences($required_fields);
+    
+    $fields_with_max_lengths = array("thumbName" => 30, "fileName" => 30);
+    validate_max_lengths($fields_with_max_lengths);
+    
     $student = $_POST['studentName'];
     $season = $_POST['season'];
     $year = $_POST['year'];
     $pIndex = $_POST['pIndex'];
     $selection = $_POST['selection'];
+    $thumbName = $_POST['thumbName'];
+    $fileName = $_POST['fileName'];
     $returnPage = $_POST['retPage'];
-    /*
-     * validate data
-     */
     
     if (empty($errors)) {
         /*
@@ -49,27 +61,41 @@ if (isset($_POST['submit'])) {
          * Comment:
          *  Perform create.
          */
-        $_SESSION["message"] = "Not Implemented yet!";
-        close_db($connection);
-        redirect_to("$returnPage?studentName=$student&season=$season&pIndex=$pIndex&year=$year");
+        $studentId = get_studentId($connection, $student);
+        $seasonId = get_seasonId($connection, $season, $year);
+        $dbVideo = 1;
+        $result = insert_av_into_av($connection, $seasonId, $studentId, $dbVideo, $selection, $thumbName, $fileName);
+        
+        if ($result) {
+            $_SESSION["message"] = "Video successfully added to database.";
+            close_db($connection);
+            redirect_to("{$returnPage}");
+        } else {
+            $_SESSION["message"] = "Failed to video to database.";
+            $errors["insert"] = mysqli_error($connection);
+        }
     }
 }
 if ((isset($_POST['submit'])) || (isset($_POST['add']))) {
-    $student = $_POST['studentName'];
-    $season = $_POST['season'];
-    $year = $_POST['year'];
-    $pIndex = $_POST['pIndex'];
-    $selection = $_POST['selection'];
-    $returnPage = $_POST['retPage'];
+    if (isset($_POST['add'])) {
+        $student = $_POST['studentName'];
+        $season = $_POST['season'];
+        $year = $_POST['year'];
+        $pIndex = $_POST['pIndex'];
+        $selection = $_POST['selection'];
+        $returnPage = $_POST['retPage'];
+        $fileName = "";
+        $thumbName = "";
+    }
     /*
      * Display the form
      */
-    ?>
+?>
     <!DOCTYPE HTML>
     <html lang="en">
         <head>
         <meta charset="utf-8">
-        <title>Add a Class</title>
+        <title>Add a Video</title>
         <link href="../_css/styles.css" rel="stylesheet" type="text/css">
         </head>
         <body id="page_volleyball">
@@ -88,40 +114,36 @@ if ((isset($_POST['submit'])) || (isset($_POST['add']))) {
                         <h1>Add Video</h1>
                         <form action="add_video.php" method="post">
                             <p> 
-                                <label for="a">Season:</label>
-                                <select id="a" name="season">
-                                    <option value="SUMMER">SUMMER</option>
-                                    <option value="FALL">FALL</option>
-                                    <option value="SPRING">SPRING</option>
+                                <label>Season:</label>
+                                <select name="season">
+<?php
+                                echo get_seasons($season, true);
+?>
                                 </select>
                             </p>
                             <p> 
-                                <label for="b">Year:</label>
-                                <select id="b" name="year">
-                                    <option value=2014>2014</option>
-                                    <option value=2015>2015</option>
-                                    <option value=2016>2016</option>
-                                    <option value=2017>2017</option>
-                                    <option value=2018>2018</option>
+                                <label>Year:</label>
+                                <select name="year">
+<?php
+                                echo get_years($student, $year, true);
+?>
                                 </select>
                             </p>
                             <p> 
-                                <label for="c">Thumbnail:</label>
-                                <input class="dbtext" maxlength="30" id="c" type="text" name="thumbName" value="">
+                                <label>Thumbnail:</label>
+                                <input class="dbtext" maxlength="30" type="text" name="thumbName" value="<?= $thumbName ?>">
                             </p>
                             <p> 
-                                <label for="d">File Name:</label>
-                                <input class="dbtext" maxlength="30" id="d" type="text" name="fileName" value="">
+                                <label>File Name:</label>
+                                <input class="dbtext" maxlength="30" type="text" name="fileName" value="<?= $fileName ?>">
                             </p>
                             <br>
                             <input type="hidden" name="studentName" value="<?= $student ?>">
-                            <input type="hidden" name="season" value="<?= $season ?>">
-                            <input type="hidden" name="year" value="<?= $year ?>">
                             <input type="hidden" name="pIndex" value="<?= $pIndex ?>">
                             <input type="hidden" name="selection" value="<?= $selection ?>">
                             <input type="hidden" name="retPage" value="<?= $returnPage; ?>">
-                            <input type="submit" name="submit" value="Add Video">
-                            <a href="<?= $returnPage ?>?studentName=<?= $student; ?>&season=<?= $season; ?>&pIndex=<?= $pIndex ?>&year=<?= $year; ?>">Cancel</a>
+                            <input type="submit" name="submit" value="Add Picture">
+                            <a href="<?= $returnPage ?>">Cancel</a>
                         </form>
                     </div>
                 </section>

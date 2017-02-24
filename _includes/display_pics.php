@@ -32,6 +32,7 @@
  * MHM: 2017-02-23
  * Comment:
  *  Remove need for leading / in database entry.
+ *  Fix return page for edit button, remove extraneous parameters in delete form.
  */
 if (count(get_included_files()) == 1) {
     exit("direct access not allowed.");
@@ -106,19 +107,14 @@ $headerLabel = $year . " " . $dynamic_heading . " " . "Pictures";
                                 <input type="hidden" name="year" value="<?= $year ?>">
                                 <input type="hidden" name="pIndex" value="<?= $pIndex ?>">
                                 <input type="hidden" name="selection" value="<?= $selection ?>">
-                                <input type="hidden" name="retPage" value="<?= $_SERVER['PHP_SELF'] ?>">
+                                <input type="hidden" name="retPage" value="<?= $_SERVER['PHP_SELF'] ?>?studentName=<?= $student ?>&season=<?= $season ?>&year=<?= $year ?>&pIndex=<?= $pIndex ?>">
                                 <input type="submit" name="edit" value="EDIT">
                             </div>
                         </form>
                         <form method="post" action="delete_picture.php">
                             <div>
                                 <input type="hidden" name="photoId" value="<?= $photoId ?>">
-                                <input type="hidden" name="studentName" value="<?= $student ?>">
-                                <input type="hidden" name="season" value="<?= $season ?>">
-                                <input type="hidden" name="year" value="<?= $year ?>">
-                                <input type="hidden" name="pIndex" value="<?= $pIndex ?>">
-                                <input type="hidden" name="selection" value="<?= $selection ?>">
-                                <input type="hidden" name="retPage" value="<?= $_SERVER['PHP_SELF'] ?>">
+                                <input type="hidden" name="retPage" value="<?= $_SERVER['PHP_SELF'] ?>?studentName=<?= $student ?>&season=<?= $season ?>&year=<?= $year ?>&pIndex=<?= $pIndex ?>">
                                 <input type="submit" name="delete" value="DELETE" onclick="return confirm('Are you sure?')">
                             </div>
                         </form>

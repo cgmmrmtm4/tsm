@@ -40,7 +40,7 @@
  *
  * MHM: 2017-02-23
  * Comment:
- *  Get today's year.
+ *  With the change to the navigation menu, the year should be the year passed in by the form.
  */
 require("../_includes/req_includes.php");
     
@@ -199,8 +199,7 @@ if ((isset($_POST['submit'])) || (isset($_POST['add']))) {
                                 <label>Year:</label>
                                 <select name="year">
 <?php
-                                $dbYear = date('Y');
-                                echo get_years($student, $dbYear, true);
+                                echo get_years($student, $year, true);
 ?>
                                 </select>
                             </p>
