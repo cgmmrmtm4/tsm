@@ -32,6 +32,10 @@
  * Comment:
  *  Remove need for leading / in database entry.
  *  Fix return page for edit and delete buttons. Removed extraneous parameters on delete form.
+ *
+ * MHM: 2017-03-02
+ * Comment:
+ *  Add support for icons.
  */
 if (count(get_included_files()) == 1) {
     exit("direct access not allowed.");
@@ -93,14 +97,14 @@ $result = get_vids($connection, "Volleyball", $season, $year);
                                 <input type="hidden" name="pIndex" value="<?= $pIndex ?>">
                                 <input type="hidden" name="selection" value="<?= $selection ?>">
                                 <input type="hidden" name="retPage" value="<?= $_SERVER['PHP_SELF'] ?>?studentName=<?= $student ?>&season=<?= $season ?>&year=<?= $year ?>&pIndex=<?= $pIndex ?>">
-                                <input type="submit" name="edit" value="EDIT">
+                                <input type="submit" name="edit" value="&#xE3C9;">
                             </div>
                         </form>
                         <form method="post" action="delete_video.php">
                             <div>
                                 <input type="hidden" name="videoId" value="<?= $videoId ?>">
                                 <input type="hidden" name="retPage" value="<?= $_SERVER['PHP_SELF'] ?>?studentName=<?= $student ?>&season=<?= $season ?>&year=<?= $year ?>&pIndex=<?= $pIndex ?>">
-                                <input type="submit" name="delete" value="DELETE" onclick="return confirm('Are you sure?')">
+                                <input type="submit" name="delete" value="&#xE872;" onclick="return confirm('Are you sure?')">
                             </div>
                         </form>
                     </div>

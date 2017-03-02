@@ -58,100 +58,105 @@ if (count(get_included_files()) == 1) {
 ?>
     </div>
     <nav>
-        <ol>
+        <div id="topnav">
+            <h2 class="highlight">Site <i class="material-icons">menu</i></h2>
+            <div id="tophiddennav">
+                <ol>
 <?php
-        /*
-         * MHM: 2017-01-18
-         *
-         * Comment:
-         *  On all pages, there is always a HOME tab.
-         *
-         */
-        echo "<li";
-        if ($selection == HOME) {
-            echo " class=\"selected\"";
-        }
-        echo "><a href=\"$siteroot/_src/intro.php\">HOME</a></li>";
+                /*
+                 * MHM: 2017-01-18
+                 *
+                 * Comment:
+                 *  On all pages, there is always a HOME tab.
+                 *
+                 */
+                echo "<li";
+                if ($selection == HOME) {
+                    echo " class=\"selected\"";
+                }
+                echo "><a href=\"$siteroot/_src/intro.php\">HOME</a></li>";
                 
-        /*
-         * MHM: 2017-01-18
-         * Comment:
-         *  Common tabs that are available for each child. Luckily, they both played volleyball.
-         *
-         */
-        if (($student == THEO) || ($student == RACHEL)) {
-            echo "<li";
-            if ($selection == ACADEMIC) {
-                echo " class=\"selected\"";
-            }
-            echo "><a href=\"$siteroot/_src/academics.php?studentName=$student\">ACADEMICS</a></li>";
+                /*
+                 * MHM: 2017-01-18
+                 * Comment:
+                 *  Common tabs that are available for each child. Luckily, they both played volleyball.
+                 *
+                 */
+                if (($student == THEO) || ($student == RACHEL)) {
+                    echo "<li";
+                    if ($selection == ACADEMIC) {
+                        echo " class=\"selected\"";
+                    }
+                    echo "><a href=\"$siteroot/_src/academics.php?studentName=$student\">ACADEMICS</a></li>";
                     
-            echo "<li";
-            if ($selection == VB) {
-                echo " class=\"selected\"";
-            }
-            echo "><a href=\"$siteroot/_src/volleyball.php?studentName=$student\">VOLLEYBALL</a></li>";
+                    echo "<li";
+                    if ($selection == VB) {
+                        echo " class=\"selected\"";
+                    }
+                    echo "><a href=\"$siteroot/_src/volleyball.php?studentName=$student\">VOLLEYBALL</a></li>";
                     
-            /*
-             * MHM: 2017-01-18
-             * Comment:
-             *  Theo specific tabs
-             *
-             */
-            if ($student == THEO) {
-                echo "<li";
-                if ($selection == SOC) {
-                    echo " class=\"selected\"";
-                }
-                echo "><a href=\"$siteroot/_src/soccer.php?studentName=$student\">SOCCER</a></li>";
+                    /*
+                     * MHM: 2017-01-18
+                     * Comment:
+                     *  Theo specific tabs
+                     *
+                     */
+                    if ($student == THEO) {
+                        echo "<li";
+                        if ($selection == SOC) {
+                            echo " class=\"selected\"";
+                        }
+                        echo "><a href=\"$siteroot/_src/soccer.php?studentName=$student\">SOCCER</a></li>";
                     
-                echo "<li";
-                if ($selection == TRAVEL) {
-                    echo " class=\"selected\"";
-                }
-                echo "><a href=\"$siteroot/_src/travel.php?studentName=$student\">TRAVEL</a></li>";
-            }
+                        echo "<li";
+                        if ($selection == TRAVEL) {
+                            echo " class=\"selected\"";
+                        }
+                        echo "><a href=\"$siteroot/_src/travel.php?studentName=$student\">TRAVEL</a></li>";
+                    }
 
-            /*
-             * MHM: 2017-01-18
-             * Comment:
-             *  Rachel specific tabs.
-             *
-             */
-            if ($student == RACHEL) {
-                echo "<li";
-                if ($selection == SB) {
-                    echo " class=\"selected\"";
-                }
-                echo "><a href=\"$siteroot/_src/softball.php?studentName=$student\">SOFTBALL</a></li>";
+                    /*
+                     * MHM: 2017-01-18
+                     * Comment:
+                     *  Rachel specific tabs.
+                     *
+                     */
+                    if ($student == RACHEL) {
+                        echo "<li";
+                        if ($selection == SB) {
+                            echo " class=\"selected\"";
+                        }
+                        echo "><a href=\"$siteroot/_src/softball.php?studentName=$student\">SOFTBALL</a></li>";
                     
-                echo "<li";
-                if ($selection == TENNIS) {
-                    echo " class=\"selected\"";
-                }
-                echo "><a href=\"$siteroot/_src/tennis.php?studentName=$student\">TENNIS</a></li>";
-            }
-        } else {
+                        echo "<li";
+                        if ($selection == TENNIS) {
+                            echo " class=\"selected\"";
+                        }
+                        echo "><a href=\"$siteroot/_src/tennis.php?studentName=$student\">TENNIS</a></li>";
+                    }
+                } else {
                     
-            /*
-             * MHM: 2017-01-18
-             * Comment:
-             *  This is the home navigation page, so the tabs will just navigate us to
-             *  the student's academic page.
-             *
-             *  In this case, student is either null or someone passed in an unspported student.
-             *  Build the supported tabs and then set $student to null.
-             *
-             */
-            $student=RACHEL;
-            echo "<li><a href=\"$siteroot/_src/khp.php?studentName=$student\">RACHEL</a></li>";
-            $student=THEO;
-            echo "<li><a href=\"$siteroot/_src/khp.php?studentName=$student\">THEO</a></li>";
-            $student=null;
-        }
+                    /*
+                     * MHM: 2017-01-18
+                     * Comment:
+                     *  This is the home navigation page, so the tabs will just navigate us to
+                     *  the student's academic page.
+                     *
+                     *  In this case, student is either null or someone passed in an unspported student.
+                     *  Build the supported tabs and then set $student to null.
+                     *
+                     */
+                    $student=RACHEL;
+                    echo "<li><a href=\"$siteroot/_src/khp.php?studentName=$student\">RACHEL</a></li>";
+                    $student=THEO;
+                    echo "<li><a href=\"$siteroot/_src/khp.php?studentName=$student\">THEO</a></li>";
+                    $student=null;
+                }
 ?>
-            <li><a href="http://mbhs.slcusd.org" title="Morro Bay HS Homepage" target="_blank" class="flowRight">MBHS HOME</a></li>
-        </ol>
+                    <li><a href="http://mbhs.slcusd.org" title="Morro Bay HS Homepage" target="_blank" class="flowRight">MBHS HOME</a></li>
+                </ol>
+            </div>
+        </div>
     </nav>
 </header>
 <div id="rotator"><img src="<?= $imagepath . PHOTOMISC; ?>/mbhs.jpg" width=100% height="120" alt="MBHS from land"></div>

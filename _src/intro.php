@@ -13,6 +13,10 @@
  * Comment:
  *  Changes for include layout. Some format changes so the code 
  *  does not sprawl so far to the right.
+ *
+ * MHM: 2017-03-02
+ * Comment:
+ *  Add support for icons.
  */
 require("../_includes/req_includes.php");
 $siteroot = HOMEROOT;
@@ -34,6 +38,7 @@ $student=null;
         <meta charset="utf-8">
         <title>Our kids high school page page 2009-2018</title>
         <link href="../_css/styles.css" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     </head>
     <body id="page_home">
         <div class="wrapper">

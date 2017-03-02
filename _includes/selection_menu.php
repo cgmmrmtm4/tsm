@@ -68,301 +68,306 @@ if (count(get_included_files()) == 1) {
 }
 ?>
 <article id="select_menu">
-<?php
-/*
- * MHM: 2017-01-16
- * Comment:
- *  Will either be an academic or a season selector
- */
-if ($selection != TRAVEL) {
-    if ($selection == ACADEMIC) {
-?>
-        <h2 class="highlight">Select a Semester</h2>
+    <div id="topbar">
+        <h2 class="highlight"><?= $selection ?> <i class="material-icons">menu</i></h2>
+        <div id="tophiddenbar">
 <?php
         /*
          * MHM: 2017-01-16
          * Comment:
-         *  Figure out the number of semester buttons we'll neeed.
+         *  Will either be an academic or a season selector
          */
-        $result = get_academic_years($connection, $student);
-    } else {
+        if ($selection != TRAVEL) {
+            if ($selection == ACADEMIC) {
 ?>
-        <h2 class="highlight">Select a Season</h2>
-<?php
-        /*
-         * MHM: 2017-01-16
-         * Comment:
-         *  Figure out the number of navigation buttons we'll need for this sport.
-         */
-        $result = get_sport_seasons($connection, $selection, $student);
-    }
-?>
-        <nav>
-<?php
-        /*
-         * MHM: 2017-01-16
-         * Comment:
-         *  Display all of the buttons and their GET actions when the button is selected.
-         */
-        while ($semester = mysqli_fetch_assoc($result)) {
-            $get_season = $semester["season"];
-            $get_year = $semester["year"];
-            $getSubLabel = $get_season . " " . $get_year;
-?>
-            <form method="get" action="<?= $_SERVER['PHP_SELF']; ?>">
-                <input type="hidden" name="studentName" value="<?= $student ?>">
-                <input type="hidden" name="season" value="<?= $get_season ?>">
-                <input type="hidden" name="year" value="<?= $get_year ?>">
+                <h2 class="highlight">Select a Semester</h2>
 <?php
                 /*
-                 * MHM: 2017-01-18
+                 * MHM: 2017-01-16
                  * Comment:
-                 *  Need to find a better way then this long if statement to ensure that only the select semester
-                 *  tab is highlighted.
-                 * 
+                 *  Figure out the number of semester buttons we'll neeed.
                  */
-                if (($season == $get_season) && ($year == $get_year) && ($pIndex == SCHED)) {
-                    echo "<input class=\"selected\" type=\"submit\" value=\"$getSubLabel\">";
-                } else {
-                    echo "<input type=\"submit\" value=\"$getSubLabel\">";
-                }
+                $result = get_academic_years($connection, $student);
+            } else {
 ?>
-            </form>
+                <h2 class="highlight">Select a Season</h2>
+<?php
+                /*
+                 * MHM: 2017-01-16
+                 * Comment:
+                 *  Figure out the number of navigation buttons we'll need for this sport.
+                 */
+                $result = get_sport_seasons($connection, $selection, $student);
+            }
+?>
+                <nav>
+<?php
+                /*
+                 * MHM: 2017-01-16
+                 * Comment:
+                 *  Display all of the buttons and their GET actions when the button is selected.
+                 */
+                while ($semester = mysqli_fetch_assoc($result)) {
+                    $get_season = $semester["season"];
+                    $get_year = $semester["year"];
+                    $getSubLabel = $get_season . " " . $get_year;
+?>
+                    <form method="get" action="<?= $_SERVER['PHP_SELF']; ?>">
+                        <input type="hidden" name="studentName" value="<?= $student ?>">
+                        <input type="hidden" name="season" value="<?= $get_season ?>">
+                        <input type="hidden" name="year" value="<?= $get_year ?>">
+<?php
+                        /*
+                         * MHM: 2017-01-18
+                         * Comment:
+                         *  Need to find a better way then this long if statement to ensure that only the select semester
+                         *  tab is highlighted.
+                         * 
+                         */
+                        if (($season == $get_season) && ($year == $get_year) && ($pIndex == SCHED)) {
+                            echo "<input class=\"selected\" type=\"submit\" value=\"$getSubLabel\">";
+                        } else {
+                            echo "<input type=\"submit\" value=\"$getSubLabel\">";
+                        }
+?>
+                    </form>
+<?php
+                }
+                if ($selection == ACADEMIC) {
+                    if ($student == THEO) {
+?>
+                        <form method="post" action="add_class.php">
+                            <input type="hidden" name="studentName" value="<?= $student ?>">
+                            <input type="hidden" name="season" value="<?= $season ?>">
+                            <input type="hidden" name="year" value="<?= $year ?>">
+                            <input type="hidden" name="pIndex" value="<?= $pIndex ?>">
+                            <input type="hidden" name="selection" value="<?= $selection ?>">
+                            <input type="hidden" name="retPage" value="<?= $_SERVER['PHP_SELF'] ?>?studentName=<?= $student ?>&season=<?= $season ?>&year=<?= $year ?>">
+                            <input class="useicon" type="submit" name="add" value="&#xE145;">
+                        </form>
+<?php
+                    }
+                } else {
+                    if ($pIndex == SCHED) {
+?>
+                        <form method="post" action="add_game.php">
+                            <input type="hidden" name="studentName" value="<?= $student ?>">
+                            <input type="hidden" name="season" value="<?= $season ?>">
+                            <input type="hidden" name="year" value="<?= $year ?>">
+                            <input type="hidden" name="pIndex" value="<?= $pIndex ?>">
+                            <input type="hidden" name="selection" value="<?= $selection ?>">
+                            <input type="hidden" name="retPage" value="<?= $_SERVER['PHP_SELF'] ?>?studentName=<?= $student ?>&season=<?= $season ?>&pIndex=<?= $pIndex ?>&year=<?= $year ?>">
+                            <input class="useicon" type="submit" name="add" value="&#xE145;">
+                        </form>
+<?php
+                    }
+                }
+                   
+                /*
+                 * MHM: 2017-01-16
+                 * Comment:
+                 *  Free results from database query
+                 */
+                mysqli_free_result($result);
+?>
+                </nav>
+                <br>
 <?php
         }
-        if ($selection == ACADEMIC) {
-            if ($student == THEO) {
+        /*
+         * MHM: 2017-01-16
+         * Comment:
+         *  If not academic, we will always have a picture gallery.
+         */
+        if ($selection != ACADEMIC) {
 ?>
-                <form method="post" action="add_class.php">
+            <h2 class="highlight">Picture Gallery</h2>
+            <nav>
+<?php
+            /*
+             * MHM: 2017-01-16
+             * Comment:
+             *  Figure out the number of navigation buttons we'll need for this picture gallery.
+             */
+            $result = get_activity_av_seasons($connection, $selection, 0, $student);
+        
+            /*
+             * MHM: 2017-01-16
+             * Comment:
+             *  Display all of the buttons and their GET actions when the button is selected.
+             */
+        
+            while ($picform = mysqli_fetch_assoc($result)) {
+                $get_season = $picform["season"];
+                $get_year = $picform["year"];
+                $getSubLabel = $get_season . " " . $get_year;
+?>
+                <form method="get" action="<?= $_SERVER['PHP_SELF']; ?>">
                     <input type="hidden" name="studentName" value="<?= $student ?>">
-                    <input type="hidden" name="season" value="<?= $season ?>">
-                    <input type="hidden" name="year" value="<?= $year ?>">
-                    <input type="hidden" name="pIndex" value="<?= $pIndex ?>">
-                    <input type="hidden" name="selection" value="<?= $selection ?>">
-                    <input type="hidden" name="retPage" value="<?= $_SERVER['PHP_SELF'] ?>?studentName=<?= $student ?>&season=<?= $season ?>&year=<?= $year ?>">
-                    <input type="submit" name="add" value="Add Class">
+                    <input type="hidden" name="season" value="<?= $get_season ?>">
+                    <input type="hidden" name="pIndex" value="<?= constant("PICS") ?>">
+                    <input type="hidden" name="year" value="<?= $get_year ?>">
+<?php
+                    if (($season == $get_season) && ($year == $get_year) && ($pIndex == PICS)) {
+                        echo "<input class=\"selected\" type=\"submit\" value=\"$getSubLabel\">";
+                    } else {
+                        echo "<input type=\"submit\" value=\"$getSubLabel\">";
+                    }
+?>
                 </form>
 <?php
             }
-        } else {
-            if ($pIndex == SCHED) {
+            if ($pIndex == PICS) {
 ?>
-                <form method="post" action="add_game.php">
+                <form method="post" action="add_picture.php">
                     <input type="hidden" name="studentName" value="<?= $student ?>">
                     <input type="hidden" name="season" value="<?= $season ?>">
                     <input type="hidden" name="year" value="<?= $year ?>">
                     <input type="hidden" name="pIndex" value="<?= $pIndex ?>">
                     <input type="hidden" name="selection" value="<?= $selection ?>">
                     <input type="hidden" name="retPage" value="<?= $_SERVER['PHP_SELF'] ?>?studentName=<?= $student ?>&season=<?= $season ?>&pIndex=<?= $pIndex ?>&year=<?= $year ?>">
-                    <input type="submit" name="add" value="Add Game">
+                    <input class="useicon" type="submit" name="add" value="&#xE145;">
                 </form>
 <?php
             }
-        }
-                   
-        /*
-         * MHM: 2017-01-16
-         * Comment:
-         *  Free results from database query
-         */
-        mysqli_free_result($result);
+            /*
+             * MHM: 2017-01-16
+             * Comment:
+             *  Free results from database query
+             */
+            mysqli_free_result($result);
 ?>
-        </nav>
-        <br>
+            </nav>
+            <br>
 <?php
-}
-/*
- * MHM: 2017-01-16
- * Comment:
- *  If not academic, we will always have a picture gallery.
- */
-if ($selection != ACADEMIC) {
+            /*
+             * MHM: 2017-01-16
+             * Comment:
+             *  If volleyball and Theodore we need a video and statistic navigation area.
+             */
+            if (($selection == VB) && ($student == THEO)) {
 ?>
-    <h2 class="highlight">Picture Gallery</h2>
-    <nav>
+                <h2 class="highlight">Video Gallary</h2>
+                <nav>
 <?php
-    /*
-     * MHM: 2017-01-16
-     * Comment:
-     *  Figure out the number of navigation buttons we'll need for this picture gallery.
-     */
-    $result = get_activity_av_seasons($connection, $selection, 0, $student);
+                /*
+                 * MHM: 2017-01-17
+                 * Comment:
+                 *  Figure out the number of navigation buttons we'll need for this video gallery.
+                 */
+                $result = get_activity_av_seasons($connection, $selection, 1, $student);
         
-    /*
-     * MHM: 2017-01-16
-     * Comment:
-     *  Display all of the buttons and their GET actions when the button is selected.
-     */
+                /*
+                 * MHM: 2017-01-17
+                 * Comment:
+                 *  Display all of the buttons and their GET actions when the button is selected.
+                 */
         
-    while ($picform = mysqli_fetch_assoc($result)) {
-        $get_season = $picform["season"];
-        $get_year = $picform["year"];
-        $getSubLabel = $get_season . " " . $get_year;
-?>
-        <form method="get" action="<?= $_SERVER['PHP_SELF']; ?>">
-            <input type="hidden" name="studentName" value="<?= $student ?>">
-            <input type="hidden" name="season" value="<?= $get_season ?>">
-            <input type="hidden" name="pIndex" value="<?= constant("PICS") ?>">
-            <input type="hidden" name="year" value="<?= $get_year ?>">
-<?php
-            if (($season == $get_season) && ($year == $get_year) && ($pIndex == PICS)) {
-                echo "<input class=\"selected\" type=\"submit\" value=\"$getSubLabel\">";
-            } else {
-                echo "<input type=\"submit\" value=\"$getSubLabel\">";
-            }
-?>
-        </form>
-<?php
-    }
-    if ($pIndex == PICS) {
-?>
-        <form method="post" action="add_picture.php">
-            <input type="hidden" name="studentName" value="<?= $student ?>">
-            <input type="hidden" name="season" value="<?= $season ?>">
-            <input type="hidden" name="year" value="<?= $year ?>">
-            <input type="hidden" name="pIndex" value="<?= $pIndex ?>">
-            <input type="hidden" name="selection" value="<?= $selection ?>">
-            <input type="hidden" name="retPage" value="<?= $_SERVER['PHP_SELF'] ?>?studentName=<?= $student ?>&season=<?= $season ?>&pIndex=<?= $pIndex ?>&year=<?= $year ?>">
-            <input type="submit" name="add" value="Add Picture">
-        </form>
-<?php
-    }
-    /*
-     * MHM: 2017-01-16
-     * Comment:
-     *  Free results from database query
-     */
-    mysqli_free_result($result);
-?>
-    </nav>
-    <br>
-<?php
-    /*
-     * MHM: 2017-01-16
-     * Comment:
-     *  If volleyball and Theodore we need a video and statistic navigation area.
-     */
-    if (($selection == VB) && ($student == THEO)) {
-?>
-        <h2 class="highlight">Video Gallary</h2>
-        <nav>
-<?php
-        /*
-         * MHM: 2017-01-17
-         * Comment:
-         *  Figure out the number of navigation buttons we'll need for this video gallery.
-         */
-        $result = get_activity_av_seasons($connection, $selection, 1, $student);
-        
-        /*
-         * MHM: 2017-01-17
-         * Comment:
-         *  Display all of the buttons and their GET actions when the button is selected.
-         */
-        
-        while ($picform = mysqli_fetch_assoc($result)) {
-            $get_season = $picform["season"];
-            $get_year = $picform["year"];
-            $getSubLabel = $get_season . " " . $get_year;
+                while ($picform = mysqli_fetch_assoc($result)) {
+                    $get_season = $picform["season"];
+                    $get_year = $picform["year"];
+                    $getSubLabel = $get_season . " " . $get_year;
 ?>
         
-            <form method="get" action="<?= $_SERVER['PHP_SELF']; ?>">
-                <input type="hidden" name="studentName" value="<?= $student ?>">
-                <input type="hidden" name="season" value="<?= $get_season ?>">
-                <input type="hidden" name="pIndex" value="<?= constant("VIDS") ?>">
-                <input type="hidden" name="year" value="<?= $get_year ?>">
+                    <form method="get" action="<?= $_SERVER['PHP_SELF']; ?>">
+                        <input type="hidden" name="studentName" value="<?= $student ?>">
+                        <input type="hidden" name="season" value="<?= $get_season ?>">
+                        <input type="hidden" name="pIndex" value="<?= constant("VIDS") ?>">
+                        <input type="hidden" name="year" value="<?= $get_year ?>">
 <?php
-                if (($season == $get_season) && ($year == $get_year) && ($pIndex == VIDS)) {
-                    echo "<input class=\"selected\" type=\"submit\" value=\"$getSubLabel\">";
-                } else {
-                    echo "<input type=\"submit\" value=\"$getSubLabel\">";
+                        if (($season == $get_season) && ($year == $get_year) && ($pIndex == VIDS)) {
+                            echo "<input class=\"selected\" type=\"submit\" value=\"$getSubLabel\">";
+                        } else {
+                            echo "<input type=\"submit\" value=\"$getSubLabel\">";
+                        }
+?>
+                    </form>
+<?php
                 }
+                if ($pIndex == VIDS) {
 ?>
-            </form>
+                    <form method="post" action="add_video.php">
+                        <input type="hidden" name="studentName" value="<?= $student ?>">
+                        <input type="hidden" name="season" value="<?= $season ?>">
+                        <input type="hidden" name="year" value="<?= $year ?>">
+                        <input type="hidden" name="pIndex" value="<?= $pIndex ?>">
+                        <input type="hidden" name="selection" value="<?= $selection ?>">
+                        <input type="hidden" name="retPage" value="<?= $_SERVER['PHP_SELF'] ?>?studentName=<?= $student ?>&season=<?= $season ?>&pIndex=<?= $pIndex ?>&year=<?= $year ?>">
+                        <input class="useicon" type="submit" name="add" value="&#xE145;">
+                    </form>
 <?php
-        }
-        if ($pIndex == VIDS) {
+                }
+                /*
+                 * MHM: 2017-01-17
+                 * Comment:
+                 *  Free results from database query
+                 */
+                mysqli_free_result($result);
 ?>
-            <form method="post" action="add_video.php">
-                <input type="hidden" name="studentName" value="<?= $student ?>">
-                <input type="hidden" name="season" value="<?= $season ?>">
-                <input type="hidden" name="year" value="<?= $year ?>">
-                <input type="hidden" name="pIndex" value="<?= $pIndex ?>">
-                <input type="hidden" name="selection" value="<?= $selection ?>">
-                <input type="hidden" name="retPage" value="<?= $_SERVER['PHP_SELF'] ?>?studentName=<?= $student ?>&season=<?= $season ?>&pIndex=<?= $pIndex ?>&year=<?= $year ?>">
-                <input type="submit" name="add" value="Add Video">
-            </form>
+                </nav>
+                <br>
+                <h2 class="highlight">Statistics</h2>
+                <nav>
 <?php
-        }
-        /*
-         * MHM: 2017-01-17
-         * Comment:
-         *  Free results from database query
-         */
-        mysqli_free_result($result);
-?>
-        </nav>
-        <br>
-        <h2 class="highlight">Statistics</h2>
-        <nav>
-<?php
-        /*
-         * MHM: 2017-01-19
-         * Comment:
-         *  Figure out the number of navigation buttons we'll need for this statistics area.
-         */
-        $result = get_vb_stat_seasons($connection);
+                /*
+                 * MHM: 2017-01-19
+                 * Comment:
+                 *  Figure out the number of navigation buttons we'll need for this statistics area.
+                 */
+                $result = get_vb_stat_seasons($connection);
         
-        /*
-         * MHM: 2017-01-19
-         * Comment:
-         *  Display all of the buttons and their GET actions when the button is selected.
-         */
+                /*
+                 * MHM: 2017-01-19
+                 * Comment:
+                 *  Display all of the buttons and their GET actions when the button is selected.
+                 */
                 
-        while ($picform = mysqli_fetch_assoc($result)) {
-            $get_season = $picform["season"];
-            $get_year = $picform["year"];
-            $getSubLabel = $get_season . " " . $get_year;
+                while ($picform = mysqli_fetch_assoc($result)) {
+                    $get_season = $picform["season"];
+                    $get_year = $picform["year"];
+                    $getSubLabel = $get_season . " " . $get_year;
 ?>
         
-            <form method="get" action="<?= $_SERVER['PHP_SELF']; ?>">
-                <input type="hidden" name="studentName" value="<?= $student ?>">
-                <input type="hidden" name="season" value="<?= $get_season ?>">
-                <input type="hidden" name="pIndex" value="<?= constant("STATS") ?>">
-                <input type="hidden" name="year" value="<?= $get_year ?>">
+                    <form method="get" action="<?= $_SERVER['PHP_SELF']; ?>">
+                        <input type="hidden" name="studentName" value="<?= $student ?>">
+                        <input type="hidden" name="season" value="<?= $get_season ?>">
+                        <input type="hidden" name="pIndex" value="<?= constant("STATS") ?>">
+                        <input type="hidden" name="year" value="<?= $get_year ?>">
 <?php
-            if (($season == $get_season) && ($year == $get_year) && ($pIndex == STATS)) {
-                echo "<input class=\"selected\" type=\"submit\" value=\"$getSubLabel\">";
-            } else {
-                echo "<input type=\"submit\" value=\"$getSubLabel\">";
+                        if (($season == $get_season) && ($year == $get_year) && ($pIndex == STATS)) {
+                            echo "<input class=\"selected\" type=\"submit\" value=\"$getSubLabel\">";
+                        } else {
+                            echo "<input type=\"submit\" value=\"$getSubLabel\">";
+                        }
+?>
+                    </form>
+<?php
+                }
+                if ($pIndex == STATS) {
+?>
+                    <form method="post" action="add_stats.php">
+                        <input type="hidden" name="studentName" value="<?= $student ?>">
+                        <input type="hidden" name="season" value="<?= $season ?>">
+                        <input type="hidden" name="year" value="<?= $year ?>">
+                        <input type="hidden" name="pIndex" value="<?= $pIndex ?>">
+                        <input type="hidden" name="selection" value="<?= $selection ?>">
+                        <input type="hidden" name="retPage" value="<?= $_SERVER['PHP_SELF'] ?>?studentName=<?= $student ?>&season=<?= $season ?>&pIndex=<?= $pIndex ?>&year=<?= $year ?>">
+                        <input class="useicon" type="submit" name="add" value="&#xE145;">
+                    </form>
+<?php
+                }
+                /*
+                 * MHM: 2017-01-19
+                 * Comment:
+                 *  Free results from database query
+                 */
+                mysqli_free_result($result);
+?>
+                </nav>
+<?php
             }
-?>
-            </form>
-<?php
         }
-        if ($pIndex == STATS) {
 ?>
-            <form method="post" action="add_stats.php">
-                <input type="hidden" name="studentName" value="<?= $student ?>">
-                <input type="hidden" name="season" value="<?= $season ?>">
-                <input type="hidden" name="year" value="<?= $year ?>">
-                <input type="hidden" name="pIndex" value="<?= $pIndex ?>">
-                <input type="hidden" name="selection" value="<?= $selection ?>">
-                <input type="hidden" name="retPage" value="<?= $_SERVER['PHP_SELF'] ?>?studentName=<?= $student ?>&season=<?= $season ?>&pIndex=<?= $pIndex ?>&year=<?= $year ?>">
-                <input type="submit" name="add" value="Add Stats">
-            </form>
-<?php
-        }
-        /*
-         * MHM: 2017-01-19
-         * Comment:
-         *  Free results from database query
-         */
-        mysqli_free_result($result);
-?>
-        </nav>
-<?php
-    }
-}
-?>
+        </div>
+    </div>
 </article>

@@ -22,6 +22,10 @@
  * MHM: 2017-02-23
  * Comment:
  *  Remove need for leading / in database entry.
+ *
+ * MHM: 2017-03-02
+ * Comment:
+ *  Add support for icons.
  */
 require("../_includes/req_includes.php");
 $siteroot = HOMEROOT;
@@ -89,6 +93,7 @@ $connection = open_db();
         <meta charset="utf-8">
         <title>Morro Bay Soccer 2015-2016</title>
         <link href="../_css/styles.css" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     </head>
     <body id="page_volleyball">
         <div class="wrapper">

@@ -119,7 +119,7 @@ $result = get_volleyball_stats($connection, $season, $year);
                                         <input type="hidden" name="pIndex" value="<?= $pIndex ?>">
                                         <input type="hidden" name="selection" value="<?= $selection ?>">
                                         <input type="hidden" name="retPage" value="<?= $_SERVER['PHP_SELF'] ?>?studentName=<?= $student ?>&season=<?= $season ?>&year=<?= $year ?>&pIndex=<?= $pIndex ?>">
-                                        <input type="submit" name="edit" value="EDIT">
+                                        <input type="submit" name="edit" value="&#xE3C9;">
                                     </div>
                                 </form>
                             
@@ -127,7 +127,7 @@ $result = get_volleyball_stats($connection, $season, $year);
                                     <div>
                                         <input type="hidden" name="statId" value="<?= $statId ?>">
                                         <input type="hidden" name="retPage" value="<?= $_SERVER['PHP_SELF'] ?>?studentName=<?= $student ?>&season=<?= $season ?>&year=<?= $year ?>&pIndex=<?= $pIndex ?>">
-                                        <input type="submit" name="delete" value="DELETE" onclick="return confirm('Are you sure?')">
+                                        <input type="submit" name="delete" value="&#xE872;" onclick="return confirm('Are you sure?')">
                                     </div>
                                 </form>
                             </div>

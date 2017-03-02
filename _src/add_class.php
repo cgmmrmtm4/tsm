@@ -35,6 +35,10 @@
  * MHM: 2017-02-16
  * Comment:
  *  Full support for Add class.
+ *
+ * MHM: 2017-03-02
+ * Comment:
+ *  Add support for icons.
  */
 require("../_includes/req_includes.php");
 
@@ -132,6 +136,7 @@ if ((isset($_POST['add'])) || (isset($_POST['submit']))) {
         <meta charset="utf-8">
         <title>Add a Class</title>
         <link href="../_css/styles.css" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         </head>
         <body id="page_academics">
             <div class="wrapper">

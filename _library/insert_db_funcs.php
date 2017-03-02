@@ -22,6 +22,10 @@
  * Comment:
  *  Insert stats in vbstats database.
  *  Cleanup return value for all functions.
+ *
+ * MHM: 2017-03-02
+ * Comment:
+ *  Insert picture/video into the av database.
  */
 
 if (count(get_included_files()) == 1) {
@@ -84,6 +88,23 @@ function insert_stats_into_vbstats($connection, $seasonId, $opponent, $dbAssists
     $query .= "'{$seasonId}', '{$opponent}', '{$dbAssists}', ";
     $query .= "'{$dbBlocks}', '{$dbKills}', '{$dbDigs}', ";
     $query .= "'{$dbServes}', '{$dbAces}', '{$dbSideOuts}')";
+    $result = mysqli_query($connection, $query);
+    confirm_query($result);
+    return $result;
+}
+
+/*
+ * MHM: 2017-03-01
+ * Comment:
+ * Add audio visual file to av database.
+ * Input: Connection to database, seasonId, studentId, dbAV, subject, thumbName, avName
+ * Output: result of database query.
+ */
+function insert_av_into_av($connection, $seasonId, $studentId, $dbAV, $subject, $thumbName, $avName) {
+    $query  = "INSERT INTO av (id, seasonId, studentId, ";
+    $query .= "video, subject, thumbName, avName) VALUES (NULL, ";
+    $query .= "'{$seasonId}', '{$studentId}', '{$dbAV}', ";
+    $query .= "'{$subject}', '{$thumbName}', '{$avName}')";
     $result = mysqli_query($connection, $query);
     confirm_query($result);
     return $result;

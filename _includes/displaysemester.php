@@ -31,6 +31,10 @@
  * MHM: 2017-02-23
  * Commet:
  *  Support delete a class from database.
+ *
+ * MHM: 2017-03-02
+ * Comment:
+ *  Add support for icons.
  */
 if (count(get_included_files()) == 1) {
     exit("direct access not allowed.");
@@ -80,7 +84,7 @@ $result = get_semester_academics($connection, $season, $year, $student);
                                 <input type="hidden" name="year" value="<?= $year ?>">
                                 <input type="hidden" name="selection" value="<?= $selection ?>">
                                 <input type="hidden" name="retPage" value="<?= $_SERVER['PHP_SELF'] ?>?studentName=<?= $student ?>&season=<?= $season ?>&year=<?= $year ?>">
-                                <input type="submit" name="edit" value="EDIT">
+                                <input type="submit" name="edit" value="&#xE3C9;">
                             </div>
                         </form>
                             
@@ -88,7 +92,7 @@ $result = get_semester_academics($connection, $season, $year, $student);
                             <div>
                                 <input type="hidden" name="classId" value="<?= $classId ?>">
                                 <input type="hidden" name="retPage" value="<?= $_SERVER['PHP_SELF'] ?>?studentName=<?= $student ?>&season=<?= $season ?>&year=<?= $year ?>">
-                                <input type="submit" name="delete" value="DELETE" onclick="return confirm('Are you sure?')">
+                                <input type="submit" name="delete" value="&#xE872;" onclick="return confirm('Are you sure?')">
                             </div>
                         </form>
                     </div>

@@ -27,6 +27,10 @@
  * MHM: 2017-02-23
  * Comment:
  *  Support add picture.
+ *
+ * MHM: 2017-03-02
+ * Comment:
+ *  Add support for icons and fixed return page.
  */
 require("../_includes/req_includes.php");
     
@@ -69,7 +73,7 @@ if (isset($_POST['submit'])) {
         if ($result) {
             $_SESSION["message"] = "Picture successfully added to database.";
             close_db($connection);
-            redirect_to("{$returnPage}");
+            redirect_to("volleyball.php?studentName=$student&season=$season&pIndex=$pIndex&year=$year");
         } else {
             $_SESSION["message"] = "Failed to picture to database.";
             $errors["insert"] = mysqli_error($connection);
@@ -97,6 +101,7 @@ if ((isset($_POST['submit'])) || (isset($_POST['add']))) {
         <meta charset="utf-8">
         <title>Add a Picture</title>
         <link href="../_css/styles.css" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         </head>
         <body id="page_volleyball">
             <div class="wrapper">

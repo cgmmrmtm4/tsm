@@ -12,6 +12,10 @@
  * MHM: 2017-02-23
  * Comment:
  *  Support for modify a picture in the av database.
+ *
+ * MHM: 2017-03-02
+ * Comment:
+ *  Add support for icons.
  */
 require("../_includes/req_includes.php");
 $siteroot = HOMEROOT;
@@ -86,6 +90,7 @@ if ((isset($_POST['submit'])) || (isset($_POST['edit']))) {
         <meta charset="utf-8">
         <title>Edit a Picture</title>
         <link href="../_css/styles.css" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         </head>
         <body id="page_volleyball">
             <div class="wrapper">
