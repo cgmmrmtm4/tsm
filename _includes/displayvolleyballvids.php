@@ -36,6 +36,10 @@
  * MHM: 2017-03-02
  * Comment:
  *  Add support for icons.
+ *
+ * MHM: 2017-03-20
+ * Comment:
+ *  Display only the file name and not it's path.
  */
 if (count(get_included_files()) == 1) {
     exit("direct access not allowed.");
@@ -87,7 +91,7 @@ $result = get_vids($connection, "Volleyball", $season, $year);
                     <div class="button-container">
                         <video class="thumbvideo" preload="none" controls poster="<?= $photopath . $vids['thumbName']; ?>">
                                         <source src="<?= $videopath . $vids['avName']; ?>" type="video/mp4"></video>
-                        <p><b><?= $vids['avName'] ?></b></p>
+                        <p><b><?= basename($vids['avName'], ".mp4") ?></b></p>
                         <form method="post" action="edit_video.php">
                             <div>
                                 <input type="hidden" name="videoId" value="<?= $videoId ?>">

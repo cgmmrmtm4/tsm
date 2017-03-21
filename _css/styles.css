@@ -47,6 +47,10 @@
  * Comment:
  *  Size adjustments to main and sidebar areas. Added support for icons for Add, Edit, Delete, and Menu.
  *  Future support for tool tips. Cleaned up rules no longer in use.
+ *
+ * MHM: 2017-03-20
+ * Comment:
+ *  Support a browser for selecting video files. Handle audiovisual file names better.
  */
 html, body, body div, span, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, abbr, address, cite, code, del, dfn, em, img, ins, kbd, q, samp, small, strong, sub, sup, var, b, i, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, figure, footer, header, hgroup, menu, nav, section, time, mark, audio, video {
 	margin: 0;
@@ -400,6 +404,13 @@ footer nav li:last-child a {
 #formalign .dbtext {
     width: 530px;
 }
+#formalign .dbfile {
+    display: table-cell;
+    width: 375px;
+}
+input[type="file"] {
+    color: white;
+}
 #formalign .dbdate {
     width: 100px;
 }
@@ -678,6 +689,9 @@ td.grade {
 }
 .modify {
     width: 100px;
+}
+.delpics .button-container p {
+    width: 150px;
 }
 .modify .button-container input,
 .delpics .button-container input {

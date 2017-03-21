@@ -31,6 +31,10 @@
  * MHM: 2017-03-02
  * Comment:
  *  Add support for icons and fixed return page.
+ *
+ * MHM: 2017-03-20
+ * Comment:
+ *  Use browser to select files instead of just typing in the text.
  */
 require("../_includes/req_includes.php");
     
@@ -136,11 +140,11 @@ if ((isset($_POST['submit'])) || (isset($_POST['add']))) {
                             </p>
                             <p> 
                                 <label>Thumbnail:</label>
-                                <input class="dbtext" maxlength="30" type="text" name="thumbName" value="<?= $thumbName ?>">
+                                <input class="dbfile" type="file" name="thumbName">
                             </p>
                             <p> 
                                 <label>File Name:</label>
-                                <input class="dbtext" maxlength="30" type="text" name="fileName" value="<?= $fileName ?>">
+                                <input class="dbfile" type="file" name="fileName">
                             </p>
                             <br>
                             <input type="hidden" name="studentName" value="<?= $student ?>">

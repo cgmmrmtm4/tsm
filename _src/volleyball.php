@@ -26,6 +26,10 @@
  * MHM: 2017-03-02
  * Comment:
  *  Add support for icons.
+ *
+ * MHM: 2017-03-20
+ * Comment:
+ *  Add banner pictures for 2017 and change defaults to be the 2017 values.
  */
 require("../_includes/req_includes.php");
 $siteroot = HOMEROOT;
@@ -62,7 +66,7 @@ if (isset($_GET['year'])) {
     $year = $_GET['year'];
 } else {
     if ($student == THEO) {
-        $year = 2016;
+        $year = 2017;
     } else {
         $year = 2009;
     }
@@ -82,6 +86,10 @@ $videopath = $imagepath . VIDEOSPORTS . "/" . VB . "/" . $year . "/";
  *  Assign banner pictures based on year.
  */
 switch ($year) {
+    case 2017:
+        $lbanner = "IMGP6046-5.JPG";
+        $rbanner = "IMGP6035-5.JPG";
+        break;
     case 2016:
         $lbanner = "IMGP4463-5.JPG";
         $rbanner = "IMGP4466-5.JPG";
@@ -95,8 +103,8 @@ switch ($year) {
         $rbanner = "P6260014-5.jpg";
         break;
     default:
-        $lbanner = "IMGP4463-5.JPG";
-        $rbanner = "IMGP4466-5.JPG";
+        $lbanner = "IMGP6046-5.JPG";
+        $rbanner = "IMGP6035-5.JPG";
         break;
 }
 

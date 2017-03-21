@@ -16,6 +16,10 @@
  * MHM: 2017-03-02
  * Comment:
  *  Add support for icons.
+ *
+ * MHM: 2017-03-20
+ * Comment:
+ *  Change form to allow selecting new file from a broswer. Also display the old name.
  */
 require("../_includes/req_includes.php");
 $siteroot = HOMEROOT;
@@ -123,13 +127,27 @@ if ((isset($_POST['submit'])) || (isset($_POST['edit']))) {
 ?>
                                 </select>
                             </p>
-                            <p> 
+                            <p>
                                 <label>Thumbnail:</label>
-                                <input class="dbtext" maxlength="30" type="text" name="thumbName" value="<?= $thumbName ?>">
                             </p>
-                            <p> 
-                                <label>File Name:</label>
-                                <input class="dbtext" maxlength="30" type="text" name="fileName" value="<?= $fileName ?>">
+                            <p>
+                                <label>Current:</label>
+                                <label class="dbfile"> <?= $thumbName ?></label>
+                            </p>
+                            <p>
+                                <label>New:</label>
+                                <input class="dbfile" type="file" name="thumbName">
+                            </p>
+                            <p>
+                                <label>Picture:</label>
+                            </p>
+                            <p>
+                                <label>Current:</label>
+                                <label class="dbfile"> <?= $fileName ?></label>
+                            </p>
+                            <p>
+                                <label>New:</label>
+                                <input class="dbfile" type="file" name="fileName">
                             </p>
                             <br>
                             <input type="hidden" name="photoId" value="<?= $pictureId ?>">

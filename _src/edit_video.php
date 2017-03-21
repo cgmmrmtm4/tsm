@@ -16,6 +16,10 @@
  * MHM: 2017-03-02
  * Comment:
  *  Add support for icons.
+ *
+ * MHM: 2017-03-20
+ * Comment:
+ *  Change form to allow selecting new file from a broswer. Also display the old name. Simplify validation.
  */
 require("../_includes/req_includes.php");
 $siteroot = HOMEROOT;
@@ -28,12 +32,6 @@ if (isset($_POST['submit'])) {
      * validate data
      */
     
-    $required_fields = array("thumbName", "fileName");
-    validate_presences($required_fields);
-    
-    $fields_with_max_lengths = array("thumbName" => 30, "fileName" => 30);
-    validate_max_lengths($fields_with_max_lengths);
-    
     $videoId = $_POST['videoId'];
     $student = $_POST['studentName'];
     $season = $_POST['season'];
@@ -42,6 +40,18 @@ if (isset($_POST['submit'])) {
     $selection = $_POST['selection'];
     $thumbName = $_POST['thumbName'];
     $fileName = $_POST['fileName'];
+    if ($thumbName == "") {
+        $thumbName = $_POST['oldThumb'];
+    } else {
+        $fields_with_max_lengths = array("thumbName" => 30);
+        validate_max_lengths($fields_with_max_lengths);
+    }
+    if ($fileName == "") {
+        $fileName = $_POST['oldFileName'];
+    } else {
+        $fields_with_max_lengths = array("fileName" => 30);
+        validate_max_lengths($fields_with_max_lengths);
+    }
     $returnPage = $_POST['retPage'];
     
     if (empty($errors)) {
@@ -123,13 +133,27 @@ if ((isset($_POST['submit'])) || (isset($_POST['edit']))) {
 ?>
                                 </select>
                             </p>
-                            <p> 
+                            <p>
                                 <label>Thumbnail:</label>
-                                <input class="dbtext" maxlength="30" type="text" name="thumbName" value="<?= $thumbName ?>">
                             </p>
-                            <p> 
-                                <label>File Name:</label>
-                                <input class="dbtext" maxlength="30" type="text" name="fileName" value="<?= $fileName ?>">
+                            <p>
+                                <label>Current:</label>
+                                <label class="dbfile"> <?= $thumbName ?></label>
+                            </p>
+                            <p>
+                                <label>New:</label>
+                                <input class="dbfile" type="file" name="thumbName">
+                            </p>
+                            <p>
+                                <label>Picture:</label>
+                            </p>
+                            <p>
+                                <label>Current:</label>
+                                <label class="dbfile"> <?= $fileName ?></label>
+                            </p>
+                            <p>
+                                <label>New:</label>
+                                <input class="dbfile" type="file" name="fileName">
                             </p>
                             <br>
                             <input type="hidden" name="videoId" value="<?= $videoId ?>">
@@ -137,6 +161,8 @@ if ((isset($_POST['submit'])) || (isset($_POST['edit']))) {
                             <input type="hidden" name="pIndex" value="<?= $pIndex ?>">
                             <input type="hidden" name="selection" value="<?= $selection ?>">
                             <input type="hidden" name="retPage" value="<?= $returnPage; ?>">
+                            <input type="hidden" name="oldThumb" value="<?= $thumbName; ?>">
+                            <input type="hidden" name="oldFileName" value="<?= $fileName; ?>">
                             <input type="submit" name="submit" value="Edit Video">
                             <a href="<?= $returnPage ?>">Cancel</a>
                         </form>
