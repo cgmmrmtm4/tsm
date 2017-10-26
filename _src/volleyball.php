@@ -30,6 +30,10 @@
  * MHM: 2017-03-20
  * Comment:
  *  Add banner pictures for 2017 and change defaults to be the 2017 values.
+ *
+ * MHM: 2017-10-26
+ * Comment:
+ *  Support to add additonal awards.
  */
 require("../_includes/req_includes.php");
 $siteroot = HOMEROOT;
@@ -226,6 +230,15 @@ $connection = open_db();
 <?php
                         }
 ?>
+                        <form method="post" action="add_award.php">
+                        <input type="hidden" name="studentName" value="<?= $student ?>">
+                        <input type="hidden" name="season" value="<?= $season ?>">
+                        <input type="hidden" name="year" value="<?= $year ?>">
+                        <input type="hidden" name="pIndex" value="<?= $pIndex ?>">
+                        <input type="hidden" name="selection" value="<?= $selection ?>">
+                        <input type="hidden" name="retPage" value="<?= $_SERVER['PHP_SELF'] ?>?studentName=<?= $student ?>&season=<?= $season ?>&year=<?= $year ?>">
+                        <input class="useicon" type="submit" name="add" value="&#xE145;">
+                        </form>
                         </ul>
                     </article>
                 </aside>

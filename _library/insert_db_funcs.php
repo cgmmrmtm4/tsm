@@ -26,6 +26,10 @@
  * MHM: 2017-03-02
  * Comment:
  *  Insert picture/video into the av database.
+ *
+ * MHM: 2017-10-26
+ * Comment:
+ *  Insert awards into award database.
  */
 
 if (count(get_included_files()) == 1) {
@@ -51,6 +55,23 @@ function insert_class_into_db($connection, $seasonId, $studentId, $period, $hono
     $query .= "'{$ap}', '{$className}', '{$teacherName}', ";
     $query .= "'{$grade}', '{$gp}', '{$wgp}')";
     $result = mysqli_query($connection, $query);
+    confirm_query($result);
+    return $result;
+}
+
+/*
+ * MHM: 2017-10-26
+ * Comment:
+ *  Add record to awards database.
+ *  Input: connection to database, student ID,
+ *  Catagory, year and Title of Award.
+ *  Output: result of database query.
+ */
+function insert_award_into_db($connection, $studentId, $catagory, $year, $awardTitle) {
+    $query  = "INSERT INTO awards (id, studentId, catagory, ";
+    $query .= "year, title) VALUES (NULL, '{$studentId}', '${catagory}', ";
+    $query .= "'${year}', '{$awardTitle}')";
+    $result .= mysqli_query($connection, $query);
     confirm_query($result);
     return $result;
 }

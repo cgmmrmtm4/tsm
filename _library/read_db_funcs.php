@@ -48,7 +48,7 @@
  *  More utility get requests to retrieve specific information.
  *  Added get_studentId, getseasonId, covert_grade_to_gp and covert_grade_to_wgp.
  *
- * MHM: 2017-20-20
+ * MHM: 2017-02-20
  * Comment:
  *  Retrieve a sportId given a seasonId.
  *
@@ -56,10 +56,14 @@
  * Comment:
  *  Retrieve a game record given a schedule Id
  *
- * MHM: 2017-20-23
+ * MHM: 2017-02-23
  * Comment:
  *  Retrieve a stat record given a stat Id.
  *  Retrieve a av recrod given a av Id.
+ *
+ * MHM: 2017-10-26
+ * Comment:
+ *  Make academic list ascending by class period.
  */
 
 if (count(get_included_files()) == 1) {
@@ -345,7 +349,8 @@ function get_semester_academics($connection, $season, $year, $student) {
     $query .= "JOIN academics ON ";
     $query .= "academics.seasonId=hsseasons.id AND ";
     $query .= "hsseasons.season=\"$season\" AND ";
-    $query .= "hsseasons.year=$year";
+    $query .= "hsseasons.year=$year ";
+    $query .= "ORDER BY academics.period ASC";
     $result = mysqli_query($connection, $query);
     confirm_query($result);
     return $result;

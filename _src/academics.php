@@ -22,6 +22,11 @@
  * MHM: 2017-03-02
  * Comment:
  *  Add support for icons.
+ *
+ * MHM: 2017-10-26
+ * Comment:
+ *  Change Theo's default academic list to be the fall of 2017.
+ *  Support to add additional awards.
  */
 require("../_includes/req_includes.php");
 $siteroot = HOMEROOT;
@@ -54,7 +59,7 @@ if (isset($_GET['year'])) {
     $year = $_GET['year'];
 } else {
     if ($student == THEO) {
-        $year = 2016;
+        $year = 2017;
     } else {
         $year = 2013;
     }
@@ -125,6 +130,15 @@ $connection = open_db();
 <?php
                         }
 ?>
+                        <form method="post" action="add_award.php">
+                        <input type="hidden" name="studentName" value="<?= $student ?>">
+                        <input type="hidden" name="season" value="<?= $season ?>">
+                        <input type="hidden" name="year" value="<?= $year ?>">
+                        <input type="hidden" name="pIndex" value="<?= $pIndex ?>">
+                        <input type="hidden" name="selection" value="<?= $selection ?>">
+                        <input type="hidden" name="retPage" value="<?= $_SERVER['PHP_SELF'] ?>?studentName=<?= $student ?>&season=<?= $season ?>&year=<?= $year ?>">
+                        <input class="useicon" type="submit" name="add" value="&#xE145;">
+                        </form>
                         </ul>
                     </article>
                 </aside>
