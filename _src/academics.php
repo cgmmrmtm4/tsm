@@ -27,6 +27,10 @@
  * Comment:
  *  Change Theo's default academic list to be the fall of 2017.
  *  Support to add additional awards.
+ *
+ * MHM: 2018-01-17
+ * Comment:
+ *  Theo now defaults to spring of 2018.
  */
 require("../_includes/req_includes.php");
 $siteroot = HOMEROOT;
@@ -49,17 +53,13 @@ if (isset($_GET['studentName'])) {
 if (isset($_GET['season'])) {
     $season = $_GET['season'];
 } else {
-    if ($student == THEO) {
-        $season = FALL;
-    } else {
-        $season = SPRING;
-    }
+    $season = SPRING;
 }
 if (isset($_GET['year'])) {
     $year = $_GET['year'];
 } else {
     if ($student == THEO) {
-        $year = 2017;
+        $year = 2018;
     } else {
         $year = 2013;
     }
