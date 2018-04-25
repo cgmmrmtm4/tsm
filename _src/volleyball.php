@@ -34,6 +34,11 @@
  * MHM: 2017-10-26
  * Comment:
  *  Support to add additonal awards.
+ *
+ * MHM: 2018-04-25
+ * Comment:
+ *  Default Theo to 2018 information.
+ *
  */
 require("../_includes/req_includes.php");
 $siteroot = HOMEROOT;
@@ -70,7 +75,7 @@ if (isset($_GET['year'])) {
     $year = $_GET['year'];
 } else {
     if ($student == THEO) {
-        $year = 2017;
+        $year = 2018;
     } else {
         $year = 2009;
     }
