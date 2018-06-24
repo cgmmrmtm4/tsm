@@ -27,6 +27,10 @@
  * MHM: 2017-03-02
  * Comment:
  *  Add support for icons.
+ * 
+ * MHM: 2018-06-24
+ * Comment:
+ *  Centralized the awards logic and cleaned up the title text.
  */
 require("../_includes/req_includes.php");
 $siteroot = HOMEROOT;
@@ -102,7 +106,7 @@ $connection = open_db();
 <html lang="en">
     <head>
         <meta charset="utf-8">
-        <title>Softball 2010-2013</title>
+        <title>MBHS Softball <?= $pIndex ?> <?= $year ?> </title>
         <link href="../_css/styles.css" rel="stylesheet" type="text/css">
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     </head>
@@ -159,28 +163,8 @@ $connection = open_db();
                  *  selections by year.
                  */
                 require '../_includes/selection_menu.php'; 
+                require '../_includes/awards_menu.php';
 ?>
-                    <article id="awards">
-                        <h2>Awards</h2>
-                        <ul>
-<?php
-                        /*
-                         * MHM: 2017-01-16
-                         * Comment:
-                         *  If any exist, get the students awards for this sport
-                         */
-                        $result = get_awards_by_catagory($connection, SB, $student);
-                        while ($award = mysqli_fetch_assoc($result)) {
-                            $awardYear = $award["year"];
-                            $awardTitle = $award["title"];
-                            $awardString = $awardYear . " " . $awardTitle;
-?>
-                            <li><?= $awardString ?></li>
-<?php
-                        }
-?>
-                        </ul>
-                    </article>
                 </aside>
                 <article>
                     <br>

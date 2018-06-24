@@ -51,6 +51,13 @@
  * MHM: 2017-03-20
  * Comment:
  *  Support a browser for selecting video files. Handle audiovisual file names better.
+ *
+ * MHM: 2018-06-25
+ * Comment:
+ *  Changed selection menu to always have an add icon next to each season, semester, picture, stats
+ *  and video header. Pulled the add icon next to the header instead of at the bottom of the
+ *  selection menus. Add new css rule for the add icon.
+ *
  */
 html, body, body div, span, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, abbr, address, cite, code, del, dfn, em, img, ins, kbd, q, samp, small, strong, sub, sup, var, b, i, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, figure, footer, header, hgroup, menu, nav, section, time, mark, audio, video {
 	margin: 0;
@@ -682,6 +689,11 @@ td.grade {
 .grade {
     width: 10px;
     text-align: center;
+}
+.addNewItem {
+    font-size: 20px;
+    font-weight: bold;
+    padding-left: 0;
 }
 .delpics {
     width: 150px;

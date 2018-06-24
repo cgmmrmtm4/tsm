@@ -31,6 +31,10 @@
  * MHM: 2018-01-17
  * Comment:
  *  Theo now defaults to spring of 2018.
+ * 
+ * MHM: 2018-06-24
+ * Comment:
+ *  Centralized the awards logic and cleaned up the title text.
  */
 require("../_includes/req_includes.php");
 $siteroot = HOMEROOT;
@@ -76,7 +80,7 @@ $connection = open_db();
 <html lang="en">
     <head>
         <meta charset="utf-8">
-        <title>Morro Bay Academics 2015-2016</title>
+        <title>MBHS Academics <?= $season ?> <?= $year ?></title>
         <link href="../_css/styles.css" rel="stylesheet" type="text/css">
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     </head>
@@ -110,37 +114,8 @@ $connection = open_db();
                  *  Include sidebar navigational menu.
                  */
                 require '../_includes/selection_menu.php'; 
-?>
-                    <article id="awards">
-                        <h2>Awards</h2>
-                        <ul>
-<?php
-                        /*
-                         * MHM: 2017-01-16
-                         * Comment:
-                         *  If any exist, get the students awards for this sport
-                         */
-                        $result = get_awards_by_catagory($connection, ACADEMIC, $student);
-                        while ($award = mysqli_fetch_assoc($result)) {
-                            $awardYear = $award["year"];
-                            $awardTitle = $award["title"];
-                            $awardString = $awardYear . " " . $awardTitle;
-?>
-                            <li><?= $awardString ?></li>
-<?php
-                        }
-?>
-                        <form method="post" action="add_award.php">
-                        <input type="hidden" name="studentName" value="<?= $student ?>">
-                        <input type="hidden" name="season" value="<?= $season ?>">
-                        <input type="hidden" name="year" value="<?= $year ?>">
-                        <input type="hidden" name="pIndex" value="<?= $pIndex ?>">
-                        <input type="hidden" name="selection" value="<?= $selection ?>">
-                        <input type="hidden" name="retPage" value="<?= $_SERVER['PHP_SELF'] ?>?studentName=<?= $student ?>&season=<?= $season ?>&year=<?= $year ?>">
-                        <input class="useicon" type="submit" name="add" value="&#xE145;">
-                        </form>
-                        </ul>
-                    </article>
+                require '../_includes/awards_menu.php';
+?>                    
                 </aside>
                 <article>
                     <br>

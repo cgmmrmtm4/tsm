@@ -62,6 +62,17 @@
  *  Also set stat year correctly to highlight the correct stat button.
  *  Provide the add buttons in the selection menu, only when your showing
  *  the selected subjects group. Fixed indentation issue.
+ * 
+ * MHM: 2018-06-24
+ * Comment:
+ *  Change how the add icond works on items in the selection menu.
+ *  Moved the add icon next to the header for each sub-section
+ *  instead of it being the last item in the selection menu.
+ *  Also always display the add icon and not just for the selected
+ *  sub-section.
+ *  Using a table to do this implementation which is really a lot of
+ *  overkill. Will eventually change this to be a header and a button
+ *  icon.
  */
 if (count(get_included_files()) == 1) {
     exit("direct access not allowed.");
@@ -80,7 +91,30 @@ if (count(get_included_files()) == 1) {
         if ($selection != TRAVEL) {
             if ($selection == ACADEMIC) {
 ?>
-                <h2 class="highlight">Select a Semester</h2>
+                <div>
+                    <table class="asideTable" cellspacing="0" cellpadding="0" summary="Add a classes">
+                        <tr>
+                            <th scope="col" class="addNewItem"></th>
+                            <th scope="col" class="modify"></th>
+                        </tr>
+                        <tr>
+                            <td class="addNewItem">Semester</td>
+                            <td class="modify">
+                                <div class="button-container">
+                                    <form method="post" action="add_class.php">
+                                        <input type="hidden" name="studentName" value="<?= $student ?>">
+                                        <input type="hidden" name="season" value="<?= $season ?>">
+                                        <input type="hidden" name="year" value="<?= $year ?>">
+                                        <input type="hidden" name="pIndex" value="<?= $pIndex ?>">
+                                        <input type="hidden" name="selection" value="<?= $selection ?>">
+                                        <input type="hidden" name="retPage" value="<?= $_SERVER['PHP_SELF'] ?>?studentName=<?= $student ?>&season=<?= $season ?>&year=<?= $year ?>">
+                                        <input class="useicon" type="submit" name="add" value="&#xE145;">
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
 <?php
                 /*
                  * MHM: 2017-01-16
@@ -90,7 +124,30 @@ if (count(get_included_files()) == 1) {
                 $result = get_academic_years($connection, $student);
             } else {
 ?>
-                <h2 class="highlight">Select a Season</h2>
+                <div>
+                    <table class="asideTable" cellspacing="0" cellpadding="0" summary="Add a classes">
+                        <tr>
+                            <th scope="col" class="addNewItem"></th>
+                            <th scope="col" class="modify"></th>
+                        </tr>
+                        <tr>
+                            <td class="addNewItem">Season</td>
+                            <td class="modify">
+                                <div class="button-container">
+                                    <form method="post" action="add_game.php">
+                                        <input type="hidden" name="studentName" value="<?= $student ?>">
+                                        <input type="hidden" name="season" value="<?= $season ?>">
+                                        <input type="hidden" name="year" value="<?= $year ?>">
+                                        <input type="hidden" name="pIndex" value="<?= $pIndex ?>">
+                                        <input type="hidden" name="selection" value="<?= $selection ?>">
+                                        <input type="hidden" name="retPage" value="<?= $_SERVER['PHP_SELF'] ?>?studentName=<?= $student ?>&season=<?= $season ?>&pIndex=<?= $pIndex ?>&year=<?= $year ?>">
+                                        <input class="useicon" type="submit" name="add" value="&#xE145;">
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
 <?php
                 /*
                  * MHM: 2017-01-16
@@ -133,35 +190,7 @@ if (count(get_included_files()) == 1) {
                     </form>
 <?php
                 }
-                if ($selection == ACADEMIC) {
-                    if ($student == THEO) {
-?>
-                        <form method="post" action="add_class.php">
-                            <input type="hidden" name="studentName" value="<?= $student ?>">
-                            <input type="hidden" name="season" value="<?= $season ?>">
-                            <input type="hidden" name="year" value="<?= $year ?>">
-                            <input type="hidden" name="pIndex" value="<?= $pIndex ?>">
-                            <input type="hidden" name="selection" value="<?= $selection ?>">
-                            <input type="hidden" name="retPage" value="<?= $_SERVER['PHP_SELF'] ?>?studentName=<?= $student ?>&season=<?= $season ?>&year=<?= $year ?>">
-                            <input class="useicon" type="submit" name="add" value="&#xE145;">
-                        </form>
-<?php
-                    }
-                } else {
-                    if ($pIndex == SCHED) {
-?>
-                        <form method="post" action="add_game.php">
-                            <input type="hidden" name="studentName" value="<?= $student ?>">
-                            <input type="hidden" name="season" value="<?= $season ?>">
-                            <input type="hidden" name="year" value="<?= $year ?>">
-                            <input type="hidden" name="pIndex" value="<?= $pIndex ?>">
-                            <input type="hidden" name="selection" value="<?= $selection ?>">
-                            <input type="hidden" name="retPage" value="<?= $_SERVER['PHP_SELF'] ?>?studentName=<?= $student ?>&season=<?= $season ?>&pIndex=<?= $pIndex ?>&year=<?= $year ?>">
-                            <input class="useicon" type="submit" name="add" value="&#xE145;">
-                        </form>
-<?php
-                    }
-                }
+                
                    
                 /*
                  * MHM: 2017-01-16
@@ -181,7 +210,30 @@ if (count(get_included_files()) == 1) {
          */
         if ($selection != ACADEMIC) {
 ?>
-            <h2 class="highlight">Picture Gallery</h2>
+            <div>
+                <table class="asideTable" cellspacing="0" cellpadding="0" summary="Add a classes">
+                    <tr>
+                        <th scope="col" class="addNewItem"></th>
+                        <th scope="col" class="modify"></th>
+                    </tr>
+                    <tr>
+                        <td class="addNewItem">Pictures</td>
+                        <td class="modify">
+                            <div class="button-container">
+                                <form method="post" action="add_picture.php">
+                                    <input type="hidden" name="studentName" value="<?= $student ?>">
+                                    <input type="hidden" name="season" value="<?= $season ?>">
+                                    <input type="hidden" name="year" value="<?= $year ?>">
+                                    <input type="hidden" name="pIndex" value="<?= $pIndex ?>">
+                                    <input type="hidden" name="selection" value="<?= $selection ?>">
+                                    <input type="hidden" name="retPage" value="<?= $_SERVER['PHP_SELF'] ?>?studentName=<?= $student ?>&season=<?= $season ?>&pIndex=<?= $pIndex ?>&year=<?= $year ?>">
+                                    <input class="useicon" type="submit" name="add" value="&#xE145;">
+                                </form>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
             <nav>
 <?php
             /*
@@ -217,19 +269,7 @@ if (count(get_included_files()) == 1) {
                 </form>
 <?php
             }
-            if ($pIndex == PICS) {
-?>
-                <form method="post" action="add_picture.php">
-                    <input type="hidden" name="studentName" value="<?= $student ?>">
-                    <input type="hidden" name="season" value="<?= $season ?>">
-                    <input type="hidden" name="year" value="<?= $year ?>">
-                    <input type="hidden" name="pIndex" value="<?= $pIndex ?>">
-                    <input type="hidden" name="selection" value="<?= $selection ?>">
-                    <input type="hidden" name="retPage" value="<?= $_SERVER['PHP_SELF'] ?>?studentName=<?= $student ?>&season=<?= $season ?>&pIndex=<?= $pIndex ?>&year=<?= $year ?>">
-                    <input class="useicon" type="submit" name="add" value="&#xE145;">
-                </form>
-<?php
-            }
+            
             /*
              * MHM: 2017-01-16
              * Comment:
@@ -247,7 +287,30 @@ if (count(get_included_files()) == 1) {
              */
             if (($selection == VB) && ($student == THEO)) {
 ?>
-                <h2 class="highlight">Video Gallary</h2>
+                <div>
+                    <table class="asideTable" cellspacing="0" cellpadding="0" summary="Add a classes">
+                        <tr>
+                            <th scope="col" class="addNewItem"></th>
+                            <th scope="col" class="modify"></th>
+                        </tr>
+                        <tr>
+                            <td class="addNewItem">Videos</td>
+                            <td class="modify">
+                                <div class="button-container">
+                                    <form method="post" action="add_video.php">
+                                        <input type="hidden" name="studentName" value="<?= $student ?>">
+                                        <input type="hidden" name="season" value="<?= $season ?>">
+                                        <input type="hidden" name="year" value="<?= $year ?>">
+                                        <input type="hidden" name="pIndex" value="<?= $pIndex ?>">
+                                        <input type="hidden" name="selection" value="<?= $selection ?>">
+                                        <input type="hidden" name="retPage" value="<?= $_SERVER['PHP_SELF'] ?>?studentName=<?= $student ?>&season=<?= $season ?>&pIndex=<?= $pIndex ?>&year=<?= $year ?>">
+                                        <input class="useicon" type="submit" name="add" value="&#xE145;">
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
                 <nav>
 <?php
                 /*
@@ -284,19 +347,7 @@ if (count(get_included_files()) == 1) {
                     </form>
 <?php
                 }
-                if ($pIndex == VIDS) {
-?>
-                    <form method="post" action="add_video.php">
-                        <input type="hidden" name="studentName" value="<?= $student ?>">
-                        <input type="hidden" name="season" value="<?= $season ?>">
-                        <input type="hidden" name="year" value="<?= $year ?>">
-                        <input type="hidden" name="pIndex" value="<?= $pIndex ?>">
-                        <input type="hidden" name="selection" value="<?= $selection ?>">
-                        <input type="hidden" name="retPage" value="<?= $_SERVER['PHP_SELF'] ?>?studentName=<?= $student ?>&season=<?= $season ?>&pIndex=<?= $pIndex ?>&year=<?= $year ?>">
-                        <input class="useicon" type="submit" name="add" value="&#xE145;">
-                    </form>
-<?php
-                }
+                
                 /*
                  * MHM: 2017-01-17
                  * Comment:
@@ -306,7 +357,30 @@ if (count(get_included_files()) == 1) {
 ?>
                 </nav>
                 <br>
-                <h2 class="highlight">Statistics</h2>
+                <div>
+                    <table class="asideTable" cellspacing="0" cellpadding="0" summary="Add a classes">
+                        <tr>
+                            <th scope="col" class="addNewItem"></th>
+                            <th scope="col" class="modify"></th>
+                        </tr>
+                        <tr>
+                            <td class="addNewItem">Statistics</td>
+                            <td class="modify">
+                                <div class="button-container">
+                                    <form method="post" action="add_stats.php">
+                                        <input type="hidden" name="studentName" value="<?= $student ?>">
+                                        <input type="hidden" name="season" value="<?= $season ?>">
+                                        <input type="hidden" name="year" value="<?= $year ?>">
+                                        <input type="hidden" name="pIndex" value="<?= $pIndex ?>">
+                                        <input type="hidden" name="selection" value="<?= $selection ?>">
+                                        <input type="hidden" name="retPage" value="<?= $_SERVER['PHP_SELF'] ?>?studentName=<?= $student ?>&season=<?= $season ?>&pIndex=<?= $pIndex ?>&year=<?= $year ?>">
+                                        <input class="useicon" type="submit" name="add" value="&#xE145;">
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
                 <nav>
 <?php
                 /*
@@ -343,19 +417,7 @@ if (count(get_included_files()) == 1) {
                     </form>
 <?php
                 }
-                if ($pIndex == STATS) {
-?>
-                    <form method="post" action="add_stats.php">
-                        <input type="hidden" name="studentName" value="<?= $student ?>">
-                        <input type="hidden" name="season" value="<?= $season ?>">
-                        <input type="hidden" name="year" value="<?= $year ?>">
-                        <input type="hidden" name="pIndex" value="<?= $pIndex ?>">
-                        <input type="hidden" name="selection" value="<?= $selection ?>">
-                        <input type="hidden" name="retPage" value="<?= $_SERVER['PHP_SELF'] ?>?studentName=<?= $student ?>&season=<?= $season ?>&pIndex=<?= $pIndex ?>&year=<?= $year ?>">
-                        <input class="useicon" type="submit" name="add" value="&#xE145;">
-                    </form>
-<?php
-                }
+                
                 /*
                  * MHM: 2017-01-19
                  * Comment:
