@@ -8,6 +8,10 @@
  * MHM: 2017-02-21
  * Comment:
  *  Additonal error checking and better error location identification.
+ * 
+ * MHM: 2018-06-25
+ * Comment:
+ *  Code cleanup.
  */
 
 if (count(get_included_files()) == 1) {
@@ -17,9 +21,9 @@ if (count(get_included_files()) == 1) {
 $errors = array();
 
 function fieldname_as_text($fieldname) {
-  $fieldname = str_replace("_", " ", $fieldname);
-  $fieldname = ucfirst($fieldname);
-  return $fieldname;
+    $fieldname = str_replace("_", " ", $fieldname);
+    $fieldname = ucfirst($fieldname);
+    return $fieldname;
 }
 
 // * presence
@@ -31,13 +35,13 @@ function has_presence($value) {
 }
 
 function validate_presences($required_fields) {
-  global $errors;
-  foreach($required_fields as $field) {
-    $value = trim($_POST[$field]);
-  	if (!has_presence($value)) {
-  		$errors[$field] = fieldname_as_text($field) . " can't be blank";
-  	}
-  }
+    global $errors;
+    foreach($required_fields as $field) {
+        $value = trim($_POST[$field]);
+        if (!has_presence($value)) {
+  		    $errors[$field] = fieldname_as_text($field) . " can't be blank";
+  	    }
+    }
 }
 
 // * string length
@@ -51,9 +55,9 @@ function validate_max_lengths($fields_with_max_lengths) {
 	// Expects an assoc. array
 	foreach($fields_with_max_lengths as $field => $max) {
 		$value = trim($_POST[$field]);
-	  if (!has_max_length($value, $max)) {
-	    $errors[$field] = fieldname_as_text($field) . " is too long";
-	  }
+	    if (!has_max_length($value, $max)) {
+	        $errors[$field] = fieldname_as_text($field) . " is too long";
+	    }
 	}
 }
 

@@ -45,6 +45,10 @@
  * MHM: 2017-03-02
  * Comment:
  *  Add support for icons.
+ * 
+ * MHM: 2018-06-25
+ * Comment:
+ *  Code cleanup.
  */
 require("../_includes/req_includes.php");
     
@@ -180,20 +184,20 @@ if ((isset($_POST['submit'])) || (isset($_POST['add']))) {
     <!DOCTYPE HTML>
     <html lang="en">
         <head>
-        <meta charset="utf-8">
-        <title>Add a Game</title>
-        <link href="../_css/styles.css" rel="stylesheet" type="text/css">
-        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+            <meta charset="utf-8">
+            <title>Add a Game</title>
+            <link href="../_css/styles.css" rel="stylesheet" type="text/css">
+            <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         </head>
         <body id="page_volleyball">
             <div class="wrapper">
 <?php
-            /*
-             * MHM: 2017-01-16
-             * Comment:
-             *  Include common navigational header.
-             */
-            require '../_includes/header.php';
+                /*
+                 * MHM: 2017-01-16
+                 * Comment:
+                 *  Include common navigational header.
+                 */
+                require '../_includes/header.php';
 ?>
                 <br>
                 <section>
@@ -204,81 +208,81 @@ if ((isset($_POST['submit'])) || (isset($_POST['add']))) {
                                 <label>Year:</label>
                                 <select name="year">
 <?php
-                                echo get_years($student, $year, true);
+                                    echo get_years($student, $year, true);
 ?>
                                 </select>
                             </p>
                             <p>
 <?php
-                            if (isset($_POST['submit'])) {
-                                $dvalue = $_POST['month'];
-                            } else {
-                                $dvalue = date('m');
-                            }
+                                if (isset($_POST['submit'])) {
+                                    $dvalue = $_POST['month'];
+                                } else {
+                                    $dvalue = date('m');
+                                }
 ?>
                                 <label>Month:</label>
                                 <input class="dbscore" type="number" name="month" min="2" max="5"   value="<?= $dvalue ?>">
                             </p>
                             <p>
 <?php
-                            if (isset($_POST['submit'])) {
-                                $dvalue = $_POST['day'];
-                            } else {
-                                $dvalue = date('d');
-                            }
+                                if (isset($_POST['submit'])) {
+                                    $dvalue = $_POST['day'];
+                                } else {
+                                    $dvalue = date('d');
+                                }
 ?>
                                 <label>Day:</label>
                                 <input class="dbscore" type="number" name="day" min="1" max="31"   value="<?= $dvalue ?>">
                             </p>
                             <p>
 <?php
-                            if (isset($errors['location'])) {
+                                if (isset($errors['location'])) {
 ?>
-                                <label class="fielderror">Location:</label>
+                                    <label class="fielderror">Location:</label>
 <?php
-                            } else {
+                                } else {
 ?>
-                                <label>Location:</label>
+                                    <label>Location:</label>
 <?php
-                            }
+                                }
 ?>
                                 <input class="dbtext" type="text" name="location" list="locationList" maxlength="40" value="<?= $locationName ?>">
                                 <datalist id="locationList">
 <?php
-                                $locationList = get_records_locations($connection);
-                                while ($location = mysqli_fetch_assoc($locationList)) {
-                                    $locationName = $location["location"];
+                                    $locationList = get_records_locations($connection);
+                                    while ($location = mysqli_fetch_assoc($locationList)) {
+                                        $locationName = $location["location"];
 ?>
-                                    <option value="<?= $locationName ?>"><?= $locationName ?></option>
+                                        <option value="<?= $locationName ?>"><?= $locationName ?></option>
 <?php
-                                }
-                                mysqli_free_result($locationList);
+                                    }
+                                    mysqli_free_result($locationList);
 ?>
                                 </datalist>
                             </p>
                             <p>
 <?php
-                            if (isset($errors['opponent'])) {
+                                if (isset($errors['opponent'])) {
 ?>
-                                <label class="fielderror">Opponent:</label>
+                                    <label class="fielderror">Opponent:</label>
 <?php
-                            } else {
+                                } else {
 ?>
-                                <label>Opponent:</label>
+                                    <label>Opponent:</label>
 <?php
-                            }
+                                }
 ?>
                                 <input class="dbtext" type="text" name="opponent" list="opponentList" maxlength="40" value="<?= $opponentName ?>">
                                 <datalist id="opponentList">
 <?php
-                                $opponentList = get_vbstats_opponents($connection);
-                                while ($opponent = mysqli_fetch_assoc($opponentList)) {
-                                    $opponentName = $opponent["opponent"];
+                                    $opponentList = get_vbstats_opponents($connection);
+                                    while ($opponent = mysqli_fetch_assoc($opponentList)) {
+                                        $opponentName = $opponent["opponent"];
 ?>
-                                    <option value="<?= $opponentName ?>"><?= $opponentName ?></option>
+                                        <option value="<?= $opponentName ?>"><?= $opponentName ?></option>
 <?php
-                                }
-                                mysqli_free_result($opponentList);
+                                    }
+                                    mysqli_free_result($opponentList);
 ?>
                                 </datalist>
                             </p>
@@ -310,4 +314,3 @@ if ((isset($_POST['submit'])) || (isset($_POST['add']))) {
     redirect_to("intro.php");
 }
 ?>
-        

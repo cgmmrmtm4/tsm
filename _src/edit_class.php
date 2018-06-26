@@ -24,6 +24,10 @@
  * MHM: 2017-03-02
  * Comment:
  *  Add support for icons.
+ * 
+ * MHM: 2018-06-25
+ * Comment:
+ *  Code cleanup.
  */
 require("../_includes/req_includes.php");
 $siteroot = HOMEROOT;
@@ -84,17 +88,6 @@ if (isset($_POST['submit'])) {
          * Comment:
          *  Perform modify.
          */
-        /*$errors["seasonId"] = $seasonId;
-        $errors["studentId"] = $studentId;
-        $errors["period"] = $period;
-        $errors["honors"] = $honors;
-        $errors["ap"] = $ap;
-        $errors["className"] = $className;
-        $errors["teacherName"] = $teacherName;
-        $errors["grade"] = $grade;
-        $errors["gp"] = $gp;
-        $errors["wgp"] = $wgp;
-        $result = false;*/
         $result = update_class_into_db($connection, $classId, $seasonId, $studentId, $period, $honors, $ap, $className, $teacherName, $grade, $gp, $wgp);
         
         if ($result) {
@@ -145,20 +138,20 @@ if ((isset($_POST['edit'])) || (isset($_POST['submit']))) {
     <!DOCTYPE HTML>
     <html lang="en">
         <head>
-        <meta charset="utf-8">
-        <title>Update a Class</title>
-        <link href="../_css/styles.css" rel="stylesheet" type="text/css">
-        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+            <meta charset="utf-8">
+            <title>Update a Class</title>
+            <link href="../_css/styles.css" rel="stylesheet" type="text/css">
+            <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         </head>
         <body id="page_academics">
             <div class="wrapper">
 <?php
-            /*
-             * MHM: 2017-01-16
-             * Comment:
-             *  Include common navigational header.
-             */
-            require '../_includes/header.php';
+                /*
+                 * MHM: 2017-01-16
+                 * Comment:
+                 *  Include common navigational header.
+                 */
+                require '../_includes/header.php';
 ?>
                 <br>
                 <section>
@@ -171,7 +164,7 @@ if ((isset($_POST['edit'])) || (isset($_POST['submit']))) {
                                 <label for="a">Season:</label>
                                 <select id="a" name="season">
 <?php
-                                echo get_seasons($season, true);
+                                    echo get_seasons($season, true);
 ?>
                                 </select>
                             </p>
@@ -179,7 +172,7 @@ if ((isset($_POST['edit'])) || (isset($_POST['submit']))) {
                                 <label for="b">Year:</label>
                                 <select id="b" name="year">
 <?php
-                                echo get_years($student, $year, true);
+                                    echo get_years($student, $year, true);
 ?>
                                 </select>
                             </p>
@@ -187,33 +180,33 @@ if ((isset($_POST['edit'])) || (isset($_POST['submit']))) {
                                 <label for="c">Period:</label>
                                 <select id="c" name="period">
 <?php
-                                echo get_periods($period, true);
+                                    echo get_periods($period, true);
 ?>
                                 </select>
                             </p>
                             <p>
 <?php
-                            if (isset($errors['className'])) {
+                                if (isset($errors['className'])) {
 ?>
-                                <label class="fielderror" for="d">Class Name:</label>
+                                    <label class="fielderror" for="d">Class Name:</label>
 <?php                       
-                            } else {
+                                } else {
 ?>       
-                                <label for="d">Class Name:</label>
+                                    <label for="d">Class Name:</label>
 <?php
-                            }
+                                }
 ?>
                                 <input class="dbtext" maxlength="30" id="d" type="text" list="studentClasses" name="className" value="<?= htmlentities($className) ?>">
                                 <datalist id="studentClasses">
 <?php
-                                $studentClassList = get_classes_by_student($connection, $student);
-                                while ($studentClass = mysqli_fetch_assoc($studentClassList)) {
-                                    $studentClassName = $studentClass["className"];
+                                    $studentClassList = get_classes_by_student($connection, $student);
+                                    while ($studentClass = mysqli_fetch_assoc($studentClassList)) {
+                                        $studentClassName = $studentClass["className"];
 ?>
-                                    <option value="<?= $studentClassName ?>"><?= htmlentities($studentClassName) ?></option>
+                                        <option value="<?= $studentClassName ?>"><?= htmlentities($studentClassName) ?></option>
 <?php
-                                }
-                                mysqli_free_result($studentClassList);
+                                    }
+                                    mysqli_free_result($studentClassList);
 ?>
                                 </datalist>
                             </p>
@@ -225,27 +218,27 @@ if ((isset($_POST['edit'])) || (isset($_POST['submit']))) {
                             </p>
                             <p>
 <?php
-                            if (isset($errors['teacherName'])) {
+                                if (isset($errors['teacherName'])) {
 ?>
-                                <label class="fielderror" for="e">Teacher Name:</label>
+                                    <label class="fielderror" for="e">Teacher Name:</label>
 <?php                       
-                            } else {
+                                } else {
 ?>
-                                <label for="e">Teacher Name:</label>
+                                    <label for="e">Teacher Name:</label>
 <?php
-                            }
+                                }
 ?>
                                 <input class="dbtext" maxlength="30" id="e" type="text" list="Teachers" name="teacherName" value="<?= htmlentities($teacherName) ?>">
                                 <datalist id="Teachers">
 <?php
-                                $teacherList = get_teachers_by_student($connection, $student);
-                                while ($teacher = mysqli_fetch_assoc($teacherList)) {
-                                    $teacherName = $teacher["teacherName"];
+                                    $teacherList = get_teachers_by_student($connection, $student);
+                                    while ($teacher = mysqli_fetch_assoc($teacherList)) {
+                                        $teacherName = $teacher["teacherName"];
 ?>
-                                    <option value="<?= $teacherName ?>"><?= htmlentities($teacherName) ?></option>
+                                        <option value="<?= $teacherName ?>"><?= htmlentities($teacherName) ?></option>
 <?php
-                                }
-                                mysqli_free_result($teacherList);
+                                    }
+                                    mysqli_free_result($teacherList);
 ?>
                                 </datalist>
                             </p>
@@ -253,7 +246,7 @@ if ((isset($_POST['edit'])) || (isset($_POST['submit']))) {
                                 <label for="f">Grade:</label>
                                 <select id="f" name="grade">
 <?php
-                                echo get_grade_letters($grade, true);
+                                    echo get_grade_letters($grade, true);
 ?>
                                 </select>
                             </p>

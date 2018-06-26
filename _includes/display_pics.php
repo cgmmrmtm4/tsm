@@ -37,6 +37,10 @@
  * MHM: 2017-03-02
  * Comment:
  *  Add support for icons.
+ * 
+ * MHM: 2018-06-25
+ * Comment:
+ *  Add tool tips and code cleanup.
  */
 if (count(get_included_files()) == 1) {
     exit("direct access not allowed.");
@@ -96,15 +100,18 @@ $headerLabel = $year . " " . $dynamic_heading . " " . "Pictures";
 ?>
             <tr>
 <?php 
-            for ($i=0; $i<$cnt; $i++) {
-                $pics = mysqli_fetch_assoc($result);
-                $photoId = $pics["id"];
+                for ($i=0; $i<$cnt; $i++) {
+                    $pics = mysqli_fetch_assoc($result);
+                    $photoId = $pics["id"];
 ?>
-                <td class="delpics">
-                    <div class="button-container">
-                        <a href="<?= $photopath . $pics['avName']; ?>" download> <img src="<?= $photopath . $pics['thumbName']; ?>" class="thumbnail"></a> 
-                        <form method="post" action="edit_picture.php">
-                            <div>
+                    <td class="delpics">
+                        <div class="tooltip">
+                            <span class="tooltiptext">Download Picture</span>
+                            <a href="<?= $photopath . $pics['avName']; ?>" download> <img src="<?= $photopath . $pics['thumbName']; ?>" class="thumbnail"></a> 
+                        </div>
+                        <div class="button-container tooltip">
+                            <span class="tooltiptext">Edit Picture Location</span>
+                            <form method="post" action="edit_picture.php">
                                 <input type="hidden" name="photoId" value="<?= $photoId ?>">
                                 <input type="hidden" name="studentName" value="<?= $student ?>">
                                 <input type="hidden" name="season" value="<?= $season ?>">
@@ -113,26 +120,26 @@ $headerLabel = $year . " " . $dynamic_heading . " " . "Pictures";
                                 <input type="hidden" name="selection" value="<?= $selection ?>">
                                 <input type="hidden" name="retPage" value="<?= $_SERVER['PHP_SELF'] ?>?studentName=<?= $student ?>&season=<?= $season ?>&year=<?= $year ?>&pIndex=<?= $pIndex ?>">
                                 <input type="submit" name="edit" value="&#xE3C9;">
-                            </div>
-                        </form>
-                        <form method="post" action="delete_picture.php">
-                            <div>
+                            </form>
+                        </div>
+                        <div class="button-container tooltip">
+                            <span class="tooltiptext">Delete Picture</span>
+                            <form method="post" action="delete_picture.php">
                                 <input type="hidden" name="photoId" value="<?= $photoId ?>">
                                 <input type="hidden" name="retPage" value="<?= $_SERVER['PHP_SELF'] ?>?studentName=<?= $student ?>&season=<?= $season ?>&year=<?= $year ?>&pIndex=<?= $pIndex ?>">
                                 <input type="submit" name="delete" value="&#xE872;" onclick="return confirm('Are you sure?')">
-                            </div>
-                        </form>
-                    </div>
-                </td>
+                            </form>
+                        </div>
+                    </td>
 <?php
-                $needtr = ($i + 1) % 4;
-                if ($needtr == 0) {
+                    $needtr = ($i + 1) % 4;
+                    if ($needtr == 0) {
 ?>
-                    </tr>
-                    <tr>
+                        </tr>
+                        <tr>
 <?php            
+                    }
                 }
-            }
 ?>
             </tr>
 <?php

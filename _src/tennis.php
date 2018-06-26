@@ -30,6 +30,10 @@
  * MHM: 2018-06-24
  * Comment:
  *  Centralized the awards logic and cleaned up the title text.
+ * 
+ * MHM: 2018-06-25
+ * Comment:
+ *  Code cleanup.
  */
 require("../_includes/req_includes.php");
 $siteroot = HOMEROOT;
@@ -102,12 +106,12 @@ $connection = open_db();
     <body id="page_volleyball">
         <div class="wrapper">
 <?php 
-        /*
-         * MHM: 2017-01-16
-         * Comment:
-         *  Include common navigational header.
-         */
-        require '../_includes/header.php'; 
+            /*
+             * MHM: 2017-01-16
+             * Comment:
+             *  Include common navigational header.
+             */
+            require '../_includes/header.php'; 
 ?>
             <main role="main">
                 <br>
@@ -117,48 +121,44 @@ $connection = open_db();
                         <img src="<?= $photopath . $rbanner; ?>" class="sportRight">
                     </div>
 <?php 
-                /*
-                 * MHM: 2017-01-16
-                 * Comment:
-                 *  Sidebar navigation will either be for schedules/results, or pictures.
-                 *  We can only have one of these choices. Will leave the area empty if more then one
-                 *  choice is passed in.
-                 */
-                if ($pIndex == SCHED) {
                     /*
                      * MHM: 2017-01-16
                      * Comment:
-                     *  Include Schedule and result.
+                     *  Sidebar navigation will either be for schedules/results, or pictures.
+                     *  We can only have one of these choices. Will leave the area empty if more then one
+                     *  choice is passed in.
                      */
-                    require '../_includes/sched_res.php';
-                } 
-                if ($pIndex == PICS) {
-                    /*
-                     * MHM: 2017-01-16
-                     * Comment:
-                     *  Include pictures page.
-                     */
-                    require '../_includes/display_pics.php';
-                } 
+                    if ($pIndex == SCHED) {
+                        /*
+                         * MHM: 2017-01-16
+                         * Comment:
+                         *  Include Schedule and result.
+                         */
+                        require '../_includes/sched_res.php';
+                    } 
+                    if ($pIndex == PICS) {
+                        /*
+                         * MHM: 2017-01-16
+                         * Comment:
+                         *  Include pictures page.
+                         */
+                        require '../_includes/display_pics.php';
+                    } 
 ?>
                 </section>
                 <aside id="sidebar" class="clearfix">
 <?php 
-                /*
-                 * MHM: 2017-01-16
-                 * Comment:
-                 *  Include sidebar navigational menu. Depending on sport,
-                 *  this may include, schedule, picture, video and statistical
-                 *  selections by year.
-                 */
-                require '../_includes/selection_menu.php'; 
-                require '../_includes/awards_menu.php';
+                    /*
+                     * MHM: 2017-01-16
+                     * Comment:
+                     *  Include sidebar navigational menu. Depending on sport,
+                     *  this may include, schedule, picture, video and statistical
+                     *  selections by year.
+                     */
+                    require '../_includes/selection_menu.php'; 
+                    require '../_includes/awards_menu.php';
 ?>
                 </aside>
-                <article>
-                    <br>
-                    <p id="demo"></p>
-                </article>
             </main>
 <?php 
         /*

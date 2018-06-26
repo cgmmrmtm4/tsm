@@ -20,6 +20,10 @@
  * MHM: 2017-03-20
  * Comment:
  *  Change form to allow selecting new file from a broswer. Also display the old name.
+ * 
+ * MHM: 2018-06-25
+ * Comment:
+ *  Code cleanup.
  */
 require("../_includes/req_includes.php");
 $siteroot = HOMEROOT;
@@ -91,20 +95,20 @@ if ((isset($_POST['submit'])) || (isset($_POST['edit']))) {
     <!DOCTYPE HTML>
     <html lang="en">
         <head>
-        <meta charset="utf-8">
-        <title>Edit a Picture</title>
-        <link href="../_css/styles.css" rel="stylesheet" type="text/css">
-        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+            <meta charset="utf-8">
+            <title>Edit a Picture</title>
+            <link href="../_css/styles.css" rel="stylesheet" type="text/css">
+            <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         </head>
         <body id="page_volleyball">
             <div class="wrapper">
 <?php
-            /*
-             * MHM: 2017-01-16
-             * Comment:
-             *  Include common navigational header.
-             */
-            require '../_includes/header.php';
+                /*
+                 * MHM: 2017-01-16
+                 * Comment:
+                 *  Include common navigational header.
+                 */
+                require '../_includes/header.php';
 ?>
                 <br>
                 <section>
@@ -115,7 +119,7 @@ if ((isset($_POST['submit'])) || (isset($_POST['edit']))) {
                                 <label>Season:</label>
                                 <select name="season">
 <?php
-                                echo get_seasons($season, true);
+                                    echo get_seasons($season, true);
 ?>
                                 </select>
                             </p>
@@ -123,7 +127,7 @@ if ((isset($_POST['submit'])) || (isset($_POST['edit']))) {
                                 <label>Year:</label>
                                 <select name="year">
 <?php
-                                echo get_years($student, $year, true);
+                                    echo get_years($student, $year, true);
 ?>
                                 </select>
                             </p>

@@ -41,6 +41,10 @@
  * MHM: 2018-06-24
  * Comment:
  *  Cleaned up the title text.
+ * 
+ * MHM: 2018-06-25
+ * Comment:
+ *  Code cleanup.
  */
 require("../_includes/req_includes.php");
 $siteroot = HOMEROOT;
@@ -97,12 +101,12 @@ $connection = open_db();
     <body id="page_volleyball">
         <div class="wrapper">
 <?php 
-        /*
-         * MHM: 2017-01-16
-         * Comment:
-         *  Include common navigational header.
-         */
-        require '../_includes/header.php'; 
+            /*
+             * MHM: 2017-01-16
+             * Comment:
+             *  Include common navigational header.
+             */
+            require '../_includes/header.php'; 
 ?>
             <main role="main">
                 <br>
@@ -112,33 +116,33 @@ $connection = open_db();
                         <img src="<?= $photopath . $rbanner; ?>" class="sportRight">
                     </div>
 <?php
-                /*
-                 * MHM: 2017-01-16
-                 * Comment:
-                 *  Sidebar navigation will only be pictures.
-                 */
+                    /*
+                     * MHM: 2017-01-16
+                     * Comment:
+                     *  Sidebar navigation will only be pictures.
+                     */
                     
-                require '../_includes/display_pics.php';
+                    require '../_includes/display_pics.php';
 ?>
                 </section>
                 <aside id="sidebar" class="clearfix">
 <?php
-                /*
-                 * MHM: 2017-01-16
-                 * Comment:
-                 *  Include sidebar navigational menu. Only pictures for travel by year.
-                 */
-                require '../_includes/selection_menu.php'; 
+                    /*
+                     * MHM: 2017-01-16
+                     * Comment:
+                     *  Include sidebar navigational menu. Only pictures for travel by year.
+                     */
+                    require '../_includes/selection_menu.php'; 
 ?>
                 </aside>
             </main>
 <?php
-        /*
-         * MHM: 2017-01-16
-         * Comment:
-         *  Include copyright and footer information.
-         */
-        require '../_includes/footer.php'; 
+            /*
+             * MHM: 2017-01-16
+             * Comment:
+             *  Include copyright and footer information.
+             */
+            require '../_includes/footer.php'; 
 ?>
         </div>
     </body>

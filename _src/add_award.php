@@ -3,6 +3,10 @@
  * MHM: 2017-10-26
  * Comment:
  *  Initial file from add_class.
+ * 
+ * MHM: 2018-06-25
+ * Comment:
+ *  Code cleanup.
  */
 require("../_includes/req_includes.php");
 
@@ -67,20 +71,20 @@ if ((isset($_POST['add'])) || (isset($_POST['submit']))) {
     <!DOCTYPE HTML>
     <html lang="en">
         <head>
-        <meta charset="utf-8">
-        <title>Add a Class</title>
-        <link href="../_css/styles.css" rel="stylesheet" type="text/css">
-        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+            <meta charset="utf-8">
+            <title>Add a Class</title>
+            <link href="../_css/styles.css" rel="stylesheet" type="text/css">
+            <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         </head>
         <body id="awards">
             <div class="wrapper">
 <?php
-            /*
-             * MHM: 2017-01-16
-             * Comment:
-             *  Include common navigational header.
-             */
-            require '../_includes/header.php';
+                /*
+                 * MHM: 2017-01-16
+                 * Comment:
+                 *  Include common navigational header.
+                 */
+                require '../_includes/header.php';
 ?>
                 <br>
                 <section>
@@ -92,21 +96,21 @@ if ((isset($_POST['add'])) || (isset($_POST['submit']))) {
                                 <label for="a">Year:</label>
                                 <select id="a" name="year">
 <?php
-                                echo get_years($student, $year, isset($_POST['submit']));
+                                    echo get_years($student, $year, isset($_POST['submit']));
 ?>
                                 </select>
                             </p>
                             <p>
 <?php
-                            if (isset($errors['awardTitle'])) {
+                                if (isset($errors['awardTitle'])) {
 ?>
-                                <label class="fielderror" for="b">Award Title:</label>
+                                    <label class="fielderror" for="b">Award Title:</label>
 <?php                       
-                            } else {
+                                } else {
 ?>       
-                                <label for="b">Award Title:</label>
+                                    <label for="b">Award Title:</label>
 <?php
-                            }
+                                }
 ?>
                                 <input class="dbtext" maxlength="40" id="b" type="text" name="awardTitle">
                             </p>

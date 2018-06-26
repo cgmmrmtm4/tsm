@@ -34,6 +34,10 @@
  * MHM: 2017-03-02
  * Comment:
  *  Add support for icons.
+ * 
+ * MHM: 2018-06-25
+ * Comment:
+ *  Tooltips and code cleanup.
  */
 if (count(get_included_files()) == 1) {
     exit("direct access not allowed.");
@@ -139,26 +143,25 @@ $yearLeagueTies=$record['Ties'];
                 <td class="matchScore"><?= $score ?></td>
                 <td class=result><?= $gameResult ?></td>
                 <td class="modify">
-                    <div class="button-container">
+                    <div class="button-container tooltip">
+                        <span class="tooltiptext">Edit Match</span>
                         <form method="post" action="edit_game.php">
-                            <div>
-                                <input type="hidden" name="schedId" value="<?= $schedId ?>">
-                                <input type="hidden" name="studentName" value="<?= $student ?>">
-                                <input type="hidden" name="season" value="<?= $season ?>">
-                                <input type="hidden" name="year" value="<?= $year ?>">
-                                <input type="hidden" name="selection" value="<?= $selection ?>">
-                                <input type="hidden" name="pIndex" value="<?= $pIndex ?>">
-                                <input type="hidden" name="retPage" value="<?= $_SERVER['PHP_SELF'] ?>?studentName=<?= $student ?>&season=<?= $season ?>&year=<?= $year ?>&pIndex=<?= $pIndex ?>">
-                                <input type="submit" name="edit" value="&#xE3C9;">
-                            </div>
+                            <input type="hidden" name="schedId" value="<?= $schedId ?>">
+                            <input type="hidden" name="studentName" value="<?= $student ?>">
+                            <input type="hidden" name="season" value="<?= $season ?>">
+                            <input type="hidden" name="year" value="<?= $year ?>">
+                            <input type="hidden" name="selection" value="<?= $selection ?>">
+                            <input type="hidden" name="pIndex" value="<?= $pIndex ?>">
+                            <input type="hidden" name="retPage" value="<?= $_SERVER['PHP_SELF'] ?>?studentName=<?= $student ?>&season=<?= $season ?>&year=<?= $year ?>&pIndex=<?= $pIndex ?>">
+                            <input type="submit" name="edit" value="&#xE3C9;">
                         </form>
-                            
+                    </div>
+                    <div class="button-container tooltip">
+                        <span class="tooltiptext">Delete Match</span>
                         <form method="post" action="delete_game.php">
-                            <div>
-                                <input type="hidden" name="schedId" value="<?= $schedId ?>">
-                                <input type="hidden" name="retPage" value="<?= $_SERVER['PHP_SELF'] ?>?studentName=<?= $student ?>&season=<?= $season ?>&year=<?= $year ?>&pIndex=<?= $pIndex ?>">
-                                <input type="submit" name="delete" value="&#xE872;" onclick="return confirm('Are you sure?')">
-                            </div>
+                            <input type="hidden" name="schedId" value="<?= $schedId ?>">
+                            <input type="hidden" name="retPage" value="<?= $_SERVER['PHP_SELF'] ?>?studentName=<?= $student ?>&season=<?= $season ?>&year=<?= $year ?>&pIndex=<?= $pIndex ?>">
+                            <input type="submit" name="delete" value="&#xE872;" onclick="return confirm('Are you sure?')">
                         </form>
                     </div>
                 </td>

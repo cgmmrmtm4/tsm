@@ -17,6 +17,10 @@
  * MHM: 2017-03-02
  * Comment:
  *  Add support for icons.
+ * 
+ * MHM: 2018-06-25
+ * Comment:
+ *  Code cleanup.
  */
 require("../_includes/req_includes.php");
 $siteroot = HOMEROOT;
@@ -60,12 +64,12 @@ if (($student != RACHEL) && ($student != THEO)) {
     <body id="page_home">
         <div class="wrapper">
 <?php 
-        /*
-         * MHM: 2017-01-16
-         * Comment:
-         *  Include common navigational header.
-         */
-        require '../_includes/header.php'; 
+            /*
+             * MHM: 2017-01-16
+             * Comment:
+             *  Include common navigational header.
+             */
+            require '../_includes/header.php'; 
 ?>
             <section id="main">
                 <div>
@@ -74,46 +78,44 @@ if (($student != RACHEL) && ($student != THEO)) {
                 </div>
                 <div class="theoPic">
 <?php
-                if ($student == THEO) {
+                    if ($student == THEO) {
 ?>
-                    <img src="<?= $imagepath . PHOTOACADEMICS . "/2015"; ?>/Theo.jpg" width="310" height="375" class="theoPic">
+                        <img src="<?= $imagepath . PHOTOACADEMICS . "/2015"; ?>/Theo.jpg" width="310" height="375" class="theoPic">
 <?php
-                } else {
+                    } else {
 ?>
-                    <img src="<?= $imagepath . PHOTOACADEMICS . "/2013"; ?>/S7300662.jpg" width="310" height="375" class="theoPic">
+                        <img src="<?= $imagepath . PHOTOACADEMICS . "/2013"; ?>/S7300662.jpg" width="310" height="375" class="theoPic">
 <?php
-                }
+                    }
 ?>
                 </div>
-                <br>
-                <p id="demo"></p>
             </section>
             <aside id="sidebar" class="clearfix">
                 <article id="gradyr">
 <?php
-                if ($student == THEO) {
+                    if ($student == THEO) {
 ?>
-                    <h1>Class</h1>
-                    <h2>of</h2>
-                    <h1>2018</h1>
+                        <h1>Class</h1>
+                        <h2>of</h2>
+                        <h1>2018</h1>
 <?php
-                } else {
+                    } else {
 ?>
-                    <h1>Class</h1>
-                    <h2>of</h2>
-                    <h1>2013</h1>
+                        <h1>Class</h1>
+                        <h2>of</h2>
+                        <h1>2013</h1>
 <?php
-                }
+                    }
 ?>
                 </article>
             </aside>
 <?php 
-        /*
-         * MHM: 2017-01-16
-         * Comment:
-         *  Include copyright and footer information.
-         */
-        require '../_includes/footer.php'; 
+            /*
+             * MHM: 2017-01-16
+             * Comment:
+             *  Include copyright and footer information.
+             */
+            require '../_includes/footer.php'; 
 ?>
         </div>
     </body>

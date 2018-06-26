@@ -16,6 +16,10 @@
  * MHM: 2017-03-02
  * Comment:
  *  Add support for icons.
+ * 
+ * MHM: 2018-06-25
+ * Comment:
+ *  Code cleanup.
  */
 require("../_includes/req_includes.php");
 $siteroot = HOMEROOT;
@@ -100,20 +104,20 @@ if ((isset($_POST['edit'])) || (isset($_POST['submit']))) {
     <!DOCTYPE HTML>
     <html lang="en">
         <head>
-        <meta charset="utf-8">
-        <title>Update a Statistic</title>
-        <link href="../_css/styles.css" rel="stylesheet" type="text/css">
-        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+            <meta charset="utf-8">
+            <title>Update a Statistic</title>
+            <link href="../_css/styles.css" rel="stylesheet" type="text/css">
+            <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         </head>
         <body id="page_volleyball">
             <div class="wrapper">
 <?php
-            /*
-             * MHM: 2017-01-16
-             * Comment:
-             *  Include common navigational header.
-             */
-            require '../_includes/header.php';
+                /*
+                 * MHM: 2017-01-16
+                 * Comment:
+                 *  Include common navigational header.
+                 */
+                require '../_includes/header.php';
 ?>
                 <br>
                 <section>
@@ -124,7 +128,7 @@ if ((isset($_POST['edit'])) || (isset($_POST['submit']))) {
                                 <label>Year:</label>
                                 <select name="year">
 <?php
-                                echo get_years($student, $year, true);
+                                    echo get_years($student, $year, true);
 ?>
                                 </select>
                             </p>
@@ -143,14 +147,14 @@ if ((isset($_POST['edit'])) || (isset($_POST['submit']))) {
                                 <input class="dbtext" type="text" name="opponent" list="opponentList" maxlength="40" value="<?= $opponentName ?>">
                                 <datalist id="opponentList">
 <?php
-                                $opponentList = get_vbstats_opponents($connection);
-                                while ($opponent = mysqli_fetch_assoc($opponentList)) {
-                                    $opponentName = $opponent["opponent"];
+                                    $opponentList = get_vbstats_opponents($connection);
+                                    while ($opponent = mysqli_fetch_assoc($opponentList)) {
+                                        $opponentName = $opponent["opponent"];
 ?>
-                                    <option value="<?= $opponentName ?>"><?= $opponentName ?></option>
+                                        <option value="<?= $opponentName ?>"><?= $opponentName ?></option>
 <?php
-                                }
-                                mysqli_free_result($opponentList);
+                                    }
+                                    mysqli_free_result($opponentList);
 ?>
                                 </datalist>
                             </p>

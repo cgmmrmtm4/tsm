@@ -48,6 +48,10 @@
  * Comment:
  *  Support for delete a stats record and cleanup
  *  return page setting.
+ * 
+ * MHM: 2018-06-25
+ * Comment:
+ *  Tooltips and code cleanup.
  */
 if (count(get_included_files()) == 1) {
     exit("direct access not allowed.");
@@ -66,135 +70,122 @@ $result = get_volleyball_stats($connection, $season, $year);
 <div id="vbstatstab">
     <h1><?= $year ?> Volleyball Stats</h1>
     <br>
-    <div id="stattab">
-        <table class="centered-table" border="1" cellspacing="0" cellpadding="0" summary="Stats">
-            <tbody>
-                <caption>
-                <h3> Statistics </h3>
-                </caption>
-            </tbody>
-            <thead>
+    <table class="centered-table" border="1" cellspacing="0" cellpadding="0" summary="Stats">
+        <caption>
+            <h3> Statistics </h3>
+        </caption>
+        <tr>
+            <th scope="col" class="opponent">Opponent </th>
+            <th scope="col" class="assists">Assists </th>
+            <th scope="col" class="blocks">Blocks </th>
+            <th scope="col" class="kills">Kills </th>
+            <th scope="col" class="digs">Digs</th>
+            <th scope="col" class="serves">Serves</th>
+            <th scope="col" class="aces">Aces</th>
+            <th scope="col" class="sideOut">Side Out</th>
+            <th score="col" class="modify"></th>
+        </tr>
+<?php
+        while ($stat = mysqli_fetch_assoc($result)) {
+            $statId = $stat["id"];
+            $opponent = $stat["opponent"];
+            $assists = $stat["assists"];
+            $blocks = $stat["blocks"];
+            $kills = $stat["kills"];
+            $digs = $stat["digs"];
+            $serves = $stat["serves"];
+            $aces = $stat["aces"];
+            $sideouts = $stat["sideouts"];
+?>
             <tr>
-                <th scope="col" class="opponent">Opponent </th>
-                <th scope="col" class="assists">Assists </th>
-                <th scope="col" class="blocks">Blocks </th>
-                <th scope="col" class="kills">Kills </th>
-                <th scope="col" class="digs">Digs</th>
-                <th scope="col" class="serves">Serves</th>
-                <th scope="col" class="aces">Aces</th>
-                <th scope="col" class="sideOut">Side Out</th>
-                <th score="col" class="modify"></th>
+                <td class="opponent"><?= $opponent ?></td>
+                <td class="assists"><?= $assists ?></td>
+                <td class="blocks"><?= $blocks ?></td>
+                <td class="kills"><?= $kills ?></td>
+                <td class="digs"><?= $digs ?></td>
+                <td class="serves"><?= $serves ?></td>
+                <td class="aces"><?= $aces ?></td>
+                <td class="sideOut"><?= $sideouts ?></td>
+                <td class="modify">
+                    <div class="button-container tooltip">
+                        <span class="tooltiptext">Edit Row</span>
+                        <form method="post" action="edit_stats.php">
+                            <input type="hidden" name="statId" value="<?= $statId ?>">
+                            <input type="hidden" name="studentName" value="<?= $student ?>">
+                            <input type="hidden" name="season" value="<?= $season ?>">
+                            <input type="hidden" name="year" value="<?= $year ?>">
+                            <input type="hidden" name="pIndex" value="<?= $pIndex ?>">
+                            <input type="hidden" name="selection" value="<?= $selection ?>">
+                            <input type="hidden" name="retPage" value="<?= $_SERVER['PHP_SELF'] ?>?studentName=<?= $student ?>&season=<?= $season ?>&year=<?= $year ?>&pIndex=<?= $pIndex ?>">
+                            <input type="submit" name="edit" value="&#xE3C9;">
+                        </form>
+                    </div>
+                    <div class="button-container tooltip">
+                        <span class="tooltiptext">Delete Row</span>
+                        <form method="post" action="delete_stat.php">
+                            <input type="hidden" name="statId" value="<?= $statId ?>">
+                            <input type="hidden" name="retPage" value="<?= $_SERVER['PHP_SELF'] ?>?studentName=<?= $student ?>&season=<?= $season ?>&year=<?= $year ?>&pIndex=<?= $pIndex ?>">
+                            <input type="submit" name="delete" value="&#xE872;" onclick="return confirm('Are you sure?')">
+                        </form>
+                    </div>
+                </td>
             </tr>
-            </thead>
-            <tbody class="scrollable">
 <?php
-                while ($stat = mysqli_fetch_assoc($result)) {
-                    $statId = $stat["id"];
-                    $opponent = $stat["opponent"];
-                    $assists = $stat["assists"];
-                    $blocks = $stat["blocks"];
-                    $kills = $stat["kills"];
-                    $digs = $stat["digs"];
-                    $serves = $stat["serves"];
-                    $aces = $stat["aces"];
-                    $sideouts = $stat["sideouts"];
+        }        
+        /*
+         * MHM: 2017-01-17
+         * Comment:
+         *  Free results from database query
+         */
+        mysqli_free_result($result);
+
+        /*
+         * MHM: 2017-01-17
+         * Comment:
+         *  Get totals and averages. May want to consider using
+         *  javascript to compute this information instead of another
+         *  database query.
+         */
+        $result = get_volleyball_season_totals($connection, $season, $year);
+        while ($seasonStats = mysqli_fetch_assoc($result)) {
 ?>
-                    <tr>
-                        <td class="opponent"><?= $opponent ?></td>
-                        <td class="assists"><?= $assists ?></td>
-                        <td class="blocks"><?= $blocks ?></td>
-                        <td class="kills"><?= $kills ?></td>
-                        <td class="digs"><?= $digs ?></td>
-                        <td class="serves"><?= $serves ?></td>
-                        <td class="aces"><?= $aces ?></td>
-                        <td class="sideOut"><?= $sideouts ?></td>
-                        <td class="modify">
-                            <div class="button-container">
-                                <form method="post" action="edit_stats.php">
-                                    <div>
-                                        <input type="hidden" name="statId" value="<?= $statId ?>">
-                                        <input type="hidden" name="studentName" value="<?= $student ?>">
-                                        <input type="hidden" name="season" value="<?= $season ?>">
-                                        <input type="hidden" name="year" value="<?= $year ?>">
-                                        <input type="hidden" name="pIndex" value="<?= $pIndex ?>">
-                                        <input type="hidden" name="selection" value="<?= $selection ?>">
-                                        <input type="hidden" name="retPage" value="<?= $_SERVER['PHP_SELF'] ?>?studentName=<?= $student ?>&season=<?= $season ?>&year=<?= $year ?>&pIndex=<?= $pIndex ?>">
-                                        <input type="submit" name="edit" value="&#xE3C9;">
-                                    </div>
-                                </form>
-                            
-                                <form method="post" action="delete_stat.php">
-                                    <div>
-                                        <input type="hidden" name="statId" value="<?= $statId ?>">
-                                        <input type="hidden" name="retPage" value="<?= $_SERVER['PHP_SELF'] ?>?studentName=<?= $student ?>&season=<?= $season ?>&year=<?= $year ?>&pIndex=<?= $pIndex ?>">
-                                        <input type="submit" name="delete" value="&#xE872;" onclick="return confirm('Are you sure?')">
-                                    </div>
-                                </form>
-                            </div>
-                        </td>
-                    </tr>
+            <!-- Give me a couple of empty rows -->
+            <tr>
+                <td></td>
+            </tr>
+            <tr>
+                <td></td>
+            </tr>
+            <tr>
+                <td class="opponent"><?= "Totals" ?></td>
+                <td class="assists"><?= $seasonStats["totassists"] ?></td>
+                <td class="blocks"><?= $seasonStats["totblocks"] ?></td>
+                <td class="kills"><?= $seasonStats["totkills"] ?></td>
+                <td class="digs"><?= $seasonStats["totdigs"] ?></td>
+                <td class="serves"><?= $seasonStats["totserves"] ?></td>
+                <td class="aces"><?= $seasonStats["totaces"] ?></td>
+                <td class="sideOut"><?= $seasonStats["totsideouts"] ?></td>
+                <td class="modify"></td>
+            </tr>
+            <tr>
+                <td class="opponent"><?= "Averages" ?></td>
+                <td class="assists"><?= $seasonStats["avgassists"] ?></td>
+                <td class="blocks"><?= $seasonStats["avgblocks"] ?></td>
+                <td class="kills"><?= $seasonStats["avgkills"] ?></td>
+                <td class="digs"><?= $seasonStats["avgdigs"] ?></td>
+                <td class="serves"><?= $seasonStats["avgserves"] ?></td>
+                <td class="aces"><?= $seasonStats["avgaces"] ?></td>
+                <td class="sideOut"><?= $seasonStats["avgsideouts"] ?></td>
+                <td class="modify"></td>
+            </tr>
 <?php
-                }        
-                /*
-                 * MHM: 2017-01-17
-                 * Comment:
-                 *  Free results from database query
-                 */
-                mysqli_free_result($result);
-        
+        }
+        /*
+         * MHM: 2017-01-17
+         * Comment:
+         *  Free results from database query.
+         */
+         mysqli_free_result($result);
 ?>
-            </tbody>
-            <tfoot class="scrollable">
-<?php
-                /*
-                 * MHM: 2017-01-17
-                 * Comment:
-                 *  Get totals and averages. May want to consider using
-                 *  javascript to compute this information instead of another
-                 *  database query.
-                 */
-                $result = get_volleyball_season_totals($connection, $season, $year);
-                while ($seasonStats = mysqli_fetch_assoc($result)) {
-?>
-                    <!-- Give me a couple of empty rows -->
-                    <tr>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td class="opponent"><?= "Totals" ?></td>
-                        <td class="assists"><?= $seasonStats["totassists"] ?></td>
-                        <td class="blocks"><?= $seasonStats["totblocks"] ?></td>
-                        <td class="kills"><?= $seasonStats["totkills"] ?></td>
-                        <td class="digs"><?= $seasonStats["totdigs"] ?></td>
-                        <td class="serves"><?= $seasonStats["totserves"] ?></td>
-                        <td class="aces"><?= $seasonStats["totaces"] ?></td>
-                        <td class="sideOut"><?= $seasonStats["totsideouts"] ?></td>
-                        <td class="modify"></td>
-                    </tr>
-                    <tr>
-                        <td class="opponent"><?= "Averages" ?></td>
-                        <td class="assists"><?= $seasonStats["avgassists"] ?></td>
-                        <td class="blocks"><?= $seasonStats["avgblocks"] ?></td>
-                        <td class="kills"><?= $seasonStats["avgkills"] ?></td>
-                        <td class="digs"><?= $seasonStats["avgdigs"] ?></td>
-                        <td class="serves"><?= $seasonStats["avgserves"] ?></td>
-                        <td class="aces"><?= $seasonStats["avgaces"] ?></td>
-                        <td class="sideOut"><?= $seasonStats["avgsideouts"] ?></td>
-                        <td class="modify"></td>
-                    </tr>
-<?php
-                }
-                /*
-                 * MHM: 2017-01-17
-                 * Comment:
-                 *  Free results from database query.
-                 */
-                mysqli_free_result($result);
-?>
-            </tfoot>
-        </table>
-    </div>
+    </table>
 </div>

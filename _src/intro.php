@@ -17,6 +17,10 @@
  * MHM: 2017-03-02
  * Comment:
  *  Add support for icons.
+ * 
+ * MHM: 2018-06-25
+ * Comment:
+ *  Code cleanup.
  */
 require("../_includes/req_includes.php");
 $siteroot = HOMEROOT;
@@ -43,12 +47,12 @@ $student=null;
     <body id="page_home">
         <div class="wrapper">
 <?php 
-        /*
-         * MHM: 2017-01-16
-         * Comment:
-         *  Include common navigational header.
-         */
-        require '../_includes/header.php'; 
+            /*
+             * MHM: 2017-01-16
+             * Comment:
+             *  Include common navigational header.
+             */
+            require '../_includes/header.php'; 
 ?>
             <section id="main">
                 <div>
@@ -63,8 +67,6 @@ $student=null;
                         <img src="<?= $photopath . "/2015"; ?>/Theo.jpg"  width="310" height="375" class="floatLeft">
                     </a>
                 </div>
-                <br>
-                <p id="demo"></p>
             </section>
             <aside id="sidebar" class="clearfix">
                 <article id="gradyr">
@@ -75,12 +77,12 @@ $student=null;
                 </article>
             </aside>
 <?php 
-        /*
-         * MHM: 2017-01-16
-         * Comment:
-         *  Include copyright and footer information.
-         */
-        require '../_includes/footer.php'; 
+            /*
+             * MHM: 2017-01-16
+             * Comment:
+             *  Include copyright and footer information.
+             */
+            require '../_includes/footer.php'; 
 ?>
         </div>
     </body>

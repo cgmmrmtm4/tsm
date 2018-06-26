@@ -58,6 +58,14 @@
  *  and video header. Pulled the add icon next to the header instead of at the bottom of the
  *  selection menus. Add new css rule for the add icon.
  *
+ * MHM: 2018-06-25
+ * Comment:
+ *  Added entries for the add icon on the sports and academic page. Tried to reuse modify and delete
+ *  entries without much luck. Will need to look at cleaning up css at a later date.
+ *
+ * MHM: 2018-06-25
+ * Comment:
+ *  Tooltip support.
  */
 html, body, body div, span, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, abbr, address, cite, code, del, dfn, em, img, ins, kbd, q, samp, small, strong, sub, sup, var, b, i, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, figure, footer, header, hgroup, menu, nav, section, time, mark, audio, video {
 	margin: 0;
@@ -847,16 +855,56 @@ div.message {
 }
 .tooltip .tooltiptext {
     visibility: hidden;
-    width: 30px;
-    font-size: .5em;
+    width: 120px;
     background-color: black;
     color: #fff;
     text-align: center;
-    border-radius: 2px;
-    padding: 1px 0;
+    border-radius: 6px;
+    padding: 5px 0;
     position: absolute;
     z-index: 1;
+    bottom: 125%;
+    left: 50%;
+    margin-left: -60px;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+.tooltip .tooltiptext::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: black transparent transparent transparent;
 }
 .tooltip:hover .tooltiptext {
     visibility: visible;
+    opacity: 1;
+}
+#sidebar .add-button-container h2 {
+    padding-right: 2px;
+    padding-top: 0px;
+    display: inline;
+    color: #fff;
+}
+.add-button-container .button-container input[type=submit] {
+    font-weight:normal;
+    font-size: 15px;
+    padding:1px 1px;
+    margin-left: 1px;
+    font-family: 'Material Icons';
+    margin-bottom: 10px;
+}
+.add-button-container div {
+    display: inline;
+}
+.add-button-container .button-container form {
+    display: inline;
+    margin-left: 1px;
+    margin-right: 1px;
+}
+.add-button-container .button-container input {
+    width: 2em;
 }

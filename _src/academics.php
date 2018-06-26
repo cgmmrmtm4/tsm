@@ -35,6 +35,10 @@
  * MHM: 2018-06-24
  * Comment:
  *  Centralized the awards logic and cleaned up the title text.
+ * 
+ * MHM: 2018-06-25
+ * Comment:
+ *  Code cleanup.
  */
 require("../_includes/req_includes.php");
 $siteroot = HOMEROOT;
@@ -87,48 +91,44 @@ $connection = open_db();
     <body id="page_academics">
         <div class="wrapper">
 <?php 
-        /*
-         * MHM: 2017-01-16
-         * Comment:
-         *  Include common navigational header.
-         */
-        require '../_includes/header.php'; 
+            /*
+             * MHM: 2017-01-16
+             * Comment:
+             *  Include common navigational header.
+             */
+            require '../_includes/header.php'; 
 ?>
             <main role="main">
                 <br>
                 <section id="main">
 <?php 
-                /*
-                 * MHM: 2017-01-16
-                 * Comment:
-                 *  Include Semester results.
-                 */
-                require '../_includes/displaysemester.php'; 
+                    /*
+                     * MHM: 2017-01-16
+                     * Comment:
+                     *  Include Semester results.
+                     */
+                    require '../_includes/displaysemester.php'; 
 ?>
                 </section>
                 <aside id="sidebar" class="clearfix">
 <?php
-                /*
-                 * MHM: 2017-01-16
-                 * Comment:
-                 *  Include sidebar navigational menu.
-                 */
-                require '../_includes/selection_menu.php'; 
-                require '../_includes/awards_menu.php';
+                    /*
+                     * MHM: 2017-01-16
+                     * Comment:
+                     *  Include sidebar navigational menu.
+                     */
+                    require '../_includes/selection_menu.php'; 
+                    require '../_includes/awards_menu.php';
 ?>                    
                 </aside>
-                <article>
-                    <br>
-                    <p id="demo"></p>
-                </article>
             </main>
 <?php 
-        /*
-         * MHM: 2017-01-16
-         * Comment:
-         *  Include copyright and footer information.
-         */
-        require '../_includes/footer.php'; 
+            /*
+             * MHM: 2017-01-16
+             * Comment:
+             *  Include copyright and footer information.
+             */
+            require '../_includes/footer.php'; 
 ?>
         </div>
     </body>

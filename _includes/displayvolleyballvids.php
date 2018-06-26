@@ -40,6 +40,10 @@
  * MHM: 2017-03-20
  * Comment:
  *  Display only the file name and not it's path.
+ * 
+ * MHM: 2018-06-25
+ * Comment:
+ *  Tooltips and code cleanup.
  */
 if (count(get_included_files()) == 1) {
     exit("direct access not allowed.");
@@ -74,26 +78,29 @@ $result = get_vids($connection, "Volleyball", $season, $year);
         </caption>
         <br>
 <?php
-    /*
-     * MHM: 2017-01-17
-     * Comment:
-     *  Layout the table with two videos per line.
-     */
+        /*
+         * MHM: 2017-01-17
+         * Comment:
+         *  Layout the table with two videos per line.
+         */
         if ($cnt != 0) {
 ?>
             <tr>
 <?php 
-            for ($i=0; $i<$cnt; $i++) {
-                $vids = mysqli_fetch_assoc($result);
-                $videoId = $vids["id"];
+                for ($i=0; $i<$cnt; $i++) {
+                    $vids = mysqli_fetch_assoc($result);
+                    $videoId = $vids["id"];
 ?>    
-                <td class="delpics">
-                    <div class="button-container">
-                        <video class="thumbvideo" preload="none" controls poster="<?= $photopath . $vids['thumbName']; ?>">
+                    <td class="delpics">
+                        <div class="tooltip">
+                            <span class="tooltiptext">Play Video</span>
+                            <video class="thumbvideo" preload="none" controls poster="<?= $photopath . $vids['thumbName']; ?>">
                                         <source src="<?= $videopath . $vids['avName']; ?>" type="video/mp4"></video>
-                        <p><b><?= basename($vids['avName'], ".mp4") ?></b></p>
-                        <form method="post" action="edit_video.php">
-                            <div>
+                            <p><b><?= basename($vids['avName'], ".mp4") ?></b></p>
+                        </div>
+                        <div class="button-container tooltip">
+                            <span class="tooltiptext">Edit Video Location</span>
+                            <form method="post" action="edit_video.php">
                                 <input type="hidden" name="videoId" value="<?= $videoId ?>">
                                 <input type="hidden" name="studentName" value="<?= $student ?>">
                                 <input type="hidden" name="season" value="<?= $season ?>">
@@ -102,32 +109,32 @@ $result = get_vids($connection, "Volleyball", $season, $year);
                                 <input type="hidden" name="selection" value="<?= $selection ?>">
                                 <input type="hidden" name="retPage" value="<?= $_SERVER['PHP_SELF'] ?>?studentName=<?= $student ?>&season=<?= $season ?>&year=<?= $year ?>&pIndex=<?= $pIndex ?>">
                                 <input type="submit" name="edit" value="&#xE3C9;">
-                            </div>
-                        </form>
-                        <form method="post" action="delete_video.php">
-                            <div>
+                            </form>
+                        </div>
+                        <div class="button-container tooltip">
+                            <span class="tooltiptext">Delete Video</span>
+                            <form method="post" action="delete_video.php">
                                 <input type="hidden" name="videoId" value="<?= $videoId ?>">
                                 <input type="hidden" name="retPage" value="<?= $_SERVER['PHP_SELF'] ?>?studentName=<?= $student ?>&season=<?= $season ?>&year=<?= $year ?>&pIndex=<?= $pIndex ?>">
                                 <input type="submit" name="delete" value="&#xE872;" onclick="return confirm('Are you sure?')">
-                            </div>
-                        </form>
-                    </div>
-                </td>
+                            </form>
+                        </div>
+                    </td>
 <?php
-                /*
-                 * MHM: 2017-01-17
-                 * Comment:
-                 *  Need a closing /tr after placing the 2nd video on a row,
-                 *  unless this is the last row.
-                 */
-                $needtr = ($i + 1) % 2;
-                if (($needtr == 0) && ($i != ($cnt-1))) {
+                    /*
+                     * MHM: 2017-01-17
+                     * Comment:
+                     *  Need a closing /tr after placing the 2nd video on a row,
+                     *  unless this is the last row.
+                     */
+                    $needtr = ($i + 1) % 2;
+                    if (($needtr == 0) && ($i != ($cnt-1))) {
 ?>
-                    </tr>
-                    <tr>
+                        </tr>
+                        <tr>
 <?php            
+                    }
                 }
-            }
 ?>
             </tr>
 <?php    
